@@ -7,6 +7,7 @@ function App() {
  
   return (
     <div className="App">
+      <div className="back"></div>
       <Router>
         <Route path="/" exact component={Dashboard}></Route>
         {/* <Route path="/dashboard/" component={}></Route> */}

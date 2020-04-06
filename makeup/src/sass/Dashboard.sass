@@ -17,8 +17,49 @@
 
 *
   font-family: $font
+  box-sizing: border-box
 
 .main
   width: 90vw
   height: 100%
   @extend %d-flex-c 
+  justify-content: flex-start
+
+  .navcontainer
+    width: 100%
+    height: 15vh
+    @extend %d-flex-r
+    justify-content: space-between
+
+    .title
+      @extend %d-flex-c
+      background: $clr2
+      width: 250px
+      height: 15vh
+      border-bottom-left-radius: 25px
+      border-bottom-right-radius: 25px
+      h1
+        color: $clr1
+        font-weight: 800
+
+    .menu
+      @extend %d-flex-r
+      width: calc(100% - 250px)
+      align-self: flex-end
+      padding: 0 100px 0 315px
+      justify-content: space-around
+
+      span
+        padding: 4px 8px 
+        font-size: 18px
+        font-weight: 600
+        text-transform: uppercase
+        border: 2px solid transparent
+        border-radius: 8px
+
+      span:hover
+        background: #ffffffa4      
+        border: 2px solid $clr3
+        color: $clr2
+        
+
