@@ -27,7 +27,7 @@
 
   .navcontainer
     width: 100%
-    height: 15vh
+    height: 10vh
     @extend %d-flex-r
     justify-content: space-between
 
@@ -35,12 +35,13 @@
       @extend %d-flex-c
       background: $clr2
       width: 250px
-      height: 15vh
+      height: inherit
       border-bottom-left-radius: 25px
       border-bottom-right-radius: 25px
       h1
         color: $clr1
         font-weight: 800
+        text-shadow: 0 0 3px #ffffff00
 
     .menu
       @extend %d-flex-r
@@ -61,5 +62,25 @@
         background: #ffffffa4      
         border: 2px solid $clr3
         color: $clr2
+
+  .container
+    @extend %d-flex-c
+    width: 100%
+    height: auto
+    padding: 50px 0px
+
+    .rowgrid
+      @extend %d-flex-r
+      justify-content: space-between
+      width: 100%
+      height: 395px
+
+      .filter
+        @extend %d-flex-r
+        
+      .collage
+        display: block
+        align-self: flex-start
+        margin-left: 10vw
         
 

@@ -1,5 +1,6 @@
 import React from "react";
 import "../sass/Dashboard.sass";
+import Collage from "./Collage";
 
 const Navbar = () => {
   return (
@@ -20,7 +21,16 @@ function Dashboard() {
   return (
     <div className="main">
       <Navbar />
-      
+
+      <div className="container">
+        <div className="rowgrid">
+          <div className="filter"></div>
+          <div className="collage">
+            <Collage />
+          </div>
+          <div className="search"></div>
+        </div>
+      </div>
     </div>
   );
 }

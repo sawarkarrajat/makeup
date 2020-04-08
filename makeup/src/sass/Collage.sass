@@ -1,0 +1,38 @@
+@import base.sass
+
+.collage_Container
+  @extend %d-flex-c
+  position: relative
+
+  #pic1,#pic2,#pic3,#pic4
+    display: flex
+    position: absolute
+    border: 10px solid white
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+  #pic1
+    top: 100px
+    left: -100px
+    z-index: 2
+    transform: rotate(8deg)
+  #pic2
+    top: 10px
+    left: 50px
+    z-index: 2
+    transform: rotate(-10deg)
+  #pic3
+    top: 270px
+    left: 0px
+    z-index: 1
+    transform: rotate(10deg)
+  #pic4
+    top: 150px
+    left: 70px
+    z-index: 1
+    transform: rotate(-12deg)
+
+
+
+  
+  
+    
+
