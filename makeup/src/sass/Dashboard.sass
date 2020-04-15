@@ -19,6 +19,12 @@
   font-family: $font
   box-sizing: border-box
 
+#btn
+  background-color: $clr3
+  color: $clr1
+  font-weight: 800
+  font-size: 14px
+
 .main
   width: 90vw
   height: 100%
@@ -75,12 +81,23 @@
       width: 100%
       height: 395px
 
-      .filter
+      .filterContainer
         @extend %d-flex-r
+        justify-content: flex-end
+        width: 60%
+        background: red
+        
+      .searchContainer
+        @extend %d-flex-r
+        justify-content: flex-start
+        width: 60%
+        // margin-left: 400px
+        background: red
         
       .collage
         display: block
         align-self: flex-start
         margin-left: 10vw
+        margin-right: 20vw
         
 
