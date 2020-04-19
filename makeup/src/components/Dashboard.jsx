@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import "../sass/Dashboard.sass";
 import Collage from "./Collage";
 import Button from "@material-ui/core/Button";
@@ -20,7 +20,8 @@ const Navbar = () => {
 
 function Dashboard() {
 	// let filter = false;
-	let filter = true;
+	const [filter, setFilter] = useState(true);
+	
 	return (
 		<div className="main">
 			<Navbar />
@@ -29,7 +30,7 @@ function Dashboard() {
 				{filter ? (
 					<div className="rowgrid">
 						<div className="filterContainer">
-							<Button id="btn" variant="contained" size="small">
+							<Button id="btn" variant="contained" size="small" onClick={() => { setFilter(!filter) }}>
 								&#60;
 							</Button>
 						</div>
@@ -43,7 +44,7 @@ function Dashboard() {
 							<Collage />
 						</div>
 						<div className="searchContainer">
-							<Button id="btn" variant="contained" size="small">
+								<Button id="btn" variant="contained" size="small" onClick={() => { setFilter(!filter) }}>
 								&#62;
 							</Button>
 						</div>
