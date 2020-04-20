@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../sass/Dashboard.sass";
 import Collage from "./Collage";
 import Button from "@material-ui/core/Button";
@@ -8,6 +8,13 @@ import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
 import OptionsSelect from "./OptionsSelect";
+import Panel from "./Panel";
+import Services from "../services/Services";
+import LoadingSkeleton from "./LoadingSkeleton";
+import uniqid from "uniqid";
+const hitApi = new Services();
+var target =
+	"http://makeup-api.herokuapp.com/api/v1/products.json?product_category=powder&product_type=blush";
 
 const useStyles = makeStyles(() => ({
 	TextField: {
@@ -36,8 +43,27 @@ const Navbar = () => {
 };
 
 function Dashboard() {
+	const [showSkeleton, setShowSkeleton] = useState(true);
+	useEffect(() => {
+		// setTimeout(() => {
+		// 	console.log("value of skeleton", showSkeleton);
+		// 	showSkeleton = false;
+		// }, 2000);
+
+		hitApi
+			.getWithTarget(target)
+			.then((response) => {
+				const jsonData = response.data;
+				console.log(jsonData);
+			}).then(() => {
+				setShowSkeleton(false);
+			})
+			.catch((error) => {
+				console.log(error);
+				alert("failed to get json");
+			});
+	}, []);
 	const classes = useStyles();
-	// let filter = false;
 	const [filter, setFilter] = useState(true);
 	const brandList = [
 		"almay",
@@ -151,7 +177,12 @@ function Dashboard() {
 		"mascara",
 		"nail_polish",
 	];
+	
 
+	let skeletonArray=[];
+	for (let i = 0; i < 8; i++) {
+		skeletonArray.push(<LoadingSkeleton key={uniqid()}/>)
+	}
 	return (
 		<div className="main">
 			<Navbar />
@@ -232,6 +263,10 @@ function Dashboard() {
 						</div>
 					</div>
 				)}
+
+				<div className="someCards">
+					{showSkeleton ? <>{skeletonArray.map((data) => data)}</> : <Panel/>}
+				</div>
 			</div>
 		</div>
 	);

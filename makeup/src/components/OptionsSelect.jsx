@@ -5,6 +5,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 // import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import uniqid from "uniqid";
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
@@ -33,7 +34,7 @@ export default function OptionsSelect(props) {
 						<em>None</em>
 					</MenuItem>
 					{props.arrayOfItems.map((item) => (
-						<MenuItem value={item}>{item}</MenuItem>
+						<MenuItem key={uniqid()} value={item}>{item}</MenuItem>
 					))}
 				</Select>
 			</FormControl>
