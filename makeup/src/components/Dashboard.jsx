@@ -13,6 +13,7 @@ import Services from "../services/Services";
 import LoadingSkeleton from "./LoadingSkeleton";
 import uniqid from "uniqid";
 const hitApi = new Services();
+var jsonData = [];
 var target =
 	"http://makeup-api.herokuapp.com/api/v1/products.json?product_category=powder&product_type=blush";
 
@@ -53,9 +54,10 @@ function Dashboard() {
 		hitApi
 			.getWithTarget(target)
 			.then((response) => {
-				const jsonData = response.data;
+				jsonData = response.data;
 				console.log(jsonData);
-			}).then(() => {
+			})
+			.then(() => {
 				setShowSkeleton(false);
 			})
 			.catch((error) => {
@@ -63,6 +65,7 @@ function Dashboard() {
 				alert("failed to get json");
 			});
 	}, []);
+
 	const classes = useStyles();
 	const [filter, setFilter] = useState(true);
 	const brandList = [
@@ -177,11 +180,11 @@ function Dashboard() {
 		"mascara",
 		"nail_polish",
 	];
-	
 
-	let skeletonArray=[];
+	let skeletonArray = [];
+
 	for (let i = 0; i < 8; i++) {
-		skeletonArray.push(<LoadingSkeleton key={uniqid()}/>)
+		skeletonArray.push(<LoadingSkeleton key={uniqid()} />);
 	}
 	return (
 		<div className="main">
@@ -265,7 +268,15 @@ function Dashboard() {
 				)}
 
 				<div className="someCards">
-					{showSkeleton ? <>{skeletonArray.map((data) => data)}</> : <Panel/>}
+					{showSkeleton ? (
+						<>{skeletonArray.map((data) => data)}</>
+					) : (
+						<>
+							{jsonData.map((item) => (
+								<Panel key={item.id} info={item} />
+							))}
+						</>
+					)}
 				</div>
 			</div>
 		</div>
