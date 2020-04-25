@@ -29,15 +29,17 @@
   color: $clr2 !important
 
 .main
+  @extend %d-flex-c 
   width: 90vw
   height: 100%
-  @extend %d-flex-c 
   justify-content: flex-start
 
   .navcontainer
-    width: 100%
-    height: 10vh
     @extend %d-flex-r
+    width: 90%
+    position: fixed
+    z-index: 20
+    height: 60px
     justify-content: space-between
 
     .title
@@ -77,6 +79,7 @@
     width: 100%
     height: auto
     padding: 50px 0px
+    margin-top: 25px
 
     .rowgrid
       @extend %d-flex-r

@@ -14,8 +14,7 @@ import LoadingSkeleton from "./LoadingSkeleton";
 import uniqid from "uniqid";
 const hitApi = new Services();
 var jsonData = [];
-var target =
-	"http://makeup-api.herokuapp.com/api/v1/products.json?product_category=powder&product_type=blush";
+var target = "product_category=powder&product_type=blush";
 
 const useStyles = makeStyles(() => ({
 	TextField: {
@@ -44,17 +43,16 @@ const Navbar = () => {
 };
 
 function Dashboard() {
+	const ref = React.createRef();
 	const [showSkeleton, setShowSkeleton] = useState(true);
-	useEffect(() => {
-		// setTimeout(() => {
-		// 	console.log("value of skeleton", showSkeleton);
-		// 	showSkeleton = false;
-		// }, 2000);
-
+	const postman = (letter) => {
 		hitApi
-			.getWithTarget(target)
-			.then((response) => {
-				jsonData = response.data;
+			.getJson(letter)
+			.then(async (response) => {
+				jsonData = await response.data;
+				if (jsonData.length === 0) {
+					alert("no data found");
+				}
 				console.log(jsonData);
 			})
 			.then(() => {
@@ -64,10 +62,15 @@ function Dashboard() {
 				console.log(error);
 				alert("failed to get json");
 			});
+	};
+
+	useEffect(() => {
+		postman(target);
 	}, []);
 
 	const classes = useStyles();
 	const [filter, setFilter] = useState(true);
+	const [resetfilter, setResetfilter] = useState(true);
 	const brandList = [
 		"almay",
 		"alva",
@@ -180,12 +183,67 @@ function Dashboard() {
 		"mascara",
 		"nail_polish",
 	];
+	const [searchedText, setSearchedText] = useState("");
 
 	let skeletonArray = [];
 
 	for (let i = 0; i < 8; i++) {
 		skeletonArray.push(<LoadingSkeleton key={uniqid()} />);
 	}
+
+	const handleChange = (event) => {
+		setSearchedText(event.currentTarget.value);
+		console.log("value in search", event.currentTarget.value);
+	};
+
+	let filterObject = {
+		brand: "",
+		tag: "",
+		category: "",
+		productType: "",
+	};
+
+	const setBrand = (b) => {
+		filterObject.brand = ("brand=" + b).trim();
+		console.log("value of brand", filterObject.brand);
+	};
+
+	const setTag = (t) => {
+		filterObject.tag = ("product_tags=" + t).trim();
+		console.log("value of tag", filterObject.tag);
+	};
+
+	const setCategory = (c) => {
+		filterObject.category = ("product_category=" + c).trim();
+		console.log("value of category", filterObject.category);
+	};
+
+	const setProductType = (pt) => {
+		filterObject.productType = ("product_type=" + pt).trim();
+		console.log("value of product type", filterObject.productType);
+	};
+
+	const applyFilter = () => {
+		setShowSkeleton(true);
+		let filterString = "";
+
+		for (let [, value] of Object.entries(filterObject)) {
+			if (filterString.length === 0 && `${value}`.length > 2) {
+				filterString = filterString.concat(`${value}`);
+				console.log("filterString is", filterString);
+			} else if (filterString.length > 2 && `${value}`.length > 2) {
+				filterString = filterString.concat("&", `${value}`);
+				console.log("filterString is", filterString);
+			}
+		}
+		postman(filterString);
+	};
+
+	const filtersReset = () => {
+		console.log("now reset is", resetfilter);
+		setResetfilter(!resetfilter);
+	};
+
 	return (
 		<div className="main">
 			<Navbar />
@@ -195,21 +253,53 @@ function Dashboard() {
 					<div className="rowgrid">
 						<div className="filterContainer">
 							<div className="filters">
-								<OptionsSelect type="Brands" arrayOfItems={brandList} />
 								<OptionsSelect
+									ref={ref}
+									type="Brands"
+									arrayOfItems={brandList}
+									setItem={setBrand}
+									reset={resetfilter}
+									toggleReset={filtersReset}
+								/>
+								<OptionsSelect
+									ref={ref}
 									type="Product type"
 									arrayOfItems={product_type}
+									setItem={setProductType}
+									reset={resetfilter}
+									toggleReset={filtersReset}
 								/>
 								<OptionsSelect
+									ref={ref}
 									type="category"
 									arrayOfItems={product_category}
+									setItem={setCategory}
+									reset={resetfilter}
+									toggleReset={filtersReset}
 								/>
-								<OptionsSelect type="tags" arrayOfItems={product_tags} />
-								<Button id="btn" variant="contained" size="small">
+								<OptionsSelect
+									ref={ref}
+									type="tags"
+									arrayOfItems={product_tags}
+									setItem={setTag}
+									reset={resetfilter}
+									toggleReset={filtersReset}
+								/>
+								<Button
+									id="btn"
+									variant="contained"
+									size="small"
+									onClick={applyFilter}
+								>
 									apply
 								</Button>
-								<Button id="btn" variant="contained" size="small">
-									clear
+								<Button
+									id="btn"
+									variant="contained"
+									size="small"
+									onClick={filtersReset}
+								>
+									reset
 								</Button>
 							</div>
 							<Button
@@ -261,6 +351,10 @@ function Dashboard() {
 										),
 									}}
 									variant="standard"
+									value={searchedText}
+									onChange={(event) => {
+										handleChange(event);
+									}}
 								/>
 							</div>
 						</div>

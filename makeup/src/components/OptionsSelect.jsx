@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -17,27 +17,44 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function OptionsSelect(props) {
+const OptionsSelect = React.forwardRef((props, ref) => {
 	const classes = useStyles();
 	const [variable, setVariable] = React.useState("");
-
-	const handleChange = (event) => {
-		setVariable(event.target.value);
+	
+	const handleChange = async (event) => {
+		event.preventDefault();
+		let someValue = event.target.value;
+		await setVariable(someValue);
+		props.setItem(someValue);
 	};
+	
+	useEffect((props) => {
+		setVariable("");
+		if (typeof props != "undefined") {
+			props.toggleReset();
+	 }
+		
+	}, [props.reset])
 
 	return (
-		<>
-			<FormControl variant="outlined" className={classes.formControl}>
-				<InputLabel>{props.type}</InputLabel>
-				<Select value={variable} onChange={handleChange} label={props.type} autoWidth={true}>
-					<MenuItem value="">
-						<em>None</em>
+		<FormControl ref={ref} variant="outlined" className={classes.formControl}>
+			<InputLabel>{props.type}</InputLabel>
+			<Select
+				value={variable}
+				onChange={(event) => handleChange(event)}
+				label={props.type}
+				autoWidth={true}
+			>
+				<MenuItem value="">
+					<em>None</em>
+				</MenuItem>
+				{props.arrayOfItems.map((item) => (
+					<MenuItem key={uniqid()} value={item}>
+						{item}
 					</MenuItem>
-					{props.arrayOfItems.map((item) => (
-						<MenuItem key={uniqid()} value={item}>{item}</MenuItem>
-					))}
-				</Select>
-			</FormControl>
-		</>
+				))}
+			</Select>
+		</FormControl>
 	);
-}
+});
+export default OptionsSelect;
