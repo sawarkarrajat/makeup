@@ -7,9 +7,7 @@ export default function Navbar() {
       <h1>Makeup</h1>
     </div>
     <div className="menu">
-      <span id="mtxt">brands</span>
-      <span id="mtxt">lipstick</span>
-      <span id="mtxt">nail polish</span>
+      <span id="mtxt">brands, lipsticks, nailpolish and much more!!!</span>
     </div>
   </div>
   )
