@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../sass/Dashboard.sass";
 import Collage from "./Collage";
+import Navbar from "./Navbar";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
@@ -15,6 +16,7 @@ import uniqid from "uniqid";
 const hitApi = new Services();
 var jsonData = [];
 var target = "product_category=powder&product_type=blush";
+const searchHistory = [];
 
 const useStyles = makeStyles(() => ({
 	TextField: {
@@ -27,28 +29,17 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-const Navbar = () => {
-	return (
-		<div className="navcontainer">
-			<div className="title">
-				<h1>Makeup</h1>
-			</div>
-			<div className="menu">
-				<span id="mtxt">brands</span>
-				<span id="mtxt">lipstick</span>
-				<span id="mtxt">nail polish</span>
-			</div>
-		</div>
-	);
-};
 
-function Dashboard() {
+function Dashboard(props) {
+	const searchPrefix = "product_type=";
 	const ref = React.createRef();
 	const [showSkeleton, setShowSkeleton] = useState(true);
 	const postman = (letter) => {
 		hitApi
 			.getJson(letter)
 			.then(async (response) => {
+				let element = document.getElementById("displayCards");
+				element.scrollIntoView();
 				jsonData = await response.data;
 				if (jsonData.length === 0) {
 					alert("no data found");
@@ -69,7 +60,7 @@ function Dashboard() {
 	}, []);
 
 	const classes = useStyles();
-	const [filter, setFilter] = useState(true);
+	const [filter, setFilter] = useState(false);
 	const [resetfilter, setResetfilter] = useState(true);
 	const brandList = [
 		"almay",
@@ -193,7 +184,6 @@ function Dashboard() {
 
 	const handleChange = (event) => {
 		setSearchedText(event.currentTarget.value);
-		console.log("value in search", event.currentTarget.value);
 	};
 
 	let filterObject = {
@@ -205,22 +195,22 @@ function Dashboard() {
 
 	const setBrand = (b) => {
 		filterObject.brand = ("brand=" + b).trim();
-		console.log("value of brand", filterObject.brand);
+		// console.log("value of brand", filterObject.brand);
 	};
 
 	const setTag = (t) => {
 		filterObject.tag = ("product_tags=" + t).trim();
-		console.log("value of tag", filterObject.tag);
+		// console.log("value of tag", filterObject.tag);
 	};
 
 	const setCategory = (c) => {
 		filterObject.category = ("product_category=" + c).trim();
-		console.log("value of category", filterObject.category);
+		// console.log("value of category", filterObject.category);
 	};
 
 	const setProductType = (pt) => {
 		filterObject.productType = ("product_type=" + pt).trim();
-		console.log("value of product type", filterObject.productType);
+		// console.log("value of product type", filterObject.productType);
 	};
 
 	const applyFilter = () => {
@@ -230,19 +220,39 @@ function Dashboard() {
 		for (let [, value] of Object.entries(filterObject)) {
 			if (filterString.length === 0 && `${value}`.length > 2) {
 				filterString = filterString.concat(`${value}`);
-				console.log("filterString is", filterString);
+				// console.log("filterString is", filterString);
 			} else if (filterString.length > 2 && `${value}`.length > 2) {
 				filterString = filterString.concat("&", `${value}`);
-				console.log("filterString is", filterString);
+				// console.log("filterString is", filterString);
 			}
 		}
 		postman(filterString);
 	};
 
 	const filtersReset = () => {
-		console.log("now reset is", resetfilter);
+		// console.log("now reset is", resetfilter);
 		setResetfilter(!resetfilter);
 	};
+
+	const handleClear = () => {
+		setSearchedText("");
+	};
+
+	const handleKey = (event) => {
+		// console.log("in handlekey");
+		if (event.keyCode === 13 || event.which === 13 || event.key === "Enter") {
+			setShowSkeleton(true);
+			event.preventDefault();
+			searchHistory.push(searchedText);
+			let newString = searchPrefix.concat(searchedText.trim());
+			console.log("search history contains", searchHistory);
+			postman(newString);
+		}
+	};
+
+	const handleClick = (data) => {
+		props.history.push("/ProductDetails", { itemInfo: data });
+	}
 
 	return (
 		<div className="main">
@@ -355,19 +365,32 @@ function Dashboard() {
 									onChange={(event) => {
 										handleChange(event);
 									}}
+									onKeyUp={(event) => {
+										return handleKey(event);
+									}}
 								/>
+								<Button
+									id="btn"
+									variant="contained"
+									size="small"
+									onClick={() => {
+										handleClear();
+									}}
+								>
+									clear
+								</Button>
 							</div>
 						</div>
 					</div>
 				)}
 
-				<div className="someCards">
+				<div id="displayCards" className="someCards">
 					{showSkeleton ? (
 						<>{skeletonArray.map((data) => data)}</>
 					) : (
 						<>
 							{jsonData.map((item) => (
-								<Panel key={item.id} info={item} />
+								<Panel key={item.id} info={item} clicked={handleClick} />
 							))}
 						</>
 					)}

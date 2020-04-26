@@ -2,8 +2,11 @@ import React from "react";
 import "../sass/Panel.sass";
 import uniqid from "uniqid";
 export default function Panel(props) {
+	const handleClick = () => {
+		props.clicked(props.info);
+	}
 	return (
-		<div className="panel-body">
+		<div className="panel-body" onClick={handleClick}>
 			<div className="product_image">
 				<img
 					className="panelImage"
