@@ -1,4 +1,32 @@
-import React, { useState, useEffect } from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Dashboard.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Dashboard.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect } from "react";
 import "../sass/Dashboard.sass";
 import Collage from "./Collage";
 import Navbar from "./Navbar";
@@ -27,7 +55,7 @@ var jsonData = [];
  * @type{variable} 
  * @description stores initail target link to display cards
  */
-var target = "product_category=powder&product_type=blush";
+var target = "product_category=powder&amp;product_type=blush";
 /**
  * @type{StringArray} 
  * @description stores search history of components
@@ -39,10 +67,10 @@ const searchHistory = [];
  */
 const useStyles = makeStyles(() => ({
 	TextField: {
-		"& label.Mui-focused": {
+		"&amp; label.Mui-focused": {
 			color: "#fc7fb2",
 		},
-		"& .MuiInput-underline:after": {
+		"&amp; .MuiInput-underline:after": {
 			borderBottomColor: "#fc7fb2",
 		},
 	},
@@ -256,8 +284,8 @@ function Dashboard(props) {
 	 */
 	let skeletonArray = [];
 
-	for (let i = 0; i < 8; i++) {
-		skeletonArray.push(<LoadingSkeleton key={uniqid()} />);
+	for (let i = 0; i &lt; 8; i++) {
+		skeletonArray.push(&lt;LoadingSkeleton key={uniqid()} />);
 	}
 	/**
 	 * @property {Function} - used to set searched text
@@ -315,10 +343,10 @@ function Dashboard(props) {
 		let filterString = "";
 
 		for (let [, value] of Object.entries(filterObject)) {
-			if (filterString.length === 0 && `${value}`.length > 2) {
+			if (filterString.length === 0 &amp;&amp; `${value}`.length > 2) {
 				filterString = filterString.concat(`${value}`);
-			} else if (filterString.length > 2 && `${value}`.length > 2) {
-				filterString = filterString.concat("&", `${value}`);
+			} else if (filterString.length > 2 &amp;&amp; `${value}`.length > 2) {
+				filterString = filterString.concat("&amp;", `${value}`);
 			}
 		}
 		postman(filterString);
@@ -344,8 +372,7 @@ function Dashboard(props) {
 			event.preventDefault();
 			searchHistory.push(searchedText);
 			/**
-			 * @type {variable} 
-			 * @description stores url string for searched text
+			 * @type {variable} - stores url string for searched text
 			 */
 			let newString = searchPrefix.concat(searchedText.trim());
 			postman(newString);
@@ -359,15 +386,15 @@ function Dashboard(props) {
 	};
 
 	return (
-		<div className="main">
-			<Navbar />
+		&lt;div className="main">
+			&lt;Navbar />
 
-			<div className="container">
+			&lt;div className="container">
 				{filter ? (
-					<div className="rowgrid">
-						<div className="filterContainer">
-							<div className="filters">
-								<OptionsSelect
+					&lt;div className="rowgrid">
+						&lt;div className="filterContainer">
+							&lt;div className="filters">
+								&lt;OptionsSelect
 									ref={ref}
 									type="Brands"
 									arrayOfItems={brandList}
@@ -375,7 +402,7 @@ function Dashboard(props) {
 									reset={resetfilter}
 									toggleReset={filtersReset}
 								/>
-								<OptionsSelect
+								&lt;OptionsSelect
 									ref={ref}
 									type="Product type"
 									arrayOfItems={product_type}
@@ -383,7 +410,7 @@ function Dashboard(props) {
 									reset={resetfilter}
 									toggleReset={filtersReset}
 								/>
-								<OptionsSelect
+								&lt;OptionsSelect
 									ref={ref}
 									type="category"
 									arrayOfItems={product_category}
@@ -391,7 +418,7 @@ function Dashboard(props) {
 									reset={resetfilter}
 									toggleReset={filtersReset}
 								/>
-								<OptionsSelect
+								&lt;OptionsSelect
 									ref={ref}
 									type="tags"
 									arrayOfItems={product_tags}
@@ -399,24 +426,24 @@ function Dashboard(props) {
 									reset={resetfilter}
 									toggleReset={filtersReset}
 								/>
-								<Button
+								&lt;Button
 									id="btn"
 									variant="contained"
 									size="small"
 									onClick={applyFilter}
 								>
 									apply
-								</Button>
-								<Button
+								&lt;/Button>
+								&lt;Button
 									id="btn"
 									variant="contained"
 									size="small"
 									onClick={filtersReset}
 								>
 									reset
-								</Button>
-							</div>
-							<Button
+								&lt;/Button>
+							&lt;/div>
+							&lt;Button
 								id="btn"
 								variant="contained"
 								size="small"
@@ -424,20 +451,20 @@ function Dashboard(props) {
 									setFilter(!filter);
 								}}
 							>
-								&#60; goto search
-							</Button>
-						</div>
-						<div className="collage">
-							<Collage />
-						</div>
-					</div>
+								&amp;#60; goto search
+							&lt;/Button>
+						&lt;/div>
+						&lt;div className="collage">
+							&lt;Collage />
+						&lt;/div>
+					&lt;/div>
 				) : (
-					<div className="rowgrid">
-						<div className="collage">
-							<Collage />
-						</div>
-						<div className="searchContainer">
-							<Button
+					&lt;div className="rowgrid">
+						&lt;div className="collage">
+							&lt;Collage />
+						&lt;/div>
+						&lt;div className="searchContainer">
+							&lt;Button
 								id="btn"
 								variant="contained"
 								size="small"
@@ -445,10 +472,10 @@ function Dashboard(props) {
 									setFilter(!filter);
 								}}
 							>
-								goto filters &#62;
-							</Button>
-							<div className="search">
-								<TextField
+								goto filters &amp;#62;
+							&lt;/Button>
+							&lt;div className="search">
+								&lt;TextField
 									label="Search"
 									id="searchField"
 									fullWidth
@@ -457,11 +484,11 @@ function Dashboard(props) {
 									}}
 									InputProps={{
 										endAdornment: (
-											<InputAdornment position="start">
-												<IconButton size="small">
-													<SearchIcon />
-												</IconButton>
-											</InputAdornment>
+											&lt;InputAdornment position="start">
+												&lt;IconButton size="small">
+													&lt;SearchIcon />
+												&lt;/IconButton>
+											&lt;/InputAdornment>
 										),
 									}}
 									variant="standard"
@@ -473,7 +500,7 @@ function Dashboard(props) {
 										return handleKey(event);
 									}}
 								/>
-								<Button
+								&lt;Button
 									id="btn"
 									variant="contained"
 									size="small"
@@ -482,26 +509,49 @@ function Dashboard(props) {
 									}}
 								>
 									clear
-								</Button>
-							</div>
-						</div>
-					</div>
+								&lt;/Button>
+							&lt;/div>
+						&lt;/div>
+					&lt;/div>
 				)}
 
-				<div id="displayCards" className="someCards">
+				&lt;div id="displayCards" className="someCards">
 					{showSkeleton ? (
-						<>{skeletonArray.map((data) => data)}</>
+						&lt;>{skeletonArray.map((data) => data)}&lt;/>
 					) : (
-						<>
+						&lt;>
 							{jsonData.map((item) => (
-								<Panel key={item.id} info={item} clicked={handleClick} />
+								&lt;Panel key={item.id} info={item} clicked={handleClick} />
 							))}
-						</>
+						&lt;/>
 					)}
-				</div>
-			</div>
-		</div>
+				&lt;/div>
+			&lt;/div>
+		&lt;/div>
 	);
 }
 
 export default Dashboard;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Dashboard">Dashboard</a></li><li><a href="global.html#hitApi">hitApi</a></li><li><a href="global.html#jsonData">jsonData</a></li><li><a href="global.html#OptionsSelect">OptionsSelect</a></li><li><a href="global.html#searchHistory">searchHistory</a></li><li><a href="global.html#target">target</a></li><li><a href="global.html#useStyles">useStyles</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Thu Apr 30 2020 02:50:36 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

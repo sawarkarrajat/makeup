@@ -1,7 +1,18 @@
 import React from "react";
 import "../sass/Panel.sass";
 import uniqid from "uniqid";
+
+/**
+ * a simple component to render cards for product
+ *
+ * @export
+ * @param {Object} props
+ * @returns {htmlbody}
+ */
 export default function Panel(props) {
+	/**
+	 * @property {Function} - used to handle click on cards
+	 */
 	const handleClick = () => {
 		props.clicked(props.info);
 	}

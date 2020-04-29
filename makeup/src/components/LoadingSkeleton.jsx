@@ -1,7 +1,10 @@
 import React from "react";
 import "../sass/Panel.sass";
 import Skeleton from "@material-ui/lab/Skeleton";
-
+/**
+ *@property {Function} - a loading skeleton
+ *@returns {htmlComponent} - a card with loading skeleton of material ui
+ */
 export default function LoadingSkeleton() {
 	return (
 		<div className="panel-body">

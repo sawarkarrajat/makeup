@@ -4,7 +4,9 @@ import pic1 from "../asset/pic1.png";
 import pic2 from "../asset/pic2.png";
 import pic3 from "../asset/pic3.png";
 import pic4 from "../asset/pic4.png";
-
+/**
+ * @returns {component} -  returns a collage of image as html component
+ */
 export default function Collage() {
   return (
     <div className="collage_Container">

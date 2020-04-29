@@ -1,5 +1,7 @@
-import React from 'react'
-
+import React from 'react';
+/**
+ * @property {Function} - generates a pure functional component
+ */
 export default function Navbar() {
   return (
     <div className="navcontainer">

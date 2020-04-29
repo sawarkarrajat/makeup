@@ -4,10 +4,22 @@ import "../sass/ProductDetails.sass";
 import Navbar from "./Navbar";
 import { Button } from "@material-ui/core";
 
+/**
+ * a component to display product details and opens in a new window
+ *
+ * @export
+ * @param {Object} props
+ * @returns {Component}
+ */
 export default function ProductDetails(props) {
+	/**
+	 * @type {const} item - holds all the information about the click product
+	 */
 	const item = props.location.state.itemInfo;
-	console.log("value in props", item);
-  const handleClick = () => {
+	/**
+	 * @property {Function} -  opens product extradetail link in a new window
+	 */
+	const handleClick = () => {
     window.open(item.product_link, '_blank');
   }
 	return (
