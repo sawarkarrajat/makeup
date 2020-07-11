@@ -36,11 +36,15 @@
 
   .navcontainer
     @extend %d-flex-r
+    background: white
+    border-bottom-left-radius: 25px
+    border-bottom-right-radius: 25px
     width: 90%
     position: fixed
     z-index: 20
     height: 60px
     justify-content: space-between
+    box-shadow: 0 8px 6px -6px #00000045
 
     .title
       @extend %d-flex-c
@@ -68,6 +72,7 @@
         text-transform: uppercase
         border: 2px solid transparent
         border-radius: 8px
+        margin-bottom: 5px
 
       span:hover
         background: #ffffffa4      
@@ -139,5 +144,8 @@
     grid-template-columns: repeat(4,1fr)
     grid-gap: 20px  
     justify-items: center
-    align-items: start        
+    align-items: start
+
+    #noResult
+       grid-column: 2/4       
 

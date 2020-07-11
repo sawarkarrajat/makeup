@@ -14,27 +14,27 @@ import Services from "../services/Services";
 import LoadingSkeleton from "./LoadingSkeleton";
 import uniqid from "uniqid";
 /**
- * @type{const} hitApi 
+ * @type{const} hitApi
  * @description store instance of services
  */
 const hitApi = new Services();
 /**
- * @type{variable} jsonData 
+ * @type{variable} jsonData
  * @description stores json format data to display in ui
  */
-var jsonData = [];
+var jsonData = [], totalNoOfPages = 0, currentPage = 0;
 /**
- * @type{variable} 
+ * @type{variable}
  * @description stores initail target link to display cards
  */
 var target = "product_category=powder&product_type=blush";
 /**
- * @type{StringArray} 
+ * @type{StringArray}
  * @description stores search history of components
  */
 const searchHistory = [];
 /**
- * @type{Object} 
+ * @type{Object}
  * @description stores style object
  */
 const useStyles = makeStyles(() => ({
@@ -54,40 +54,67 @@ const useStyles = makeStyles(() => ({
  */
 function Dashboard(props) {
 	/**
-	 * @type{constant} 
+	 * @type{constant}
 	 * @description stores prefix string
 	 */
 	const searchPrefix = "product_type=";
 	/**
-	 * @type{constant} 
+	 * @type{constant}
 	 * @description stores reference
 	 */
 	const ref = React.createRef();
 	/**
-	 * @type {hook} 
+	 * @type {hook}
 	 * @description controls when to show skeleton
 	 */
 	const [showSkeleton, setShowSkeleton] = useState(true);
+	const [showNoResultMsg, setshowNoResultMsg] = useState(false);
+	let pageContainer = [], itemsArray = [];
 	/**
 	 * @property {Function} - used to hit api with filters
 	 */
 	const postman = (letter) => {
+		const divideData = () => {
+			var cursor = 0;
+			for (let index = 0; index < totalNoOfPages; index++) {
+				for (let item = 0; item < 16; item++) {
+					console.log("value in jsondata[cursor]",cursor,jsonData[cursor])
+					if (jsonData[cursor] !== undefined) {
+						itemsArray.push(jsonData[cursor]);
+						cursor++;
+						console.log("data in items Array", itemsArray);
+					} else {
+						continue;
+					}
+				}
+				pageContainer.push(itemsArray);
+				console.log("data in page container", pageContainer);
+				itemsArray = [];
+			}
+		}
+
 		hitApi
 			.getJson(letter)
 			.then(async (response) => {
 				/**
-				 * @type {variable} 
+				 * @type {variable}
 				 * @description stores element
 				 */
 				let element = document.getElementById("displayCards");
 				element.scrollIntoView();
 				jsonData = await response.data;
+				
 				if (jsonData.length === 0) {
-					alert("no data found");
+					setshowNoResultMsg(true);
+				} else {
+					setshowNoResultMsg(false);
+					totalNoOfPages = Math.ceil(jsonData.length / 16);
+					divideData();
+					
 				}
 				console.log(jsonData);
 			})
-			.then(() => {
+			.then(async () => {
 				setShowSkeleton(false);
 			})
 			.catch((error) => {
@@ -99,25 +126,30 @@ function Dashboard(props) {
 	 * @property {Funciton} - used to load side effects
 	 */
 	useEffect(() => {
-		postman(target);
+		if (jsonData.length === 0) {
+			postman(target);
+		}else {
+			setShowSkeleton(false);
+			setshowNoResultMsg(false);
+		}
 	}, []);
 	/**
-	 * @type {Object} 
+	 * @type {Object}
 	 * @description instance of usestyles
 	 */
 	const classes = useStyles();
 	/**
-	 * @type {hook} 
+	 * @type {hook}
 	 * @description  used to set filters visiblity
 	 */
 	const [filter, setFilter] = useState(false);
 	/**
-	 * @type {hook} 
+	 * @type {hook}
 	 * @description used to reset filters
 	 */
 	const [resetfilter, setResetfilter] = useState(true);
 	/**
-	 * @type{Array} 
+	 * @type{Array}
 	 * @description- a String array
 	 */
 	const brandList = [
@@ -180,7 +212,7 @@ function Dashboard(props) {
 		"zorah biocosmetiques",
 	];
 	/**
-	 * @type {Array} 
+	 * @type {Array}
 	 * @description a String array
 	 */
 	const product_tags = [
@@ -209,7 +241,7 @@ function Dashboard(props) {
 		"water free",
 	];
 	/**
-	 * @type {Array} 
+	 * @type {Array}
 	 * @description a String array
 	 */
 	const product_category = [
@@ -229,7 +261,7 @@ function Dashboard(props) {
 		"lip_stain",
 	];
 	/**
-	 * @type {Array} 
+	 * @type {Array}
 	 * @description a String array
 	 */
 	const product_type = [
@@ -245,13 +277,13 @@ function Dashboard(props) {
 		"nail_polish",
 	];
 	/**
-	 * @type {hook} 
+	 * @type {hook}
 	 * @description used to assign searched text
 	 */
 
 	const [searchedText, setSearchedText] = useState("");
 	/**
-	 * @type {variable} 
+	 * @type {variable}
 	 * @description used to store an Array of skeletons
 	 */
 	let skeletonArray = [];
@@ -266,7 +298,7 @@ function Dashboard(props) {
 		setSearchedText(event.currentTarget.value);
 	};
 	/**
-	 * @type {Object} 
+	 * @type {Object}
 	 * @description used to store filters
 	 */
 	let filterObject = {
@@ -309,7 +341,7 @@ function Dashboard(props) {
 	const applyFilter = () => {
 		setShowSkeleton(true);
 		/**
-		 * @type {variable} 
+		 * @type {variable}
 		 * @description substing of url for filters
 		 */
 		let filterString = "";
@@ -339,12 +371,17 @@ function Dashboard(props) {
 	 * @property {Funciton} - used to handle keyup event for enter press
 	 */
 	const handleKey = (event) => {
-		if (event.keyCode === 13 || event.which === 13 || event.key === "Enter") {
+		if (
+			event.keyCode === 13 ||
+			event.which === 13 ||
+			event.key === "Enter" ||
+			event.button === 0
+		) {
 			setShowSkeleton(true);
 			event.preventDefault();
 			searchHistory.push(searchedText);
 			/**
-			 * @type {variable} 
+			 * @type {variable}
 			 * @description stores url string for searched text
 			 */
 			let newString = searchPrefix.concat(searchedText.trim());
@@ -357,7 +394,7 @@ function Dashboard(props) {
 	const handleClick = (data) => {
 		props.history.push("/ProductDetails", { itemInfo: data });
 	};
-
+	const ifnot = pageContainer[currentPage];
 	return (
 		<div className="main">
 			<Navbar />
@@ -458,7 +495,12 @@ function Dashboard(props) {
 									InputProps={{
 										endAdornment: (
 											<InputAdornment position="start">
-												<IconButton size="small">
+												<IconButton
+													size="small"
+													onClick={(event) => {
+														return handleKey(event);
+													}}
+												>
 													<SearchIcon />
 												</IconButton>
 											</InputAdornment>
@@ -493,9 +535,15 @@ function Dashboard(props) {
 						<>{skeletonArray.map((data) => data)}</>
 					) : (
 						<>
-							{jsonData.map((item) => (
-								<Panel key={item.id} info={item} clicked={handleClick} />
-							))}
+							{showNoResultMsg ? (
+								<h2 id="noResult">Sorry No Results Found</h2>
+							) : (
+								<>
+									{ifnot? pageContainer[currentPage].map((item) => (
+										<Panel key={item.id} info={item} clicked={handleClick} />
+									)):null}
+								</>
+							)}
 						</>
 					)}
 				</div>
