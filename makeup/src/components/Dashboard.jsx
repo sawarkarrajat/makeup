@@ -22,7 +22,9 @@ const hitApi = new Services();
  * @type{variable} jsonData
  * @description stores json format data to display in ui
  */
-var jsonData = [], totalNoOfPages = 0, currentPage = 0;
+var jsonData = [],
+	totalNoOfPages = 0,
+	currentPage = 0;
 /**
  * @type{variable}
  * @description stores initail target link to display cards
@@ -69,20 +71,23 @@ function Dashboard(props) {
 	 */
 	const [showSkeleton, setShowSkeleton] = useState(true);
 	const [showNoResultMsg, setshowNoResultMsg] = useState(false);
-	let pageContainer = [], itemsArray = [];
+	const [pageContainer, setPageContainer] = useState([]);
+	// const [pageContainer] = useState([]);
+	let itemsArray = [];
 	/**
 	 * @property {Function} - used to hit api with filters
 	 */
 	const postman = (letter) => {
 		const divideData = () => {
 			var cursor = 0;
+			setPageContainer([]);
 			for (let index = 0; index < totalNoOfPages; index++) {
 				for (let item = 0; item < 16; item++) {
-					console.log("value in jsondata[cursor]",cursor,jsonData[cursor])
+					// console.log("value in jsondata[cursor]", cursor, jsonData[cursor]);
 					if (jsonData[cursor] !== undefined) {
 						itemsArray.push(jsonData[cursor]);
 						cursor++;
-						console.log("data in items Array", itemsArray);
+						// console.log("data in items Array", itemsArray);
 					} else {
 						continue;
 					}
@@ -91,7 +96,7 @@ function Dashboard(props) {
 				console.log("data in page container", pageContainer);
 				itemsArray = [];
 			}
-		}
+		};
 
 		hitApi
 			.getJson(letter)
@@ -100,22 +105,23 @@ function Dashboard(props) {
 				 * @type {variable}
 				 * @description stores element
 				 */
+				console.log("data in page container", pageContainer);
+
 				let element = document.getElementById("displayCards");
 				element.scrollIntoView();
-				jsonData = await response.data;
-				
+				jsonData = response.data;
+
 				if (jsonData.length === 0) {
 					setshowNoResultMsg(true);
 				} else {
-					setshowNoResultMsg(false);
+					// setPageContainer([]);
+					console.log("value in hit api pagecontainer", pageContainer);
 					totalNoOfPages = Math.ceil(jsonData.length / 16);
 					divideData();
-					
+					setShowSkeleton(false);
+					setshowNoResultMsg(false);
 				}
 				console.log(jsonData);
-			})
-			.then(async () => {
-				setShowSkeleton(false);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -128,7 +134,7 @@ function Dashboard(props) {
 	useEffect(() => {
 		if (jsonData.length === 0) {
 			postman(target);
-		}else {
+		} else {
 			setShowSkeleton(false);
 			setshowNoResultMsg(false);
 		}
@@ -394,7 +400,13 @@ function Dashboard(props) {
 	const handleClick = (data) => {
 		props.history.push("/ProductDetails", { itemInfo: data });
 	};
-	const ifnot = pageContainer[currentPage];
+	// console.log(
+	// 	"value in pageContainer[currentPage]",
+	// 	pageContainer[currentPage]
+	// );
+	const NoResultMsg = () => {
+		return <h2 id="noResult">Sorry No Results Found</h2>;
+	};
 	return (
 		<div className="main">
 			<Navbar />
@@ -536,12 +548,24 @@ function Dashboard(props) {
 					) : (
 						<>
 							{showNoResultMsg ? (
-								<h2 id="noResult">Sorry No Results Found</h2>
+								<NoResultMsg />
 							) : (
 								<>
-									{ifnot? pageContainer[currentPage].map((item) => (
-										<Panel key={item.id} info={item} clicked={handleClick} />
-									)):null}
+									{pageContainer[currentPage] &&
+										pageContainer[currentPage].map((item) => (
+											<Panel key={item.id} info={item} clicked={handleClick} />
+										))}
+									{pageContainer &&
+										pageContainer.map((item, index) => (
+											<Button
+												key={index}
+												id={"btn_" + index}
+												variant="contained"
+												size="small"
+											>
+												{index}
+											</Button>
+										))}
 								</>
 							)}
 						</>
