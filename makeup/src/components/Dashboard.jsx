@@ -80,7 +80,7 @@ function Dashboard(props) {
 	const postman = (letter) => {
 		const divideData = () => {
 			var cursor = 0;
-			setPageContainer([]);
+			// setPageContainer([]);
 			for (let index = 0; index < totalNoOfPages; index++) {
 				for (let item = 0; item < 16; item++) {
 					// console.log("value in jsondata[cursor]", cursor, jsonData[cursor]);
@@ -542,19 +542,23 @@ function Dashboard(props) {
 					</div>
 				)}
 
-				<div id="displayCards" className="someCards">
-					{showSkeleton ? (
-						<>{skeletonArray.map((data) => data)}</>
-					) : (
-						<>
-							{showNoResultMsg ? (
-								<NoResultMsg />
-							) : (
-								<>
+				{showSkeleton ? (
+					<div id="displayCards" className="someCards">
+						{skeletonArray.map((data) => data)}
+					</div>
+				) : (
+					<>
+						{showNoResultMsg ? (
+							<NoResultMsg />
+						) : (
+							<>
+								<div id="displayCards" className="someCards">
 									{pageContainer[currentPage] &&
 										pageContainer[currentPage].map((item) => (
 											<Panel key={item.id} info={item} clicked={handleClick} />
 										))}
+								</div>
+								<div id="pagination" className="paginationButtons">
 									{pageContainer &&
 										pageContainer.map((item, index) => (
 											<Button
@@ -566,11 +570,11 @@ function Dashboard(props) {
 												{index}
 											</Button>
 										))}
-								</>
-							)}
-						</>
-					)}
-				</div>
+								</div>
+							</>
+						)}
+					</>
+				)}
 			</div>
 		</div>
 	);

@@ -147,5 +147,20 @@
     align-items: start
 
     #noResult
-       grid-column: 2/4       
+       grid-column: 2/4    
+
+  .paginationButtons
+    @extend %d-flex-r
+    width: 100%
+
+    .MuiButton-containedSizeSmall
+      padding-top: 5px
+      min-width: 25px 
+      margin-right: 10px
+
+    .MuiButton-contained
+      color: $clr1
+      background-color: $clr2
+      font-weight: 700  
+      line-height: 17px
 
