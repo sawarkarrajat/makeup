@@ -1,5 +1,6 @@
 import React from "react";
 import "../sass/Panel.sass";
+import pic4 from "../asset/pic4.png";
 import uniqid from "uniqid";
 
 /**
@@ -22,7 +23,7 @@ export default function Panel(props) {
 				<img
 					className="panelImage"
 					src={props.info.image_link}
-					alt="makeup"
+					alt={pic4}
 				></img>
 			</div>
 			<div className="panelTextContainer">
