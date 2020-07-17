@@ -150,7 +150,7 @@ function Dashboard(props) {
 			})
 			.catch((error) => {
 				console.log(error);
-				alert("failed to get json");
+				setshowNoResultMsg(true);
 			});
 	};
 	/**
@@ -160,8 +160,6 @@ function Dashboard(props) {
 		if (jsonData.length === 0) {
 		postman(target);
 		} else {
-			alert("in else of useeffect"); 
-			console.log("in useeffect pagecontainer contains", pageContainer);
 			paginationSequence();
 		}
 	}, []);
