@@ -80,7 +80,8 @@ function Dashboard(props) {
 	const postman = (letter) => {
 		const divideData = () => {
 			var cursor = 0;
-			// setPageContainer([]);
+			let tempcontainer = [];
+			setPageContainer([]);
 			for (let index = 0; index < totalNoOfPages; index++) {
 				for (let item = 0; item < 16; item++) {
 					// console.log("value in jsondata[cursor]", cursor, jsonData[cursor]);
@@ -92,10 +93,11 @@ function Dashboard(props) {
 						continue;
 					}
 				}
-				pageContainer.push(itemsArray);
+				tempcontainer.push(itemsArray);
 				console.log("data in page container", pageContainer);
 				itemsArray = [];
 			}
+			setPageContainer(tempcontainer);
 		};
 
 		hitApi
@@ -106,7 +108,6 @@ function Dashboard(props) {
 				 * @description stores element
 				 */
 				console.log("data in page container", pageContainer);
-
 				let element = document.getElementById("displayCards");
 				element.scrollIntoView();
 				jsonData = response.data;
@@ -114,7 +115,6 @@ function Dashboard(props) {
 				if (jsonData.length === 0) {
 					setshowNoResultMsg(true);
 				} else {
-					// setPageContainer([]);
 					console.log("value in hit api pagecontainer", pageContainer);
 					totalNoOfPages = Math.ceil(jsonData.length / 16);
 					divideData();
@@ -567,7 +567,7 @@ function Dashboard(props) {
 												variant="contained"
 												size="small"
 											>
-												{index}
+												{index + 1}
 											</Button>
 										))}
 								</div>
