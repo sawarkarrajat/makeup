@@ -73,8 +73,8 @@ export default function ProductDetails(props) {
 							</h5>
 							&nbsp;
 							<p style={{ color: "#45454d" }}>{item.description}</p>
-						</div>
-						<div className="textinline end">
+            </div>
+            <div className="textinline end">
 							<Button
 								id="btn"
 								variant="contained"
@@ -83,26 +83,26 @@ export default function ProductDetails(props) {
 							>
 								Buy Now
 							</Button>
-						</div>
-						<div className="textinline start">
+            </div>
+            <div className="textinline start">
 							<p style={{ alignSelf: "flex-start" }}>available colors:</p>&nbsp;
 							{item.product_colors.map((d) => (
-								<div key={d.hex_value} className="colorc">
-									{d.colour_name}
+                <div key={d.hex_value} className="colorc">
+                  {d.colour_name}
 									<div
 										className="col"
 										style={{ backgroundColor: d.hex_value }}
 									></div>
-								</div>
-							))}
-						</div>
-
-						<div className="textinline start">
-							<p>tags:</p>
+                </div>
+              ))}
+            </div>
+            
+            <div className="textinline start">
+              <p>tags:</p>
 							{item.tag_list.map((t) => (
 								<p key={t} style={{ color: "#45454d", marginLeft: "5px" }}>{t}</p>
-							))}
-						</div>
+              ))}
+            </div>
 					</div>
 				</div>
 			</div>
