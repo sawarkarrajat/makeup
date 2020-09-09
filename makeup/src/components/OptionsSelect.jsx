@@ -43,6 +43,32 @@ const OptionsSelect = React.forwardRef((props, ref) => {
 		 * @type {variable} - stores the value in target
 		 */	
 		let someValue = event.target.value;
+		let selectedChoice = {}
+		// eslint-disable-next-line
+		switch (props.type) {
+			case "Brands":
+				selectedChoice={
+					type: "brand"
+				}
+				break;
+			case "Product type":
+					selectedChoice={
+					type: "productType"
+				}
+				break;
+			case "category":
+					selectedChoice={
+					type: "category"
+				}
+				break;
+			case "tags":
+					selectedChoice={
+					type: "tag"
+				}
+				break;
+		}
+		selectedChoice.choice = someValue;
+		props.optionsHistory(selectedChoice);
 		await setVariable(someValue);
 		props.setItem(someValue);
 	};
@@ -51,9 +77,11 @@ const OptionsSelect = React.forwardRef((props, ref) => {
 	 */
 	useEffect(
 		(props) => {
-			setVariable("");
 			if (typeof props != "undefined") {
 				props.toggleReset();
+				if (props.optionSelected !== "") {
+					setVariable(props.optionSelected);
+				}
 			}
 		},
 		[props.reset]

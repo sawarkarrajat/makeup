@@ -7,7 +7,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
  */
 export default function LoadingSkeleton() {
 	return (
-		<div className="panel-body">
+		<div className="panel-body-skeleton">
 			<div className="product_image">
 				<Skeleton variant="circle" height="156px" width="156px" />
 			</div>

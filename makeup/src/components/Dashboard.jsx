@@ -22,13 +22,13 @@ const hitApi = new Services();
  * @type{variable} jsonData
  * @description stores json format data to display in ui
  */
-var jsonData = [],
+let jsonData = [],
 	totalNoOfPages = 0;
 /**
  * @type{variable}
  * @description stores initail target link to display cards
  */
-var target = "product_category=powder&product_type=blush";
+const target = "product_category=powder&product_type=blush";
 /**
  * @type{StringArray}
  * @description stores search history of components
@@ -79,18 +79,18 @@ function Dashboard(props) {
 	 */
 	const scrollinview = () => {
 		let element = document.getElementById("displayCards");
-				element.scrollIntoView();
-	}
+		element.scrollIntoView();
+	};
 	const paginationSequence = () => {
 		console.log("value in hit api pagecontainer", pageContainer);
-					totalNoOfPages = Math.ceil(jsonData.length / 16);
-					divideData();
-					setShowSkeleton(false);
-					setshowNoResultMsg(false);
-	}
+		totalNoOfPages = Math.ceil(jsonData.length / 16);
+		divideData();
+		setShowSkeleton(false);
+		setshowNoResultMsg(false);
+	};
 	const divideData = () => {
 		var cursor = 0;
-		let tempcontainer = [];
+		let tempContainer = [];
 		setPageContainer([]);
 		for (let index = 0; index < totalNoOfPages; index++) {
 			for (let item = 0; item < 16; item++) {
@@ -101,47 +101,26 @@ function Dashboard(props) {
 					continue;
 				}
 			}
-			tempcontainer.push(itemsArray);
+			tempContainer.push(itemsArray);
 			console.log("data in page container", pageContainer);
 			itemsArray = [];
 		}
-		setPageContainer(tempcontainer);
+		setPageContainer(tempContainer);
 	};
-	const postman = (letter) => {
-		const divideData = () => {
-			var cursor = 0;
-			let tempcontainer = [];
-			setPageContainer([]);
-			for (let index = 0; index < totalNoOfPages; index++) {
-				for (let item = 0; item < 16; item++) {
-					// console.log("value in jsondata[cursor]", cursor, jsonData[cursor]);
-					if (jsonData[cursor] !== undefined) {
-						itemsArray.push(jsonData[cursor]);
-						cursor++;
-						// console.log("data in items Array", itemsArray);
-					} else {
-						continue;
-					}
-				}
-				tempcontainer.push(itemsArray);
-				console.log("data in page container", pageContainer);
-				itemsArray = [];
-			}
-			setPageContainer(tempcontainer);
-		};
-
+	const callApiWithFilterString = (filterURL) => {
 		hitApi
-			.getJson(letter)
+			.getJson(filterURL)
 			.then(async (response) => {
 				/**
 				 * @type {variable}
 				 * @description stores element
 				 */
 				console.log("data in page container", pageContainer);
-				
+
 				jsonData = await response.data;
 				scrollinview();
 				if (jsonData.length === 0) {
+					setShowSkeleton(false);
 					setshowNoResultMsg(true);
 				} else {
 					paginationSequence();
@@ -157,11 +136,14 @@ function Dashboard(props) {
 	 * @property {Funciton} - used to load side effects
 	 */
 	useEffect(() => {
-		if (jsonData.length === 0) {
-		postman(target);
-		} else {
-			paginationSequence();
-		}
+			if (jsonData.length === 0) {
+				callApiWithFilterString(target);
+			} else {
+				paginationSequence();
+			}
+			if (searchHistory.length > 0) {
+				setSearchedText(searchHistory.pop());
+			}
 	}, []);
 	/**
 	 * @type {Object}
@@ -375,7 +357,6 @@ function Dashboard(props) {
 		 * @description substing of url for filters
 		 */
 		let filterString = "";
-
 		for (let [, value] of Object.entries(filterObject)) {
 			if (filterString.length === 0 && `${value}`.length > 2) {
 				filterString = filterString.concat(`${value}`);
@@ -383,7 +364,7 @@ function Dashboard(props) {
 				filterString = filterString.concat("&", `${value}`);
 			}
 		}
-		postman(filterString);
+		callApiWithFilterString(filterString);
 	};
 	/**
 	 * @property {Funciton} - used to reset filters
@@ -415,7 +396,7 @@ function Dashboard(props) {
 			 * @description stores url string for searched text
 			 */
 			let newString = searchPrefix.concat(searchedText.trim());
-			postman(newString);
+			callApiWithFilterString(newString);
 		}
 	};
 	/**
@@ -424,7 +405,7 @@ function Dashboard(props) {
 	const handleClick = (data) => {
 		props.history.push("/ProductDetails", { itemInfo: data });
 	};
-	
+
 	const NoResultMsg = () => {
 		return <h2 id="noResult">Sorry No Results Found</h2>;
 	};
@@ -433,7 +414,7 @@ function Dashboard(props) {
 		setCurrentPage(index);
 		scrollinview();
 		console.log("in handlepagination currentpage", currentPage);
-	}
+	};
 	return (
 		<div className="main">
 			<Navbar />
@@ -528,6 +509,7 @@ function Dashboard(props) {
 									label="Search"
 									id="searchField"
 									fullWidth
+									autoComplete="on"
 									classes={{
 										root: classes.TextField,
 									}}
@@ -570,32 +552,33 @@ function Dashboard(props) {
 				)}
 
 				{showSkeleton ? (
-				<div id="displayCards" className="someCards">
+					<div id="displayCards" className="someCards">
+						<h2 id="loadingMsg">loading...</h2>
 						{skeletonArray.map((data) => data)}
 					</div>
 				) : (
 					<>
 						{showNoResultMsg ? (
 							<NoResultMsg />
-					) : (
-						<>
+						) : (
+							<>
 								<div id="displayCards" className="someCards">
 									{pageContainer[currentPage] &&
 										pageContainer[currentPage].map((item) => (
-								<Panel key={item.id} info={item} clicked={handleClick} />
-							))}
+											<Panel key={item.id} info={item} clicked={handleClick} />
+										))}
 								</div>
-										<div id="pagination" className="paginationButtons">
-										<Button
-												id="btn_first"
-												variant="contained"
-												size="small"
-												onClick={() => {
-													handlePagination(0);
-												}}
-											>
-												first
-											</Button>
+								<div id="pagination" className="paginationButtons">
+									<Button
+										id="btn_first"
+										variant="contained"
+										size="small"
+										onClick={() => {
+											handlePagination(0);
+										}}
+									>
+										first
+									</Button>
 									{pageContainer &&
 										pageContainer.map((item, index) => (
 											<Button
@@ -606,26 +589,30 @@ function Dashboard(props) {
 												onClick={() => {
 													handlePagination(index);
 												}}
-												style={currentPage === index ? { backgroundColor: "#ffd5d5"}:{}}
+												style={
+													currentPage === index
+														? { backgroundColor: "#ffd5d5" }
+														: {}
+												}
 											>
 												{index + 1}
 											</Button>
 										))}
-											<Button
-												id="btn_last"
-												variant="contained"
-												size="small"
-												onClick={() => {
-													handlePagination(totalNoOfPages-1);
-												}}
-											>
-												last
-											</Button>
+									<Button
+										id="btn_last"
+										variant="contained"
+										size="small"
+										onClick={() => {
+											handlePagination(totalNoOfPages - 1);
+										}}
+									>
+										last
+									</Button>
 								</div>
 							</>
 						)}
-						</>
-					)}
+					</>
+				)}
 			</div>
 		</div>
 	);
