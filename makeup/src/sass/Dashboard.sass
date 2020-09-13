@@ -1,188 +1,127 @@
 @import base.sass
 
-::-webkit-scrollbar 
-  width: 12px
-
-/* Track */
-::-webkit-scrollbar-track 
-  background: $clr4
-
-/* Handle */
-::-webkit-scrollbar-thumb 
-  background: $clr3
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover 
-  background: $clr1
-
-*
-  font-family: $font
-  box-sizing: border-box
-
-#btn
-  background-color: $clr3
-  color: $clr1
-  font-weight: 800
-  font-size: 14px
-
-.Mui-focused,.MuiSelect-outlined
-  color: $clr2 !important
-
-.main
+.dashboard__main
   @extend %d-flex-c 
-  width: 90vw
-  height: 100%
+  width: 99vw
+  height: auto
   justify-content: flex-start
 
-  .navcontainer
+.dashboard__navcontainer
+  @extend %d-flex-r
+  background: $clr5
+  border-bottom-right-radius: 10px
+  width: 100%
+  position: fixed
+  z-index: 20
+  height: 60px
+  justify-content: space-between
+  box-shadow: 0 8px 6px -6px #c5c5c545
+
+  .dashboard__title
+    @extend %d-flex-c
+    width: 342px
+    height: inherit
+
+    h1
+      color: #fff
+      font-weight: 800
+      text-shadow: 0 0 3px #ffffff00
+
+  .dashboard__menu
     @extend %d-flex-r
-    background: white
-    border-bottom-left-radius: 25px
-    border-bottom-right-radius: 25px
-    width: 90%
-    position: fixed
-    z-index: 20
-    height: 60px
-    justify-content: space-between
-    box-shadow: 0 8px 6px -6px #00000045
+    width: calc(100% - 275px)
+    align-self: flex-end
+    padding-left: 47%
+    justify-content: space-around
 
-    .title
-      @extend %d-flex-c
-      background: $clr2
-      width: 250px
-      height: inherit
-      border-bottom-left-radius: 25px
-      border-bottom-right-radius: 25px
-      h1
-        color: $clr1
-        font-weight: 800
-        text-shadow: 0 0 3px #ffffff00
-
-    .menu
-      @extend %d-flex-r
-      width: calc(100% - 250px)
-      align-self: flex-end
-      padding: 0 100px 0 315px
-      justify-content: space-around
-
-      span
-        padding: 4px 8px 
-        font-size: 18px
-        font-weight: 600
-        text-transform: uppercase
-        border: 2px solid transparent
-        border-radius: 8px
-        margin-bottom: 5px
+    span
+      padding: 4px 8px
+      font-size: 18px
+      font-weight: 600
+      color: white
+      text-transform: uppercase
+      border: 2px solid transparent
+      border-radius: 8px
+      margin-bottom: 5px
 
       span:hover
         background: #ffffffa4      
         border: 2px solid $clr3
         color: $clr2
 
-  .container
-    @extend %d-flex-c
-    width: 100%
-    height: auto
-    padding: 50px 0px
-    margin-top: 25px
+.dashboard__container
+  @extend %d-flex-r
+  justify-content: space-evenly
+  align-items: flex-start
+  width: 100%
+  height: auto
+  padding-top: 60px
+  margin-top: 25px
 
-    .rowgrid
-      @extend %d-flex-r
-      justify-content: space-between
-      width: 100%
-      height: 395px
+.dashboard__filter
+  @extend %d-flex-c
+  justify-content: flex-start
+  padding: 20px
+  width: 300px
+  height: 86vh
+  border-radius: 10px
+  // background: #ffd5d559
+  background: $clr5
+  box-shadow: 3pxffd5d559 3px 6px 5px #d4b9b945
+  position: sticky
 
-      .filterContainer
-        @extend %d-flex-r
-        height: 100px
-        border-radius: 8px 40% 40% 8px
-        justify-content: flex-end
-        width: 70%
-        background: $clr4
-        animation: grow 1s
-        animation-timing-function: ease
-        box-shadow: $shadow
+  h3 
+    color: #fff
 
-        .filters
-          @extend %d-flex-r
-          width: 85%
-          justify-content: space-evenly
-          .MuiOutlinedInput-input
-            padding: 10.5px 14px 
-            padding-right: 32px
-        
-      .searchContainer
-        @extend %d-flex-r
-        height: 100px
-        justify-content: space-between
-        width: 70%
-        border-radius: 40% 8px 8px 40%
-        background: $clr4
-        animation: grow 1s
-        animation-timing-function: ease
-        box-shadow: $shadow
-        .search
-          @extend %d-flex-r
-          width: 80%
-          margin-right: 25px
+.dashboard__aside
+  @extend %d-flex-c
+  justify-content: flex-start
+  padding: 20px
+  margin-left: 30px
+  width: calc( 100% - 350px )  
+  border-radius: 10px
+  box-shadow: 3px 3px 6px 5px #d4b9b945
+  min-height: 86vh
+  height: auto
 
-        @keyframes grow
-          from
-            width: 0%
-          to
-            width: 70%
-        
-      .collage
-        display: block
-        align-self: flex-start
-        margin-left: 10vw
-        margin-right: 20vw
+.dashboard__searchPanel
+  @extend %d-flex-r
+  justify-content: flex-start
+  width: 100%
 
-  .someCards
-    display: grid
-    padding: 40px 0px
-    grid-template-columns: repeat(4,1fr)
-    grid-gap: 20px  
-    justify-items: center
-    align-items: start
-    position: relative
+.dashboard__searchInput
+  align-self: flex-start
+  width: 500px
+  padding: 0 10px
+  border-radius: 25px
+  border-color: $clr3
+  font-size: 18px
 
-    #loadingMsg
-      position: absolute
+.dashboard__searchInput:focus
+  border-radius: 25px
+  border-color: $clr2
+  outline: none
 
-    #noResult
-       grid-column: 2/4    
+.dashboard__searchButton,.dashboard__clearButton
+  margin-left: 10px
+  background: $clr4
+  color: $clr1
+  width: 100px
+  border: none
+  height: 35px
+  vertical-align: middle
+  display: block
+  font-size: 18px
+  border-radius: 25px
+  
 
-  .paginationButtons
-    @extend %d-flex-r
-    width: 100%
+  img 
+    width: 16px
+    margin: 5px
+    vertical-align: middle
 
-    .MuiButton-containedSizeSmall
-      padding-top: 5px
-      min-width: 25px 
-      margin-right: 10px
-
-    .MuiButton-contained
-      color: $clr1
-      background-color: $clr2
-      font-weight: 700  
-      line-height: 17px
-
-    #noResult
-       grid-column: 2/4    
-
-  .paginationButtons
-    @extend %d-flex-r
-    width: 100%
-
-    .MuiButton-containedSizeSmall
-      padding-top: 5px
-      min-width: 25px 
-      margin-right: 10px
-
-    .MuiButton-contained
-      color: $clr1
-      background-color: $clr2
-      font-weight: 700  
-      line-height: 17px
-
+.dashboard__searchButton:focus,.dashboard__clearButton:focus
+  outline: none
+.dashboard__searchButton:hover,.dashboard__clearButton:hover
+  background: $clr2
+  color: white

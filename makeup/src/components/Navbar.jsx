@@ -4,11 +4,11 @@ import React from 'react';
  */
 export default function Navbar() {
   return (
-    <div className="navcontainer">
-    <div className="title">
+    <div className="dashboard__navcontainer">
+    <div className="dashboard__title">
       <h1>Makeup</h1>
     </div>
-    <div className="menu">
+    <div className="dashboard__menu">
       <span id="mtxt">brands, lipsticks, nailpolish and much more!!!</span>
     </div>
   </div>
