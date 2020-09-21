@@ -25,7 +25,8 @@
     h1
       color: #fff
       font-weight: 800
-      text-shadow: 0 0 3px #ffffff00
+      // text-shadow: 0 0 3px #ffffff00
+      text-shadow: 2px 2px 4px #000000
 
   .dashboard__menu
     @extend %d-flex-r
@@ -72,6 +73,12 @@
 
   h3 
     color: #fff
+    font-weight: normal
+
+  hr
+    width: 80%
+    box-shadow: $shadow
+
 
 .dashboard__aside
   @extend %d-flex-c
@@ -94,8 +101,9 @@
   width: 500px
   padding: 0 10px
   border-radius: 25px
-  border-color: $clr3
+  border: 1px solid $clr3
   font-size: 18px
+  box-shadow: $shadow
 
 .dashboard__searchInput:focus
   border-radius: 25px
@@ -113,6 +121,7 @@
   display: block
   font-size: 18px
   border-radius: 25px
+  box-shadow: $shadow
   
 
   img 
@@ -123,5 +132,11 @@
 .dashboard__searchButton:focus,.dashboard__clearButton:focus
   outline: none
 .dashboard__searchButton:hover,.dashboard__clearButton:hover
-  background: $clr2
+  background: $clr5
   color: white
+
+.dashboard__filterLabel
+  .MuiSvgIcon-root
+    fill: white
+  .MuiTreeItem-label,.MuiCollapse-wrapperInner
+    color: white

@@ -4,11 +4,36 @@ import Navbar from "./Navbar";
 import searchIcon from "../asset/search.png";
 import crossIcon from "../asset/cross.png";
 import makeupData from "../makeupData.json";
+import TreeView from "@material-ui/lab/TreeView";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import TreeItem from "@material-ui/lab/TreeItem";
+
 /**
  * Root page of site or main page for SPA
  */
 function Dashboard() {
+	let muData = Object.assign([{}], makeupData);
+	const extractionLabels = (label) => {
+		return [...new Set(muData.map((item) => item[label]))];
+	};
+	const extractionTaglist = () => {
+		let tags = [];
+		muData.map((item) => {
+			item.tag_list.forEach((tag) => {
+				if (!tags.includes(tag)) {
+					tags.push(tag);
+				}
+			});
+		});
+		return tags;
+	};
 	const [searchText, setSearchText] = useState("");
+	const brand = extractionLabels("brand");
+	const category = extractionLabels("category");
+	const product_type = extractionLabels("product_type");
+	const tag_list = extractionTaglist();
+	console.log(tag_list);
 
 	return (
 		<div className="dashboard__main">
@@ -16,6 +41,18 @@ function Dashboard() {
 			<div className="dashboard__container">
 				<div className="dashboard__filter">
 					<h3>filters</h3>
+					<hr />
+					<br />
+					<div className="dashboard__filterLabel">
+						<TreeView
+							defaultCollapseIcon={<ExpandMoreIcon />}
+							defaultExpandIcon={<ChevronRightIcon />}
+						>
+							<TreeItem nodeId="1" label="Applications">
+								abcd
+							</TreeItem>
+						</TreeView>
+					</div>
 				</div>
 				<div className="dashboard__aside">
 					<div className="dashboard__searchPanel">
