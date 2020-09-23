@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../sass/Dashboard.sass";
 import Navbar from "./Navbar";
 import searchIcon from "../asset/search.png";
@@ -8,7 +8,7 @@ import TreeView from "@material-ui/lab/TreeView";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import TreeItem from "@material-ui/lab/TreeItem";
-
+import Checkbox from "./Checkbox";
 /**
  * Root page of site or main page for SPA
  */
@@ -19,7 +19,8 @@ function Dashboard() {
 	};
 	const extractionTaglist = () => {
 		let tags = [];
-		muData.map((item) => {
+
+		muData.forEach((item) => {
 			item.tag_list.forEach((tag) => {
 				if (!tags.includes(tag)) {
 					tags.push(tag);
@@ -49,7 +50,10 @@ function Dashboard() {
 							defaultExpandIcon={<ChevronRightIcon />}
 						>
 							<TreeItem nodeId="1" label="Applications">
-								abcd
+								<Checkbox label={brand[0]} />
+								<Checkbox label={brand[1]} />
+								<Checkbox label={brand[2]} />
+								<Checkbox label={brand[3]} />
 							</TreeItem>
 						</TreeView>
 					</div>
