@@ -62,6 +62,7 @@
 .dashboard__filter
   @extend %d-flex-c
   justify-content: flex-start
+  align-items: flex-start
   padding: 20px
   width: 300px
   height: 86vh
@@ -76,8 +77,11 @@
     font-weight: normal
 
   hr
-    width: 80%
+    width: 95%
     box-shadow: $shadow
+
+  h3,hr 
+    align-self: center
 
 
 .dashboard__aside

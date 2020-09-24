@@ -13,7 +13,6 @@ function Checkbox(props) {
 					label: props.label,
 				},
 			});
-			// console.log("value in filtersArray", filtersArray);
 		} else {
 			await dispatch({
 				type: "REMOVE_FROM_FILTER",
@@ -21,7 +20,6 @@ function Checkbox(props) {
 					label: props.label,
 				},
 			});
-			// console.log("value in filtersArray", filtersArray);
 		}
 	};
 	return (

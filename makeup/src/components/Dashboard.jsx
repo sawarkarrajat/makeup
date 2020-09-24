@@ -34,7 +34,23 @@ function Dashboard() {
 	const category = extractionLabels("category");
 	const product_type = extractionLabels("product_type");
 	const tag_list = extractionTaglist();
-	console.log(tag_list);
+
+	const [currentlyDisplayedCards, setCurrentlyDisplayedCards] = useState([]);
+
+	const autoCompleteSearch = (searchedText) => {
+		setSearchText(searchedText);
+		let matches = muData.filter((product) => {
+			const regex = new RegExp(`^${searchedText}`, "gi");
+
+			return (
+				product.brand?.match(regex) ||
+				product.category?.match(regex) ||
+				product.product_type?.match(regex)
+			);
+		});
+		console.log("value in matches", matches);
+		setCurrentlyDisplayedCards(matches);
+	};
 
 	return (
 		<div className="dashboard__main">
@@ -63,18 +79,18 @@ function Dashboard() {
 						<input
 							type="text"
 							value={searchText}
-							onChange={(e) => setSearchText(e.target.value)}
+							onChange={(e) => autoCompleteSearch(e.target.value)}
 							autoComplete="on"
 							placeholder="search for products here..."
 							className="dashboard__searchInput"
 						/>
 						<button className="dashboard__searchButton">
 							search
-							<img src={searchIcon} alt="s" />
+							<img src={searchIcon} alt="search" />
 						</button>
 						<button className="dashboard__clearButton">
 							clear
-							<img src={crossIcon} alt="x" />
+							<img src={crossIcon} alt="cross" />
 						</button>
 					</div>
 				</div>
