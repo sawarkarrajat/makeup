@@ -92,8 +92,9 @@
   width: calc( 100% - 350px )  
   border-radius: 10px
   box-shadow: 3px 3px 6px 5px #d4b9b945
-  min-height: 86vh
-  height: auto
+  height: 86vh
+  overflow: auto
+  position: relative
 
 .dashboard__searchPanel
   @extend %d-flex-r
@@ -126,6 +127,7 @@
   font-size: 18px
   border-radius: 25px
   box-shadow: $shadow
+  cursor: pointer
   
 
   img 
@@ -144,3 +146,41 @@
     fill: white
   .MuiTreeItem-label,.MuiCollapse-wrapperInner
     color: white
+
+
+.dashboard__searchSuggestions
+  @extend %d-flex-c
+  align-items: start
+  align-self: flex-start
+  justify-content: flex-start
+  background: #ffffff
+  border: 1px solid $clr5
+  max-height: 150px
+  min-height: 30px
+  width: 480px
+  overflow: auto
+  position: absolute
+  top: 55px
+  left: 30px
+  border-radius: 8px
+  z-index: 10
+  box-shadow: $shadow
+
+  .dashboard__suggestion
+    padding-left: 10px
+    width: 100%
+
+    &:hover
+      background-color: $clr4
+      box-shadow: $shadow
+      color: $clr5
+      cursor: pointer
+
+.dashboard__cardsContainer
+  margin-top: 20px
+  @extend %d-flex-r
+  width: 100%
+  justify-content: flex-start
+  align-items: flex-start
+  height: auto
+  flex-flow: row wrap
