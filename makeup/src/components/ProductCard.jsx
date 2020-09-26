@@ -24,6 +24,14 @@ function ProductCard() {
         <p>
           rating: <strong>4.3</strong>
         </p>
+        <div className="productCard__colorswatch">
+          <span style={{ backgroundColor: "yellow" }}></span>
+          <span style={{ backgroundColor: "yellow" }}></span>
+          <span style={{ backgroundColor: "yellow" }}></span>
+          <span style={{ backgroundColor: "yellow" }}></span>
+          <span style={{ backgroundColor: "yellow" }}></span>
+          <span style={{ backgroundColor: "yellow" }}></span>
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,9 @@
 @import base.sass
 
+.MuiTreeItem-root.Mui-selected > .MuiTreeItem-content .MuiTreeItem-label,
+.MuiTreeItem-root.Mui-selected > .MuiTreeItem-content .MuiTreeItem-label:hover, .MuiTreeItem-root.Mui-selected:focus > .MuiTreeItem-content .MuiTreeItem-label
+  background: transparent !important
+
 .dashboard__main
   @extend %d-flex-c 
   width: 99vw
@@ -184,3 +188,4 @@
   align-items: flex-start
   height: auto
   flex-flow: row wrap
+

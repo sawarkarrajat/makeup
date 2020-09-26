@@ -10,24 +10,32 @@ export default function LoadingSkeleton() {
     margin: "0 3px 3px 3px",
   };
   return (
-    <div className="panel-body-skeleton">
-      <div className="product_image">
-        <Skeleton variant="circle" height="156px" width="156px" />
-      </div>
-      <div className="panelTextContainer">
-        <Skeleton animation="wave" />
-        <Skeleton animation="wave" />
-        <Skeleton animation="wave" />
-        <Skeleton animation="wave" style={{ width: "50%" }} />
-      </div>
-      <div className="colour_section">
-        <Skeleton variant="circle" height="20px" width="20px" style={mar} />
-        <Skeleton variant="circle" height="20px" width="20px" style={mar} />
-
-        <Skeleton variant="circle" height="20px" width="20px" style={mar} />
-
-        <Skeleton variant="circle" height="20px" width="20px" style={mar} />
-      </div>
+    <div className="container">
+      <section>
+        <h1 id="loadingText">Loading...</h1>
+      </section>
+      <section className="containersec">
+        {Array(12)
+          .fill()
+          .map((_, i) => (
+            <div key={i + 27852} className="panel-body-skeleton">
+              <div className="product_image">
+                <Skeleton
+                  id="skImage"
+                  variant="rect"
+                  height="80px"
+                  width="100px"
+                />
+                <div className="panelTextContainer">
+                  <Skeleton animation="wave" />
+                  <Skeleton animation="wave" />
+                  <Skeleton animation="wave" />
+                  <Skeleton animation="wave" style={{ width: "50%" }} />
+                </div>
+              </div>
+            </div>
+          ))}
+      </section>
     </div>
   );
 }
