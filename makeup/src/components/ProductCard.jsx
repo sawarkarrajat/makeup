@@ -18,7 +18,9 @@ function ProductCard() {
         <p>
           <strong>category:</strong> powder
         </p>
-        <p>$ 14.00</p>
+        <p>
+          <strong>$</strong> 14.00
+        </p>
         <p>
           rating: <strong>4.3</strong>
         </p>
