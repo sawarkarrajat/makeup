@@ -4,37 +4,41 @@ import Navbar from "./Navbar";
 import searchIcon from "../asset/search.png";
 import crossIcon from "../asset/cross.png";
 import makeupData from "../makeupData.json";
-import TreeView from "@material-ui/lab/TreeView";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import TreeItem from "@material-ui/lab/TreeItem";
-import Checkbox from "./Checkbox";
+// import TreeView from "@material-ui/lab/TreeView";
+// import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+// import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+// import TreeItem from "@material-ui/lab/TreeItem";
+// import Checkbox from "./Checkbox";
 import ProductCard from "./ProductCard";
 import LoadingSkeleton from "./LoadingSkeleton";
 /**
  * Root page of site or main page for SPA
  */
+let muData = Object.assign([{}], makeupData);
+console.log(muData[0]);
+// const extractionLabels = (label) => {
+//   return [...new Set(muData.map((item) => item[label]))];
+// };
+
+// const extractionTaglist = () => {
+//   let tags = [];
+//   muData.forEach((item) => {
+//     item.tag_list.forEach((tag) => {
+//       if (!tags.includes(tag)) {
+//         tags.push(tag);
+//       }
+//     });
+//   });
+//   return tags;
+// };
+
+// const brand = extractionLabels("brand");
+// const category = extractionLabels("category");
+// const product_type = extractionLabels("product_type");
+// const tag_list = extractionTaglist();
+
 function Dashboard() {
-  let muData = Object.assign([{}], makeupData);
-  const extractionLabels = (label) => {
-    return [...new Set(muData.map((item) => item[label]))];
-  };
-  const extractionTaglist = () => {
-    let tags = [];
-    muData.forEach((item) => {
-      item.tag_list.forEach((tag) => {
-        if (!tags.includes(tag)) {
-          tags.push(tag);
-        }
-      });
-    });
-    return tags;
-  };
   const [searchText, setSearchText] = useState("");
-  const brand = extractionLabels("brand");
-  const category = extractionLabels("category");
-  const product_type = extractionLabels("product_type");
-  const tag_list = extractionTaglist();
   const [isLoading, setIsLoading] = useState(false);
   const [currentlyDisplayedCards, setCurrentlyDisplayedCards] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
@@ -101,7 +105,7 @@ function Dashboard() {
           <hr />
           <br />
           <div className="dashboard__filterLabel">
-            <TreeView
+            {/* <TreeView
               defaultCollapseIcon={<ExpandMoreIcon />}
               defaultExpandIcon={<ChevronRightIcon />}
             >
@@ -111,7 +115,7 @@ function Dashboard() {
                 <Checkbox label={brand[2]} />
                 <Checkbox label={brand[3]} />
               </TreeItem>
-            </TreeView>
+            </TreeView> */}
           </div>
         </div>
         <div className="dashboard__aside">
@@ -161,23 +165,7 @@ function Dashboard() {
             </div>
           ) : (
             <div className="dashboard__cardsContainer">
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
+              <ProductCard product={muData[0]} />
             </div>
           )}
         </div>

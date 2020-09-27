@@ -6,9 +6,6 @@ import Skeleton from "@material-ui/lab/Skeleton";
  *@returns {htmlComponent} - a card with loading skeleton of material ui
  */
 export default function LoadingSkeleton() {
-  const mar = {
-    margin: "0 3px 3px 3px",
-  };
   return (
     <div className="container">
       <section>

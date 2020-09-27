@@ -27,6 +27,10 @@
         margin-right: 0.3em
         height: 5rem
         width: 5rem
+        border-radius: 8px
+
+    .productCard__pname
+        color: $clr5
 
 .productCard__lowerPart
     @extend %d-flex-c
@@ -43,7 +47,8 @@
         border: 2px solid white
         border-radius: 100vw
         margin-right: 6px
-
+        margin-bottom: 6px
+        box-shadow: $shadow
     
 .productCard__info
     @extend %d-flex-c
@@ -66,7 +71,8 @@ h3,h4,p
     .productCard__lowerPart
         animation: grow 800ms ease-in-out 100ms 1 forwards 
     .productCard__upperPart
-        transform: scale(1.02)
+        transform: scale(1.02) 
+        transition-duration: 800ms
 
 
 @keyframes grow 
@@ -86,3 +92,4 @@ h3,h4,p
     height: auto
     justify-content: flex-start
     align-items: flex-start
+    flex-flow: row wrap
