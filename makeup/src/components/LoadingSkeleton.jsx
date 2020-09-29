@@ -15,7 +15,7 @@ export default function LoadingSkeleton() {
         {Array(12)
           .fill()
           .map((_, i) => (
-            <div key={i + 27852} className="panel-body-skeleton">
+            <div key={i + Math.random()} className="panel-body-skeleton">
               <div className="product_image">
                 <Skeleton
                   id="skImage"

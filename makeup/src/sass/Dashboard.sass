@@ -171,14 +171,51 @@
   box-shadow: $shadow
 
   .dashboard__suggestion
+    display: flex
+    justify-content: space-between
     padding-left: 10px
     width: 100%
+    min-height: 30px
+    height: auto
+    align-items: center
 
     &:hover
       background-color: $clr4
       box-shadow: $shadow
-      color: $clr5
       cursor: pointer
+      p
+        color: $clr5
+
+.dashboard__suggestionName
+  width: 60%
+  margin-bottom: 0
+  font-size: 12px
+
+.dashboard__suggestionCategory,
+.dashboard__suggestionBrand
+  width: 20%
+
+.dashboard__suggestionName,
+.dashboard__suggestionCategory
+  margin-right: 20px
+  position: relative
+
+.dashboard__suggestionBrand
+  position: relative
+  margin-right: 10px
+
+.dashboard__suggestionCategory::before,
+.dashboard__suggestionBrand::before
+  position: absolute
+  font-size: 8px
+  top: 9px
+  color: #aa11aa
+.dashboard__suggestionCategory::before
+  content: "category"
+
+.dashboard__suggestionBrand::before
+  content: "brand"
+
 
 .dashboard__cardsContainer
   margin-top: 20px
@@ -188,4 +225,10 @@
   align-items: flex-start
   height: auto
   flex-flow: row wrap
+
+.dashboard__msgContainer
+  display: block
+  margin: 7em
+.dashboard__girlImage
+  max-width: 12vw
 

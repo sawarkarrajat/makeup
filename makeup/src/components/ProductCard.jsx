@@ -15,7 +15,9 @@ function ProductCard(props) {
   return (
     <div className="productCard__card">
       <div className="productCard__upperPart">
-        <img src={image_link || api_featured_image} alt={brand} />
+        <div className="productCard__img">
+          <img src={image_link || api_featured_image} alt={brand} />
+        </div>
         <div className="productCard__info">
           <h3>{brand}</h3>
           <p className="productCard__pname">{name}</p>
@@ -41,7 +43,7 @@ function ProductCard(props) {
         <div className="productCard__colorswatch">
           {product_colors?.map((color) => (
             <span
-              key={color.hex_value}
+              key={color.hex_value + Math.random()}
               title={color.colour_name}
               style={{ backgroundColor: color.hex_value }}
             ></span>

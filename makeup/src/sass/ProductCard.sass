@@ -23,11 +23,17 @@
     box-shadow: $shadow,$shadow
     z-index: 10
 
-    img
+    .productCard__img
+        display: flex
         margin-right: 0.3em
         height: 5rem
         width: 5rem
         border-radius: 8px
+
+        img 
+            object-fit: contain
+            width: 100%
+            height: 100%
 
     .productCard__pname
         color: $clr5
@@ -93,3 +99,4 @@ h3,h4,p
     justify-content: flex-start
     align-items: flex-start
     flex-flow: row wrap
+

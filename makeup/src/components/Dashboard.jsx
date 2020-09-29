@@ -11,11 +11,12 @@ import makeupData from "../makeupData.json";
 // import Checkbox from "./Checkbox";
 import ProductCard from "./ProductCard";
 import LoadingSkeleton from "./LoadingSkeleton";
+import girlImg from "../asset/girl.png";
+import girlhhm from "../asset/girlhhmm.png";
 /**
  * Root page of site or main page for SPA
  */
 let muData = Object.assign([{}], makeupData);
-console.log(muData[0]);
 // const extractionLabels = (label) => {
 //   return [...new Set(muData.map((item) => item[label]))];
 // };
@@ -37,9 +38,30 @@ console.log(muData[0]);
 // const product_type = extractionLabels("product_type");
 // const tag_list = extractionTaglist();
 
+const TypeSomething = () => {
+  return (
+    <div className="dashboard__msgContainer">
+      <img src={girlImg} alt="girlmakeup" className="dashboard__girlImage" />
+      <h3>
+        type something in search bar above <br />
+        to find products you might like...
+      </h3>
+    </div>
+  );
+};
+const NothingFound = () => {
+  return (
+    <div className="dashboard__msgContainer">
+      <h2>hhmm couldn't find anything...</h2>
+      <img src={girlhhm} alt="girlmakeup" className="dashboard__girlImage" />
+    </div>
+  );
+};
+
 function Dashboard() {
   const [searchText, setSearchText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [noResultsMsg, setNoResultsMsg] = useState(false);
   const [currentlyDisplayedCards, setCurrentlyDisplayedCards] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
 
@@ -64,37 +86,46 @@ function Dashboard() {
     if (searchedText.length === 0) {
       matches = [];
       setSuggestions([]);
+      setNoResultsMsg(false);
     }
-    console.table(matches);
+
     setSuggestions(matches);
+  };
+  const searchSequence = () => {
+    fakeLoading();
+    if (suggestions.length === 0) {
+      setNoResultsMsg(true);
+    }
+    setCurrentlyDisplayedCards(suggestions);
+    setSuggestions([]);
   };
   const handleSearchClear = (e) => {
     e.preventDefault();
     setSearchText("");
     setSuggestions([]);
     setCurrentlyDisplayedCards([]);
+    setNoResultsMsg(false);
   };
   const handleSuggestionClick = (e, name) => {
     e.preventDefault();
     setSearchText(name);
-    setSuggestions([]);
+    searchSequence();
   };
   const handleKey = (event) => {
+    event.preventDefault();
+
     if (
       event.keyCode === 13 ||
       event.which === 13 ||
       event.key === "Enter" ||
       event.button === 0
     ) {
-      fakeLoading();
-      setCurrentlyDisplayedCards(suggestions);
-      setSuggestions([]);
+      searchSequence();
     }
   };
   const handleSearchButton = (e) => {
     e.preventDefault();
-    fakeLoading();
-    setCurrentlyDisplayedCards(suggestions);
+    searchSequence();
   };
   return (
     <div className="dashboard__main">
@@ -124,8 +155,8 @@ function Dashboard() {
               type="text"
               value={searchText}
               onChange={(e) => autoCompleteSearch(e.target.value)}
-              onKeyUp={(event) => {
-                return handleKey(event);
+              onKeyUp={(e) => {
+                return handleKey(e);
               }}
               autoComplete="on"
               placeholder="search for products here..."
@@ -154,7 +185,13 @@ function Dashboard() {
                   className="dashboard__suggestion"
                   onClick={(e) => handleSuggestionClick(e, product.name)}
                 >
-                  {product.name}
+                  <p className="dashboard__suggestionName">{product.name}</p>
+                  <p className="dashboard__suggestionCategory">
+                    {!product.category ? "none" : product.category}
+                  </p>
+                  <p className="dashboard__suggestionBrand">
+                    {!product.brand ? "no brand" : product.brand}
+                  </p>
                 </div>
               ))}
             </div>
@@ -165,7 +202,15 @@ function Dashboard() {
             </div>
           ) : (
             <div className="dashboard__cardsContainer">
-              <ProductCard product={muData[0]} />
+              {currentlyDisplayedCards?.length > 0 ? (
+                currentlyDisplayedCards.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))
+              ) : noResultsMsg ? (
+                <NothingFound />
+              ) : (
+                <TypeSomething />
+              )}
             </div>
           )}
         </div>
