@@ -187,13 +187,16 @@
         color: $clr5
 
 .dashboard__suggestionName
-  width: 60%
+  width: 50%
   margin-bottom: 0
   font-size: 12px
 
-.dashboard__suggestionCategory,
-.dashboard__suggestionBrand
+.dashboard__suggestionCategory
   width: 20%
+
+.dashboard__suggestionBrand
+  width: 30%
+  white-space: pre
 
 .dashboard__suggestionName,
 .dashboard__suggestionCategory
@@ -202,13 +205,13 @@
 
 .dashboard__suggestionBrand
   position: relative
-  margin-right: 10px
+  margin-right: 25px
 
 .dashboard__suggestionCategory::before,
 .dashboard__suggestionBrand::before
   position: absolute
   font-size: 8px
-  top: 9px
+  top: 14px
   color: #aa11aa
 .dashboard__suggestionCategory::before
   content: "category"

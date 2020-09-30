@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import searchIcon from "../asset/search.png";
 import crossIcon from "../asset/cross.png";
 import makeupData from "../makeupData.json";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 // import TreeView from "@material-ui/lab/TreeView";
 // import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 // import ChevronRightIcon from "@material-ui/icons/ChevronRight";
@@ -178,23 +179,25 @@ function Dashboard() {
             </button>
           </div>
           {suggestions.length > 0 && (
-            <div className="dashboard__searchSuggestions">
-              {suggestions.map((product) => (
-                <div
-                  key={product.id}
-                  className="dashboard__suggestion"
-                  onClick={(e) => handleSuggestionClick(e, product.name)}
-                >
-                  <p className="dashboard__suggestionName">{product.name}</p>
-                  <p className="dashboard__suggestionCategory">
-                    {!product.category ? "none" : product.category}
-                  </p>
-                  <p className="dashboard__suggestionBrand">
-                    {!product.brand ? "no brand" : product.brand}
-                  </p>
-                </div>
-              ))}
-            </div>
+            <ClickAwayListener onClickAway={() => setSuggestions([])}>
+              <div className="dashboard__searchSuggestions">
+                {suggestions.map((product) => (
+                  <div
+                    key={product.id}
+                    className="dashboard__suggestion"
+                    onClick={(e) => handleSuggestionClick(e, product.name)}
+                  >
+                    <p className="dashboard__suggestionName">{product.name}</p>
+                    <p className="dashboard__suggestionCategory">
+                      {!product.category ? "none" : product.category}
+                    </p>
+                    <p className="dashboard__suggestionBrand">
+                      {!product.brand ? "no brand" : product.brand}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </ClickAwayListener>
           )}
           {isLoading ? (
             <div className="dashboard__cardsContainer">
