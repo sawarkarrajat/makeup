@@ -146,6 +146,8 @@
   color: white
 
 .dashboard__filterLabel
+  overflow: auto
+  width: 100%
   .MuiSvgIcon-root
     fill: white
   .MuiTreeItem-label,.MuiCollapse-wrapperInner
@@ -159,13 +161,12 @@
   justify-content: flex-start
   background: #ffffff
   border: 1px solid $clr5
-  max-height: 150px
+  max-height: 250px
   min-height: 30px
-  width: 480px
+  width: 62%
   overflow: auto
   position: absolute
   top: 55px
-  left: 30px
   border-radius: 8px
   z-index: 1000
   box-shadow: $shadow
@@ -175,7 +176,8 @@
     justify-content: space-between
     padding-left: 10px
     width: 100%
-    min-height: 30px
+    min-height: 40px
+    border-radius: 8px
     height: auto
     align-items: center
 

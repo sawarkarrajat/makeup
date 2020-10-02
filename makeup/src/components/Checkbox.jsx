@@ -5,23 +5,24 @@ import { useStateValue } from "./StateProvider";
 function Checkbox(props) {
   // eslint-disable-next-line
   const [{ filtersArray }, dispatch] = useStateValue();
-  const handleChange = async (event) => {
+  const handleChange = (event) => {
     console.log("event.target.checked", event.target.checked);
     if (event.target.checked) {
-      await dispatch({
+      dispatch({
         type: "ADD_TO_FILTER",
         item: {
           label: props.label,
         },
       });
     } else {
-      await dispatch({
+      dispatch({
         type: "REMOVE_FROM_FILTER",
         item: {
           label: props.label,
         },
       });
     }
+    // console.log("value in filterArray", filtersArray);
   };
   return (
     <label className="checkbox">

@@ -4,41 +4,37 @@ import Navbar from "./Navbar";
 import searchIcon from "../asset/search.png";
 import crossIcon from "../asset/cross.png";
 import makeupData from "../makeupData.json";
+import { useStateValue } from "./StateProvider";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-// import TreeView from "@material-ui/lab/TreeView";
-// import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-// import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-// import TreeItem from "@material-ui/lab/TreeItem";
-// import Checkbox from "./Checkbox";
 import ProductCard from "./ProductCard";
 import LoadingSkeleton from "./LoadingSkeleton";
 import girlImg from "../asset/girl.png";
 import girlhhm from "../asset/girlhhmm.png";
+import FilterTree from "./FilterTree";
 /**
  * Root page of site or main page for SPA
  */
 let muData = Object.assign([{}], makeupData);
-// const extractionLabels = (label) => {
-//   return [...new Set(muData.map((item) => item[label]))];
-// };
+const extractionLabels = (label) => {
+  return [...new Set(muData.map((item) => item[label]))];
+};
 
-// const extractionTaglist = () => {
-//   let tags = [];
-//   muData.forEach((item) => {
-//     item.tag_list.forEach((tag) => {
-//       if (!tags.includes(tag)) {
-//         tags.push(tag);
-//       }
-//     });
-//   });
-//   return tags;
-// };
+const extractionTaglist = () => {
+  let tags = [];
+  muData.forEach((item) => {
+    item.tag_list.forEach((tag) => {
+      if (!tags.includes(tag)) {
+        tags.push(tag);
+      }
+    });
+  });
+  return tags;
+};
 
-// const brand = extractionLabels("brand");
-// const category = extractionLabels("category");
-// const product_type = extractionLabels("product_type");
-// const tag_list = extractionTaglist();
-
+const brand = extractionLabels("brand");
+const category = extractionLabels("category");
+const product_type = extractionLabels("product_type");
+const tag_list = extractionTaglist();
 const TypeSomething = () => {
   return (
     <div className="dashboard__msgContainer">
@@ -65,15 +61,15 @@ function Dashboard() {
   const [noResultsMsg, setNoResultsMsg] = useState(false);
   const [currentlyDisplayedCards, setCurrentlyDisplayedCards] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
+  const [{ filtersArray }, dispatch] = useStateValue();
 
   const fakeLoading = () => {
     setIsLoading(true);
     setInterval(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 2000);
   };
-  const autoCompleteSearch = (searchedText) => {
-    setSearchText(searchedText);
+  const autocompleteFilter = (searchedText) => {
     let matches = muData.filter((product) => {
       const regex = new RegExp(`^${searchedText}`, "gi");
 
@@ -84,13 +80,22 @@ function Dashboard() {
         product.product_type?.match(regex)
       );
     });
-    if (searchedText.length === 0) {
+    return matches;
+  };
+  const autoCompleteSearch = (e) => {
+    e.preventDefault();
+    let stext = e.target.value,
+      matches;
+    setSearchText(stext);
+    if (stext.length === 0) {
       matches = [];
       setSuggestions([]);
       setNoResultsMsg(false);
+      return;
+    } else {
+      matches = autocompleteFilter(stext);
+      setSuggestions(matches);
     }
-
-    setSuggestions(matches);
   };
   const searchSequence = () => {
     fakeLoading();
@@ -104,13 +109,13 @@ function Dashboard() {
     e.preventDefault();
     setSearchText("");
     setSuggestions([]);
-    setCurrentlyDisplayedCards([]);
-    setNoResultsMsg(false);
   };
-  const handleSuggestionClick = (e, name) => {
+  const handleSuggestionClick = (e, product) => {
     e.preventDefault();
-    setSearchText(name);
-    searchSequence();
+    setSearchText(product.name);
+    fakeLoading();
+    setSuggestions([]);
+    setCurrentlyDisplayedCards([product]);
   };
   const handleKey = (event) => {
     event.preventDefault();
@@ -137,17 +142,10 @@ function Dashboard() {
           <hr />
           <br />
           <div className="dashboard__filterLabel">
-            {/* <TreeView
-              defaultCollapseIcon={<ExpandMoreIcon />}
-              defaultExpandIcon={<ChevronRightIcon />}
-            >
-              <TreeItem nodeId="1" label="Applications">
-                <Checkbox label={brand[0]} />
-                <Checkbox label={brand[1]} />
-                <Checkbox label={brand[2]} />
-                <Checkbox label={brand[3]} />
-              </TreeItem>
-            </TreeView> */}
+            <FilterTree treeLabel="brands" checkboxArray={brand} />
+            <FilterTree treeLabel="category" checkboxArray={category} />
+            <FilterTree treeLabel="product type" checkboxArray={product_type} />
+            <FilterTree treeLabel="tags" checkboxArray={tag_list} />
           </div>
         </div>
         <div className="dashboard__aside">
@@ -155,7 +153,7 @@ function Dashboard() {
             <input
               type="text"
               value={searchText}
-              onChange={(e) => autoCompleteSearch(e.target.value)}
+              onChange={(e) => autoCompleteSearch(e)}
               onKeyUp={(e) => {
                 return handleKey(e);
               }}
@@ -185,7 +183,7 @@ function Dashboard() {
                   <div
                     key={product.id}
                     className="dashboard__suggestion"
-                    onClick={(e) => handleSuggestionClick(e, product.name)}
+                    onClick={(e) => handleSuggestionClick(e, product)}
                   >
                     <p className="dashboard__suggestionName">{product.name}</p>
                     <p className="dashboard__suggestionCategory">
