@@ -32,8 +32,6 @@ const extractionTaglist = () => {
 };
 
 const brand = extractionLabels("brand");
-const category = extractionLabels("category");
-const product_type = extractionLabels("product_type");
 const tag_list = extractionTaglist();
 const TypeSomething = () => {
   return (
@@ -143,8 +141,6 @@ function Dashboard() {
           <br />
           <div className="dashboard__filterLabel">
             <FilterTree treeLabel="brands" checkboxArray={brand} />
-            <FilterTree treeLabel="category" checkboxArray={category} />
-            <FilterTree treeLabel="product type" checkboxArray={product_type} />
             <FilterTree treeLabel="tags" checkboxArray={tag_list} />
           </div>
         </div>
