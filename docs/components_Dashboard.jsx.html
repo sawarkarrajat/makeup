@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/Dashboard.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/Dashboard.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect } from "react";
+import "../sass/Dashboard.sass";
+import Collage from "./Collage";
+import Navbar from "./Navbar";
+import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
+import IconButton from "@material-ui/core/IconButton";
+import SearchIcon from "@material-ui/icons/Search";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import TextField from "@material-ui/core/TextField";
+import OptionsSelect from "./OptionsSelect";
+import Panel from "./Panel";
+import Services from "../services/Services";
+import LoadingSkeleton from "./LoadingSkeleton";
+import uniqid from "uniqid";
+/**
+ * @type{const} hitApi 
+ * @description store instance of services
+ */
+const hitApi = new Services();
+/**
+ * @type{variable} jsonData 
+ * @description stores json format data to display in ui
+ */
+var jsonData = [];
+/**
+ * @type{variable} 
+ * @description stores initail target link to display cards
+ */
+var target = "product_category=powder&amp;product_type=blush";
+/**
+ * @type{StringArray} 
+ * @description stores search history of components
+ */
+const searchHistory = [];
+/**
+ * @type{Object} 
+ * @description stores style object
+ */
+const useStyles = makeStyles(() => ({
+	TextField: {
+		"&amp; label.Mui-focused": {
+			color: "#fc7fb2",
+		},
+		"&amp; .MuiInput-underline:after": {
+			borderBottomColor: "#fc7fb2",
+		},
+	},
+}));
+
+/**
+ * Root page of site or main page for SPA
+ * @param {Object} props
+ */
+function Dashboard(props) {
+	/**
+	 * @type{constant} 
+	 * @description stores prefix string
+	 */
+	const searchPrefix = "product_type=";
+	/**
+	 * @type{constant} 
+	 * @description stores reference
+	 */
+	const ref = React.createRef();
+	/**
+	 * @type {hook} 
+	 * @description controls when to show skeleton
+	 */
+	const [showSkeleton, setShowSkeleton] = useState(true);
+	/**
+	 * @property {Function} - used to hit api with filters
+	 */
+	const postman = (letter) => {
+		hitApi
+			.getJson(letter)
+			.then(async (response) => {
+				/**
+				 * @type {variable} 
+				 * @description stores element
+				 */
+				let element = document.getElementById("displayCards");
+				element.scrollIntoView();
+				jsonData = await response.data;
+				if (jsonData.length === 0) {
+					alert("no data found");
+				}
+				console.log(jsonData);
+			})
+			.then(() => {
+				setShowSkeleton(false);
+			})
+			.catch((error) => {
+				console.log(error);
+				alert("failed to get json");
+			});
+	};
+	/**
+	 * @property {Funciton} - used to load side effects
+	 */
+	useEffect(() => {
+		postman(target);
+	}, []);
+	/**
+	 * @type {Object} 
+	 * @description instance of usestyles
+	 */
+	const classes = useStyles();
+	/**
+	 * @type {hook} 
+	 * @description  used to set filters visiblity
+	 */
+	const [filter, setFilter] = useState(false);
+	/**
+	 * @type {hook} 
+	 * @description used to reset filters
+	 */
+	const [resetfilter, setResetfilter] = useState(true);
+	/**
+	 * @type{Array} 
+	 * @description- a String array
+	 */
+	const brandList = [
+		"almay",
+		"alva",
+		"anna sui",
+		"annabelle",
+		"benefit",
+		"boosh",
+		"burt's bees",
+		"butter london",
+		"c'est moi",
+		"cargo cosmetics",
+		"china glaze",
+		"clinique",
+		"coastal classic creation",
+		"colourpop",
+		"covergirl",
+		"dalish",
+		"deciem",
+		"dior",
+		"dr. hauschka",
+		"e.l.f.",
+		"essie",
+		"fenty",
+		"glossier",
+		"green people",
+		"iman",
+		"l'oreal",
+		"lotus cosmetics usa",
+		"maia's mineral galaxy",
+		"marcelle",
+		"marienatie",
+		"maybelline",
+		"milani",
+		"mineral fusion",
+		"misa",
+		"mistura",
+		"moov",
+		"nudus",
+		"nyx",
+		"orly",
+		"pacifica",
+		"penny lane organics",
+		"physicians formula",
+		"piggy paint",
+		"pure anada",
+		"rejuva minerals",
+		"revlon",
+		"sally b's skin yummies",
+		"salon perfect",
+		"sante",
+		"sinful colours",
+		"smashbox",
+		"stila",
+		"suncoat",
+		"w3llpeople",
+		"wet n wild",
+		"zorah",
+		"zorah biocosmetiques",
+	];
+	/**
+	 * @type {Array} 
+	 * @description a String array
+	 */
+	const product_tags = [
+		"Canadian",
+		"CertClean",
+		"Chemical Free",
+		"Dairy Free",
+		"EWG Verified",
+		"EcoCert",
+		"Fair Trade",
+		"Gluten Free",
+		"Hypoallergenic",
+		"Natural",
+		"No Talc",
+		"Non-GMO",
+		"Organic",
+		"Peanut Free Product",
+		"Sugar Free",
+		"USDA Organic",
+		"Vegan",
+		"alcohol free",
+		"cruelty free",
+		"oil free",
+		"purpicks",
+		"silicone free",
+		"water free",
+	];
+	/**
+	 * @type {Array} 
+	 * @description a String array
+	 */
+	const product_category = [
+		"powder",
+		"cream",
+		"gel",
+		"pencil",
+		"palette",
+		"liquid",
+		"contour",
+		"bb_cc",
+		"concealer",
+		"mineral",
+		"highlighter",
+		"lipstick",
+		"lip_gloss",
+		"lip_stain",
+	];
+	/**
+	 * @type {Array} 
+	 * @description a String array
+	 */
+	const product_type = [
+		"blush",
+		"bronzer",
+		"eyebrow",
+		"eyeliner",
+		"eyeshadow",
+		"foundation",
+		"lip_liner",
+		"lipstick",
+		"mascara",
+		"nail_polish",
+	];
+	/**
+	 * @type {hook} 
+	 * @description used to assign searched text
+	 */
+
+	const [searchedText, setSearchedText] = useState("");
+	/**
+	 * @type {variable} 
+	 * @description used to store an Array of skeletons
+	 */
+	let skeletonArray = [];
+
+	for (let i = 0; i &lt; 8; i++) {
+		skeletonArray.push(&lt;LoadingSkeleton key={uniqid()} />);
+	}
+	/**
+	 * @property {Function} - used to set searched text
+	 */
+	const handleChange = (event) => {
+		setSearchedText(event.currentTarget.value);
+	};
+	/**
+	 * @type {Object} 
+	 * @description used to store filters
+	 */
+	let filterObject = {
+		brand: "",
+		tag: "",
+		category: "",
+		productType: "",
+	};
+	/**
+	 * @property {Funciton} - used to set brand
+	 * @param {String} b - contains brand name string
+	 */
+	const setBrand = (b) => {
+		filterObject.brand = ("brand=" + b).trim();
+	};
+	/**
+	 *@property {Funciton} - used to set tag
+	 * @param {String} t - contains tag name string
+	 */
+	const setTag = (t) => {
+		filterObject.tag = ("product_tags=" + t).trim();
+	};
+	/**
+	 *@property {Funciton} - used to set category
+	 * @param {String} c - contains category name string
+	 */
+	const setCategory = (c) => {
+		filterObject.category = ("product_category=" + c).trim();
+	};
+	/**
+	 * @property {Funciton} - used to set product type
+	 * @param {String} pt - contains produtuct type string
+	 */
+	const setProductType = (pt) => {
+		filterObject.productType = ("product_type=" + pt).trim();
+	};
+	/**
+	 * @property {Funciton} - method used to apply filter and hit api
+	 */
+	const applyFilter = () => {
+		setShowSkeleton(true);
+		/**
+		 * @type {variable} 
+		 * @description substing of url for filters
+		 */
+		let filterString = "";
+
+		for (let [, value] of Object.entries(filterObject)) {
+			if (filterString.length === 0 &amp;&amp; `${value}`.length > 2) {
+				filterString = filterString.concat(`${value}`);
+			} else if (filterString.length > 2 &amp;&amp; `${value}`.length > 2) {
+				filterString = filterString.concat("&amp;", `${value}`);
+			}
+		}
+		postman(filterString);
+	};
+	/**
+	 * @property {Funciton} - used to reset filters
+	 */
+	const filtersReset = () => {
+		setResetfilter(!resetfilter);
+	};
+	/**
+	 * @property {Funciton} - used to clear searched text field
+	 */
+	const handleClear = () => {
+		setSearchedText("");
+	};
+	/**
+	 * @property {Funciton} - used to handle keyup event for enter press
+	 */
+	const handleKey = (event) => {
+		if (event.keyCode === 13 || event.which === 13 || event.key === "Enter") {
+			setShowSkeleton(true);
+			event.preventDefault();
+			searchHistory.push(searchedText);
+			/**
+			 * @type {variable} 
+			 * @description stores url string for searched text
+			 */
+			let newString = searchPrefix.concat(searchedText.trim());
+			postman(newString);
+		}
+	};
+	/**
+	 * @property {Funciton} - handles click on product cards
+	 */
+	const handleClick = (data) => {
+		props.history.push("/ProductDetails", { itemInfo: data });
+	};
+
+	return (
+		&lt;div className="main">
+			&lt;Navbar />
+
+			&lt;div className="container">
+				{filter ? (
+					&lt;div className="rowgrid">
+						&lt;div className="filterContainer">
+							&lt;div className="filters">
+								&lt;OptionsSelect
+									ref={ref}
+									type="Brands"
+									arrayOfItems={brandList}
+									setItem={setBrand}
+									reset={resetfilter}
+									toggleReset={filtersReset}
+								/>
+								&lt;OptionsSelect
+									ref={ref}
+									type="Product type"
+									arrayOfItems={product_type}
+									setItem={setProductType}
+									reset={resetfilter}
+									toggleReset={filtersReset}
+								/>
+								&lt;OptionsSelect
+									ref={ref}
+									type="category"
+									arrayOfItems={product_category}
+									setItem={setCategory}
+									reset={resetfilter}
+									toggleReset={filtersReset}
+								/>
+								&lt;OptionsSelect
+									ref={ref}
+									type="tags"
+									arrayOfItems={product_tags}
+									setItem={setTag}
+									reset={resetfilter}
+									toggleReset={filtersReset}
+								/>
+								&lt;Button
+									id="btn"
+									variant="contained"
+									size="small"
+									onClick={applyFilter}
+								>
+									apply
+								&lt;/Button>
+								&lt;Button
+									id="btn"
+									variant="contained"
+									size="small"
+									onClick={filtersReset}
+								>
+									reset
+								&lt;/Button>
+							&lt;/div>
+							&lt;Button
+								id="btn"
+								variant="contained"
+								size="small"
+								onClick={() => {
+									setFilter(!filter);
+								}}
+							>
+								&amp;#60; goto search
+							&lt;/Button>
+						&lt;/div>
+						&lt;div className="collage">
+							&lt;Collage />
+						&lt;/div>
+					&lt;/div>
+				) : (
+					&lt;div className="rowgrid">
+						&lt;div className="collage">
+							&lt;Collage />
+						&lt;/div>
+						&lt;div className="searchContainer">
+							&lt;Button
+								id="btn"
+								variant="contained"
+								size="small"
+								onClick={() => {
+									setFilter(!filter);
+								}}
+							>
+								goto filters &amp;#62;
+							&lt;/Button>
+							&lt;div className="search">
+								&lt;TextField
+									label="Search"
+									id="searchField"
+									fullWidth
+									classes={{
+										root: classes.TextField,
+									}}
+									InputProps={{
+										endAdornment: (
+											&lt;InputAdornment position="start">
+												&lt;IconButton size="small">
+													&lt;SearchIcon />
+												&lt;/IconButton>
+											&lt;/InputAdornment>
+										),
+									}}
+									variant="standard"
+									value={searchedText}
+									onChange={(event) => {
+										handleChange(event);
+									}}
+									onKeyUp={(event) => {
+										return handleKey(event);
+									}}
+								/>
+								&lt;Button
+									id="btn"
+									variant="contained"
+									size="small"
+									onClick={() => {
+										handleClear();
+									}}
+								>
+									clear
+								&lt;/Button>
+							&lt;/div>
+						&lt;/div>
+					&lt;/div>
+				)}
+
+				&lt;div id="displayCards" className="someCards">
+					{showSkeleton ? (
+						&lt;>{skeletonArray.map((data) => data)}&lt;/>
+					) : (
+						&lt;>
+							{jsonData.map((item) => (
+								&lt;Panel key={item.id} info={item} clicked={handleClick} />
+							))}
+						&lt;/>
+					)}
+				&lt;/div>
+			&lt;/div>
+		&lt;/div>
+	);
+}
+
+export default Dashboard;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module.html#.exports">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#Dashboard">Dashboard</a></li><li><a href="global.html#getJson">getJson</a></li><li><a href="global.html#hitApi">hitApi</a></li><li><a href="global.html#jsonData">jsonData</a></li><li><a href="global.html#OptionsSelect">OptionsSelect</a></li><li><a href="global.html#searchHistory">searchHistory</a></li><li><a href="global.html#target">target</a></li><li><a href="global.html#useStyles">useStyles</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Thu Apr 30 2020 02:52:42 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

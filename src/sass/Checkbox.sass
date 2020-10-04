@@ -1,0 +1,64 @@
+@import base.sass
+:root 
+  --color: white
+  --disabled: #959495
+
+  
+.checkbox 
+  display: grid
+  align-items: center
+  grid-template-columns: min-content auto
+  grid-gap: 10px
+  font-size: 1em
+  color: var(--color)
+
+  &--disabled 
+    color: var(--disabled)
+  
+
+
+.checkbox__control 
+  display: inline-grid
+  height: 20px
+  align-items: center
+  width: 1em
+  height: 1em
+  border-radius: 0.25em
+  border: 0.1em solid white
+
+  svg 
+    transition: transform 0.1s ease-in 25ms
+    transform: scale(0)
+    transform-origin: bottom left
+  
+
+
+.checkbox__input 
+  display: grid
+  align-items: center
+  grid-template-areas: "checkbox"
+
+  > * 
+    grid-area: checkbox
+  
+
+  input 
+    opacity: 0
+    width: 1em
+    height: 1em
+
+    &:hover + .checkbox__control 
+      box-shadow: 0 0 0 0.05em #fff, 0 0 0.15em 0.1em $clr2
+    
+
+    &:checked + .checkbox__control svg 
+      transform: scale(1)
+    
+
+    &:disabled + .checkbox__control 
+      color: var(--disabled)
+    
+.radio__label
+  padding-top: 5px
+  color: white
+
