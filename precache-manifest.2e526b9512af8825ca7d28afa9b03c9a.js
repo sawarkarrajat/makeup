@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "19f579a4d79a2aa26584fe0c2c56f54f",
+    "revision": "e433f6f041231d3689df734634cdd500",
     "url": "/makeup/index.html"
   },
   {
-    "revision": "0d7611ead5d92c237f4e",
+    "revision": "b4409049bc9e7ea08fd7",
     "url": "/makeup/static/css/main.7523633d.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/makeup/static/js/2.2418969d.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "0d7611ead5d92c237f4e",
-    "url": "/makeup/static/js/main.5af5bdcf.chunk.js"
+    "revision": "b4409049bc9e7ea08fd7",
+    "url": "/makeup/static/js/main.0dcd7126.chunk.js"
   },
   {
     "revision": "ae05fbb84b31bc68c550",
