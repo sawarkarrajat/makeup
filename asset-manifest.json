@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/makeup/tree/master/static/css/main.ee762da6.chunk.css",
-    "main.js": "/makeup/tree/master/static/js/main.b00084c8.chunk.js",
-    "main.js.map": "/makeup/tree/master/static/js/main.b00084c8.chunk.js.map",
+    "main.js": "/makeup/tree/master/static/js/main.1bad44a3.chunk.js",
+    "main.js.map": "/makeup/tree/master/static/js/main.1bad44a3.chunk.js.map",
     "runtime-main.js": "/makeup/tree/master/static/js/runtime-main.36468812.js",
     "runtime-main.js.map": "/makeup/tree/master/static/js/runtime-main.36468812.js.map",
     "static/js/2.2418969d.chunk.js": "/makeup/tree/master/static/js/2.2418969d.chunk.js",
     "static/js/2.2418969d.chunk.js.map": "/makeup/tree/master/static/js/2.2418969d.chunk.js.map",
     "index.html": "/makeup/tree/master/index.html",
-    "precache-manifest.05a2b355e6224ea01242b79b1ef914c1.js": "/makeup/tree/master/precache-manifest.05a2b355e6224ea01242b79b1ef914c1.js",
+    "precache-manifest.a32383ccfaee2f419b824bb24f94e710.js": "/makeup/tree/master/precache-manifest.a32383ccfaee2f419b824bb24f94e710.js",
     "service-worker.js": "/makeup/tree/master/service-worker.js",
     "static/css/main.ee762da6.chunk.css.map": "/makeup/tree/master/static/css/main.ee762da6.chunk.css.map",
     "static/js/2.2418969d.chunk.js.LICENSE.txt": "/makeup/tree/master/static/js/2.2418969d.chunk.js.LICENSE.txt",
@@ -20,6 +20,6 @@
     "static/js/runtime-main.36468812.js",
     "static/js/2.2418969d.chunk.js",
     "static/css/main.ee762da6.chunk.css",
-    "static/js/main.b00084c8.chunk.js"
+    "static/js/main.1bad44a3.chunk.js"
   ]
 }
