@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/makeup/tree/master/static/css/main.ee762da6.chunk.css",
-    "main.js": "/makeup/tree/master/static/js/main.1bad44a3.chunk.js",
-    "main.js.map": "/makeup/tree/master/static/js/main.1bad44a3.chunk.js.map",
-    "runtime-main.js": "/makeup/tree/master/static/js/runtime-main.36468812.js",
-    "runtime-main.js.map": "/makeup/tree/master/static/js/runtime-main.36468812.js.map",
-    "static/js/2.2418969d.chunk.js": "/makeup/tree/master/static/js/2.2418969d.chunk.js",
-    "static/js/2.2418969d.chunk.js.map": "/makeup/tree/master/static/js/2.2418969d.chunk.js.map",
-    "index.html": "/makeup/tree/master/index.html",
-    "precache-manifest.a32383ccfaee2f419b824bb24f94e710.js": "/makeup/tree/master/precache-manifest.a32383ccfaee2f419b824bb24f94e710.js",
-    "service-worker.js": "/makeup/tree/master/service-worker.js",
-    "static/css/main.ee762da6.chunk.css.map": "/makeup/tree/master/static/css/main.ee762da6.chunk.css.map",
-    "static/js/2.2418969d.chunk.js.LICENSE.txt": "/makeup/tree/master/static/js/2.2418969d.chunk.js.LICENSE.txt",
-    "static/media/App.sass": "/makeup/tree/master/static/media/bkgnd.0ce9e4cb.jpg",
-    "static/media/girl.png": "/makeup/tree/master/static/media/girl.0f4e10b2.png",
-    "static/media/girlhhmm.png": "/makeup/tree/master/static/media/girlhhmm.06f746ba.png"
+    "main.css": "/makeup/static/css/main.7523633d.chunk.css",
+    "main.js": "/makeup/static/js/main.5af5bdcf.chunk.js",
+    "main.js.map": "/makeup/static/js/main.5af5bdcf.chunk.js.map",
+    "runtime-main.js": "/makeup/static/js/runtime-main.742bb0aa.js",
+    "runtime-main.js.map": "/makeup/static/js/runtime-main.742bb0aa.js.map",
+    "static/js/2.2418969d.chunk.js": "/makeup/static/js/2.2418969d.chunk.js",
+    "static/js/2.2418969d.chunk.js.map": "/makeup/static/js/2.2418969d.chunk.js.map",
+    "index.html": "/makeup/index.html",
+    "precache-manifest.7f326c9087c170c710d4a87c803dc18e.js": "/makeup/precache-manifest.7f326c9087c170c710d4a87c803dc18e.js",
+    "service-worker.js": "/makeup/service-worker.js",
+    "static/css/main.7523633d.chunk.css.map": "/makeup/static/css/main.7523633d.chunk.css.map",
+    "static/js/2.2418969d.chunk.js.LICENSE.txt": "/makeup/static/js/2.2418969d.chunk.js.LICENSE.txt",
+    "static/media/App.sass": "/makeup/static/media/bkgnd.0ce9e4cb.jpg",
+    "static/media/girl.png": "/makeup/static/media/girl.0f4e10b2.png",
+    "static/media/girlhhmm.png": "/makeup/static/media/girlhhmm.06f746ba.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.36468812.js",
+    "static/js/runtime-main.742bb0aa.js",
     "static/js/2.2418969d.chunk.js",
-    "static/css/main.ee762da6.chunk.css",
-    "static/js/main.1bad44a3.chunk.js"
+    "static/css/main.7523633d.chunk.css",
+    "static/js/main.5af5bdcf.chunk.js"
   ]
 }
