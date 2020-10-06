@@ -14,7 +14,7 @@ function FilterTree({ treeLabel, checkboxArray }) {
       >
         <TreeItem nodeId={treeLabel} label={treeLabel}>
           {checkboxArray.map((filter) => (
-            <Checkbox key={filter} label={filter} />
+            <Checkbox key={filter} filterLabel={treeLabel} label={filter} />
           ))}
         </TreeItem>
       </TreeView>

@@ -1,35 +1,54 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../sass/Checkbox.sass";
 import { useStateValue } from "./StateProvider";
 
-function Checkbox(props) {
+function Checkbox({ filterLabel, label }) {
+  const [check, setCheck] = useState(false);
   // eslint-disable-next-line
-  const [{ filtersArray }, dispatch] = useStateValue();
+  const [state, dispatch] = useStateValue();
   const handleChange = (event) => {
+    let item = {
+      label: label,
+    };
     console.log("event.target.checked", event.target.checked);
+    setCheck(!check);
     if (event.target.checked) {
-      dispatch({
-        type: "ADD_TO_FILTER",
-        item: {
-          label: props.label,
-        },
-      });
+      if (filterLabel === "brands") {
+        dispatch({
+          type: "ADD_TO_BRAND_FILTER",
+          item: item,
+        });
+      } else {
+        dispatch({
+          type: "ADD_TO_TAG_FILTER",
+          item: item,
+        });
+      }
     } else {
-      dispatch({
-        type: "REMOVE_FROM_FILTER",
-        item: {
-          label: props.label,
-        },
-      });
+      if (filterLabel === "brands") {
+        dispatch({
+          type: "REMOVE_FROM_BRAND_FILTER",
+          item: item,
+        });
+      } else {
+        dispatch({
+          type: "REMOVE_FROM_TAG_FILTER",
+          item: item,
+        });
+      }
     }
-    // console.log("value in filterArray", filtersArray);
+    console.log("value in state", state);
   };
+  useEffect(() => {
+    setCheck(false);
+  }, [state.clearFilter]);
   return (
     <label className="checkbox">
       <span className="checkbox__input">
         <input
           type="checkbox"
           name="checkbox"
+          checked={check}
           onChange={(event) => handleChange(event)}
         />
         <span className="checkbox__control">
@@ -48,7 +67,7 @@ function Checkbox(props) {
           </svg>
         </span>
       </span>
-      <span className="radio__label">{props.label}</span>
+      <span className="checkbox__label">{!label ? "none" : label}</span>
     </label>
   );
 }

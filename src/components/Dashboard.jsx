@@ -59,7 +59,7 @@ function Dashboard() {
   const [noResultsMsg, setNoResultsMsg] = useState(false);
   const [currentlyDisplayedCards, setCurrentlyDisplayedCards] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
-  const [{ filtersArray }, dispatch] = useStateValue();
+  const [state, dispatch] = useStateValue();
 
   const fakeLoading = () => {
     setIsLoading(true);
@@ -82,7 +82,7 @@ function Dashboard() {
   };
   const autoCompleteSearch = (e) => {
     e.preventDefault();
-    let stext = e.target.value,
+    let stext = e.target.value.trim(),
       matches;
     setSearchText(stext);
     if (stext.length === 0) {
@@ -131,6 +131,14 @@ function Dashboard() {
     e.preventDefault();
     searchSequence();
   };
+  const handleClearFilters = (e) => {
+    e.preventDefault();
+    dispatch({
+      type: "CLEAR_FILTER",
+    });
+    console.log("state is", state);
+  };
+  const handleApplyFilters = (e) => {};
   return (
     <div className="dashboard__main">
       <Navbar />
@@ -142,6 +150,22 @@ function Dashboard() {
           <div className="dashboard__filterLabel">
             <FilterTree treeLabel="brands" checkboxArray={brand} />
             <FilterTree treeLabel="tags" checkboxArray={tag_list} />
+          </div>
+          <div className="dashboard__filterActions">
+            <button
+              className="dashboard__clearFilter dashboard__Button"
+              onClick={(e) => handleClearFilters(e)}
+            >
+              clear all
+              <img src={searchIcon} alt="search" />
+            </button>
+            <button
+              className="dashboard__applyFilter dashboard__Button"
+              onClick={(e) => handleApplyFilters(e)}
+            >
+              apply filter
+              <img src={searchIcon} alt="filters" />
+            </button>
           </div>
         </div>
         <div className="dashboard__aside">
@@ -158,14 +182,14 @@ function Dashboard() {
               className="dashboard__searchInput"
             />
             <button
-              className="dashboard__searchButton"
+              className="dashboard__searchButton dashboard__Button"
               onClick={(e) => handleSearchButton(e)}
             >
               search
               <img src={searchIcon} alt="search" />
             </button>
             <button
-              className="dashboard__clearButton"
+              className="dashboard__clearButton dashboard__Button"
               onClick={(e) => handleSearchClear(e)}
             >
               clear

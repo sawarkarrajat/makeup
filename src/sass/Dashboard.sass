@@ -4,6 +4,33 @@
 .MuiTreeItem-root.Mui-selected > .MuiTreeItem-content .MuiTreeItem-label:hover, .MuiTreeItem-root.Mui-selected:focus > .MuiTreeItem-content .MuiTreeItem-label
   background: transparent !important
 
+.dashboard__Button
+  margin-left: 10px
+  background: $clr4
+  color: $clr1
+  width: fit-content
+  padding: 0 10px
+  border: none
+  height: 35px
+  vertical-align: middle
+  display: block
+  font-size: 18px
+  border-radius: 25px
+  box-shadow: $shadow
+  cursor: pointer
+  
+
+  img 
+    width: 16px
+    margin: 5px
+    vertical-align: middle
+
+.dashboard__Button:focus
+  outline: none
+.dashboard__Button:hover
+  background: $clr5
+  color: white
+
 .dashboard__main
   @extend %d-flex-c 
   width: 99vw
@@ -73,7 +100,7 @@
   border-radius: 10px
   // background: #ffd5d559
   background: $clr5
-  box-shadow: 3pxffd5d559 3px 6px 5px #d4b9b945
+  box-shadow: 3px 6px 5px #d4b9b945
   position: sticky
 
   h3 
@@ -119,35 +146,12 @@
   border-color: $clr2
   outline: none
 
-.dashboard__searchButton,.dashboard__clearButton
-  margin-left: 10px
-  background: $clr4
-  color: $clr1
-  width: 100px
-  border: none
-  height: 35px
-  vertical-align: middle
-  display: block
-  font-size: 18px
-  border-radius: 25px
-  box-shadow: $shadow
-  cursor: pointer
-  
 
-  img 
-    width: 16px
-    margin: 5px
-    vertical-align: middle
-
-.dashboard__searchButton:focus,.dashboard__clearButton:focus
-  outline: none
-.dashboard__searchButton:hover,.dashboard__clearButton:hover
-  background: $clr5
-  color: white
 
 .dashboard__filterLabel
   overflow: auto
   width: 100%
+  height: 86%
   .MuiSvgIcon-root
     fill: white
   .MuiTreeItem-label,.MuiCollapse-wrapperInner
@@ -237,3 +241,12 @@
 .dashboard__girlImage
   max-width: 12vw
 
+.dashboard__filterActions
+  width: 100%
+  @extend %d-flex-r
+  justify-content: space-between
+  .dashboard__Button
+    margin: 0
+
+    &:hover
+      background-color: $clr2
