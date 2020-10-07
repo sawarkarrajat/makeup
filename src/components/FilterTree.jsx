@@ -19,7 +19,6 @@ function FilterTree({ treeLabel, checkboxArray }) {
         </TreeItem>
       </TreeView>
       <br />
-      <br />
     </>
   );
 }

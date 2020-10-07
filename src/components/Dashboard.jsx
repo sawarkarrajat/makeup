@@ -11,6 +11,7 @@ import LoadingSkeleton from "./LoadingSkeleton";
 import girlImg from "../asset/girl.png";
 import girlhhm from "../asset/girlhhmm.png";
 import FilterTree from "./FilterTree";
+import PriceRange from "./PriceRange";
 /**
  * Root page of site or main page for SPA
  */
@@ -150,6 +151,7 @@ function Dashboard() {
           <div className="dashboard__filterLabel">
             <FilterTree treeLabel="brands" checkboxArray={brand} />
             <FilterTree treeLabel="tags" checkboxArray={tag_list} />
+            <PriceRange />
           </div>
           <div className="dashboard__filterActions">
             <button
