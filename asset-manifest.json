@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/makeup/static/css/main.ef86adb7.chunk.css",
-    "main.js": "/makeup/static/js/main.4ab1e904.chunk.js",
-    "main.js.map": "/makeup/static/js/main.4ab1e904.chunk.js.map",
+    "main.js": "/makeup/static/js/main.e6e3dbe3.chunk.js",
+    "main.js.map": "/makeup/static/js/main.e6e3dbe3.chunk.js.map",
     "runtime-main.js": "/makeup/static/js/runtime-main.742bb0aa.js",
     "runtime-main.js.map": "/makeup/static/js/runtime-main.742bb0aa.js.map",
-    "static/js/2.1a71d2d8.chunk.js": "/makeup/static/js/2.1a71d2d8.chunk.js",
-    "static/js/2.1a71d2d8.chunk.js.map": "/makeup/static/js/2.1a71d2d8.chunk.js.map",
+    "static/js/2.ae208e36.chunk.js": "/makeup/static/js/2.ae208e36.chunk.js",
+    "static/js/2.ae208e36.chunk.js.map": "/makeup/static/js/2.ae208e36.chunk.js.map",
     "index.html": "/makeup/index.html",
-    "precache-manifest.b387948164f8733e8df1a0d6142e4668.js": "/makeup/precache-manifest.b387948164f8733e8df1a0d6142e4668.js",
+    "precache-manifest.80eb48aa6411eaf40f34b171945301f9.js": "/makeup/precache-manifest.80eb48aa6411eaf40f34b171945301f9.js",
     "service-worker.js": "/makeup/service-worker.js",
     "static/css/main.ef86adb7.chunk.css.map": "/makeup/static/css/main.ef86adb7.chunk.css.map",
-    "static/js/2.1a71d2d8.chunk.js.LICENSE.txt": "/makeup/static/js/2.1a71d2d8.chunk.js.LICENSE.txt",
+    "static/js/2.ae208e36.chunk.js.LICENSE.txt": "/makeup/static/js/2.ae208e36.chunk.js.LICENSE.txt",
     "static/media/App.sass": "/makeup/static/media/bkgnd.0ce9e4cb.jpg",
     "static/media/girl.png": "/makeup/static/media/girl.0f4e10b2.png",
     "static/media/girlhhmm.png": "/makeup/static/media/girlhhmm.06f746ba.png"
   },
   "entrypoints": [
     "static/js/runtime-main.742bb0aa.js",
-    "static/js/2.1a71d2d8.chunk.js",
+    "static/js/2.ae208e36.chunk.js",
     "static/css/main.ef86adb7.chunk.css",
-    "static/js/main.4ab1e904.chunk.js"
+    "static/js/main.e6e3dbe3.chunk.js"
   ]
 }
