@@ -2,6 +2,8 @@ export const initialState = {
   brandFiltersArray: [],
   tagFiltersArray: [],
   clearFilter: false,
+  priceMin: null,
+  priceMax: null,
 };
 
 const reducer = (state, action) => {
@@ -36,11 +38,18 @@ const reducer = (state, action) => {
           ),
         ],
       };
-    case "CLEAR_FILTER":
+    case "ADD_PRICE_RANGE":
       return {
         ...state,
+        priceMin: action.item.min,
+        priceMax: action.item.max,
+      };
+    case "CLEAR_FILTER":
+      return {
         brandFiltersArray: [],
         tagFiltersArray: [],
+        priceMin: null,
+        priceMax: null,
         clearFilter: !state.clearFilter,
       };
 

@@ -4,7 +4,6 @@ import { useStateValue } from "./StateProvider";
 
 function Checkbox({ filterLabel, label }) {
   const [check, setCheck] = useState(false);
-  // eslint-disable-next-line
   const [state, dispatch] = useStateValue();
   const handleChange = (event) => {
     let item = {
