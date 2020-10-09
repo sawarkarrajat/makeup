@@ -4,6 +4,7 @@ export const initialState = {
   clearFilter: false,
   priceMin: null,
   priceMax: null,
+  rating: null,
 };
 
 const reducer = (state, action) => {
@@ -43,6 +44,11 @@ const reducer = (state, action) => {
         ...state,
         priceMin: action.item.min,
         priceMax: action.item.max,
+      };
+    case "UPDATE_RATING":
+      return {
+        ...state,
+        rating: action.item,
       };
     case "CLEAR_FILTER":
       return {

@@ -3,6 +3,7 @@ import "../sass/Dashboard.sass";
 import Navbar from "./Navbar";
 import searchIcon from "../asset/search.png";
 import crossIcon from "../asset/cross.png";
+import check from "../asset/check.png";
 import makeupData from "../makeupData.json";
 import { useStateValue } from "./StateProvider";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
@@ -12,9 +13,8 @@ import girlImg from "../asset/girl.png";
 import girlhhm from "../asset/girlhhmm.png";
 import FilterTree from "./FilterTree";
 import PriceRange from "./PriceRange";
-/**
- * Root page of site or main page for SPA
- */
+import StarRating from "./StarRating";
+
 let muData = Object.assign([{}], makeupData);
 const extractionLabels = (label) => {
   return [...new Set(muData.map((item) => item[label]))];
@@ -34,6 +34,7 @@ const extractionTaglist = () => {
 
 const brand = extractionLabels("brand");
 const tag_list = extractionTaglist();
+
 const TypeSomething = () => {
   return (
     <div className="dashboard__msgContainer">
@@ -45,6 +46,7 @@ const TypeSomething = () => {
     </div>
   );
 };
+
 const NothingFound = () => {
   return (
     <div className="dashboard__msgContainer">
@@ -152,6 +154,7 @@ function Dashboard() {
             <FilterTree treeLabel="brands" checkboxArray={brand} />
             <FilterTree treeLabel="tags" checkboxArray={tag_list} />
             <PriceRange />
+            <StarRating />
           </div>
           <div className="dashboard__filterActions">
             <button
@@ -159,14 +162,14 @@ function Dashboard() {
               onClick={(e) => handleClearFilters(e)}
             >
               clear all
-              <img src={searchIcon} alt="search" />
+              <img src={crossIcon} alt="search" />
             </button>
             <button
               className="dashboard__applyFilter dashboard__Button"
               onClick={(e) => handleApplyFilters(e)}
             >
               apply filter
-              <img src={searchIcon} alt="filters" />
+              <img src={check} alt="filters" />
             </button>
           </div>
         </div>

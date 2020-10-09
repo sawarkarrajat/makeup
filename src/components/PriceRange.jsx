@@ -6,14 +6,14 @@ function PriceRange() {
   const [maxPrice, setMaxPrice] = useState("");
   const [state, dispatch] = useStateValue();
 
-  const handleSetMinPrice = async (e) => {
+  const handleSetMinPrice = (e) => {
     e.preventDefault();
-    await setMinPrice(e.target.value);
+    setMinPrice(e.target.value);
   };
 
   const handleSetMaxPrice = async (e) => {
     e.preventDefault();
-    await setMaxPrice(e.target.value);
+    setMaxPrice(e.target.value);
   };
   useEffect(() => {
     let item = {
@@ -32,10 +32,12 @@ function PriceRange() {
   return (
     <div className="priceRange__container">
       <div className="MuiTypography-root MuiTreeItem-label MuiTypography-body1">
-        price range
+        &#8226; price range
       </div>
-      <div className="MuiTypography-root MuiTreeItem-label MuiTypography-body1">
-        &nbsp;minimum
+      <div>
+        <p className="MuiTypography-root MuiTreeItem-label MuiTypography-body1 priceRange__Subheading">
+          &#8226; minimum
+        </p>
         <input
           type="text"
           value={minPrice}
@@ -44,8 +46,10 @@ function PriceRange() {
           className="dashboard__searchInput priceRange__input"
         />
       </div>
-      <div className="MuiTypography-root MuiTreeItem-label MuiTypography-body1">
-        &nbsp;maximum
+      <div>
+        <p className="MuiTypography-root MuiTreeItem-label MuiTypography-body1 priceRange__Subheading">
+          &#8226; maximum
+        </p>
         <input
           type="text"
           value={maxPrice}
