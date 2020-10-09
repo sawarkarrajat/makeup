@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "cce5f8c4bda62583a21f34398b2dfc72",
+    "revision": "1423b5385b012ea214b88b1d2122e432",
     "url": "/makeup/index.html"
   },
   {
-    "revision": "ca558302d0987138f776",
-    "url": "/makeup/static/css/main.ef86adb7.chunk.css"
+    "revision": "8959d392b3b8964e74df",
+    "url": "/makeup/static/css/main.a3f3d652.chunk.css"
   },
   {
-    "revision": "40247d1edaabb32305ad",
-    "url": "/makeup/static/js/2.ae208e36.chunk.js"
+    "revision": "f4c9afb899f0c5236b50",
+    "url": "/makeup/static/js/2.ea775142.chunk.js"
   },
   {
     "revision": "0749163b59fbee32225059cb60c18af6",
-    "url": "/makeup/static/js/2.ae208e36.chunk.js.LICENSE.txt"
+    "url": "/makeup/static/js/2.ea775142.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ca558302d0987138f776",
-    "url": "/makeup/static/js/main.e6e3dbe3.chunk.js"
+    "revision": "8959d392b3b8964e74df",
+    "url": "/makeup/static/js/main.cf2019ce.chunk.js"
   },
   {
     "revision": "ae05fbb84b31bc68c550",
