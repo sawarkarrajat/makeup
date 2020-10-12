@@ -42,7 +42,7 @@ function PriceRange() {
           type="text"
           value={minPrice}
           onChange={(e) => handleSetMinPrice(e)}
-          placeholder="&#x20B9; 0"
+          placeholder="&#36; 0.00"
           className="dashboard__searchInput priceRange__input"
         />
       </div>
@@ -54,7 +54,7 @@ function PriceRange() {
           type="text"
           value={maxPrice}
           onChange={(e) => handleSetMaxPrice(e)}
-          placeholder="&#x20B9; 99999"
+          placeholder="&#36; 999.99"
           className="dashboard__searchInput priceRange__input"
         />
       </div>

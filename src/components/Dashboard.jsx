@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import { toast } from "react-toastify";
 import "../sass/Dashboard.sass";
 import Navbar from "./Navbar";
 import searchIcon from "../asset/search.png";
 import crossIcon from "../asset/cross.png";
 import check from "../asset/check.png";
-import makeupData from "../makeupData.json";
+import muData from "../makeupData.json";
 import { useStateValue } from "./StateProvider";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import ProductCard from "./ProductCard";
@@ -14,8 +15,9 @@ import girlhhm from "../asset/girlhhmm.png";
 import FilterTree from "./FilterTree";
 import PriceRange from "./PriceRange";
 import StarRating from "./StarRating";
+import { ratingFilter } from "./filterServices";
 
-let muData = Object.assign([{}], makeupData);
+// let muData = Object.assign([{}], makeupData);
 const extractionLabels = (label) => {
   return [...new Set(muData.map((item) => item[label]))];
 };
@@ -56,33 +58,42 @@ const NothingFound = () => {
   );
 };
 
-function Dashboard() {
+const autocompleteFilter = (searchedText) => {
+  let matches = muData.filter((product) => {
+    const regex = new RegExp(`^${searchedText}`, "gi");
+
+    return (
+      product.brand?.match(regex) ||
+      product.name?.match(regex) ||
+      product.category?.match(regex) ||
+      product.product_type?.match(regex)
+    );
+  });
+  return matches;
+};
+// const entityFilter = (products, entityName, value) => {
+//   let data = products.filter((item) => item[entityName] === value);
+//   console.log("value in entity filter", data);
+// };
+
+const Dashboard = () => {
   const [searchText, setSearchText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [noResultsMsg, setNoResultsMsg] = useState(false);
   const [currentlyDisplayedCards, setCurrentlyDisplayedCards] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
-  const [state, dispatch] = useStateValue();
-
+  const [
+    { brandFiltersArray, tagFiltersArray, priceMin, priceMax, rating },
+    dispatch,
+  ] = useStateValue();
+  const searchInput = useRef(null);
   const fakeLoading = () => {
     setIsLoading(true);
     setInterval(() => {
       setIsLoading(false);
     }, 2000);
   };
-  const autocompleteFilter = (searchedText) => {
-    let matches = muData.filter((product) => {
-      const regex = new RegExp(`^${searchedText}`, "gi");
 
-      return (
-        product.brand?.match(regex) ||
-        product.name?.match(regex) ||
-        product.category?.match(regex) ||
-        product.product_type?.match(regex)
-      );
-    });
-    return matches;
-  };
   const autoCompleteSearch = (e) => {
     e.preventDefault();
     let stext = e.target.value.trim(),
@@ -139,9 +150,20 @@ function Dashboard() {
     dispatch({
       type: "CLEAR_FILTER",
     });
-    console.log("state is", state);
   };
-  const handleApplyFilters = (e) => {};
+  const handleApplyFilters = async (e) => {
+    e.preventDefault();
+    if (currentlyDisplayedCards.length === 0) {
+      toast("Search for a product to apply filters");
+      searchInput.current.focus();
+    } else {
+      let products = Object.assign([{}], currentlyDisplayedCards);
+      if (rating) {
+        products = await ratingFilter(products, rating);
+      }
+      setCurrentlyDisplayedCards(products);
+    }
+  };
   return (
     <div className="dashboard__main">
       <Navbar />
@@ -178,6 +200,7 @@ function Dashboard() {
             <input
               type="text"
               value={searchText}
+              ref={searchInput}
               onChange={(e) => autoCompleteSearch(e)}
               onKeyUp={(e) => {
                 return handleKey(e);
@@ -243,6 +266,6 @@ function Dashboard() {
       </div>
     </div>
   );
-}
+};
 
 export default Dashboard;
