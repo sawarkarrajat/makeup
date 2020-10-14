@@ -15,7 +15,12 @@ import girlhhm from "../asset/girlhhmm.png";
 import FilterTree from "./FilterTree";
 import PriceRange from "./PriceRange";
 import StarRating from "./StarRating";
-import { ratingFilter } from "./filterServices";
+import {
+  ratingFilter,
+  minMaxPriceFilter,
+  tagsFilter,
+  brandsFilter,
+} from "./filterServices";
 
 // let muData = Object.assign([{}], makeupData);
 const extractionLabels = (label) => {
@@ -71,10 +76,6 @@ const autocompleteFilter = (searchedText) => {
   });
   return matches;
 };
-// const entityFilter = (products, entityName, value) => {
-//   let data = products.filter((item) => item[entityName] === value);
-//   console.log("value in entity filter", data);
-// };
 
 const Dashboard = () => {
   const [searchText, setSearchText] = useState("");
@@ -151,17 +152,58 @@ const Dashboard = () => {
       type: "CLEAR_FILTER",
     });
   };
-  const handleApplyFilters = async (e) => {
+  const handleApplyFilters = (e) => {
     e.preventDefault();
     if (currentlyDisplayedCards.length === 0) {
       toast("Search for a product to apply filters");
       searchInput.current.focus();
     } else {
       let products = Object.assign([{}], currentlyDisplayedCards);
-      if (rating) {
-        products = await ratingFilter(products, rating);
-      }
-      setCurrentlyDisplayedCards(products);
+      // eslint-disable-next-line
+      const ratingPromise = new Promise((resolve, reject) => {
+        if (rating) {
+          products = ratingFilter(products, rating);
+        }
+        if (products.length > 0) resolve(products);
+        else reject(new Error("no results in rating"));
+      })
+        .then((products) => {
+          // eslint-disable-next-line
+          return new Promise((resolve, reject) => {
+            if (priceMin === null && priceMax !== null) {
+              products = minMaxPriceFilter(products, 0, priceMax);
+            }
+
+            if (priceMax === null && priceMin !== null) {
+              products = minMaxPriceFilter(products, priceMin, 9999);
+            }
+
+            if (priceMax === null && priceMin === null) {
+              products = minMaxPriceFilter(products, 0, 9999);
+            }
+
+            if (products.length > 0) resolve(products);
+            else reject(new Error("no results in priceminmax"));
+          }).then((products) => {
+            return new Promise((resolve, reject) => {
+              products = tagsFilter(products, tagFiltersArray);
+              if (products.length > 0) resolve(products);
+              else reject(new Error("no results in tags"));
+            }).then((products) => {
+              return new Promise((resolve, reject) => {
+                products = brandsFilter(products, brandFiltersArray);
+                if (products.length > 0) resolve(products);
+                else reject(new Error("no results in brands"));
+              }).then((products) => {
+                console.log("in last then with products", products);
+                setCurrentlyDisplayedCards(products);
+              });
+            });
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
   return (
