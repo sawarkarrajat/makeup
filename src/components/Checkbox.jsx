@@ -4,7 +4,10 @@ import { useStateValue } from "./StateProvider";
 
 function Checkbox({ filterLabel, label }) {
   const [check, setCheck] = useState(false);
-  const [state, dispatch] = useStateValue();
+  const [
+    { brandFiltersArray, tagFiltersArray, clearFilter },
+    dispatch,
+  ] = useStateValue();
   const handleChange = (event) => {
     let item = {
       label: label,
@@ -36,11 +39,23 @@ function Checkbox({ filterLabel, label }) {
         });
       }
     }
-    console.log("value in state", state);
+    console.log("value in state", brandFiltersArray, tagFiltersArray);
   };
   useEffect(() => {
+    if (brandFiltersArray.includes(label) || tagFiltersArray.includes(label)) {
+      console.log(
+        "contains brand/tag",
+        brandFiltersArray.includes(label),
+        tagFiltersArray.includes(label)
+      );
+      setCheck(true);
+    } else {
+      setCheck(false);
+    }
+  }, [brandFiltersArray, tagFiltersArray, label]);
+  useEffect(() => {
     setCheck(false);
-  }, [state.clearFilter]);
+  }, [clearFilter]);
   return (
     <label className="checkbox">
       <span className="checkbox__input">

@@ -83,6 +83,7 @@ const Dashboard = () => {
   const [noResultsMsg, setNoResultsMsg] = useState(false);
   const [currentlyDisplayedCards, setCurrentlyDisplayedCards] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
+  const [searcheditems, setSearcheditems] = useState([]);
   const [
     { brandFiltersArray, tagFiltersArray, priceMin, priceMax, rating },
     dispatch,
@@ -115,6 +116,7 @@ const Dashboard = () => {
     if (suggestions.length === 0) {
       setNoResultsMsg(true);
     }
+    setSearcheditems(suggestions);
     setCurrentlyDisplayedCards(suggestions);
     setSuggestions([]);
   };
@@ -151,6 +153,7 @@ const Dashboard = () => {
     dispatch({
       type: "CLEAR_FILTER",
     });
+    setCurrentlyDisplayedCards(searcheditems);
   };
   const handleApplyFilters = (e) => {
     e.preventDefault();
@@ -158,7 +161,7 @@ const Dashboard = () => {
       toast("Search for a product to apply filters");
       searchInput.current.focus();
     } else {
-      let products = Object.assign([{}], currentlyDisplayedCards);
+      let products = Object.assign([{}], searcheditems);
       // eslint-disable-next-line
       const ratingPromise = new Promise((resolve, reject) => {
         if (rating) {
@@ -186,12 +189,16 @@ const Dashboard = () => {
             else reject(new Error("no results in priceminmax"));
           }).then((products) => {
             return new Promise((resolve, reject) => {
-              products = tagsFilter(products, tagFiltersArray);
+              if (tagFiltersArray.length > 0) {
+                products = tagsFilter(products, tagFiltersArray);
+              }
               if (products.length > 0) resolve(products);
               else reject(new Error("no results in tags"));
             }).then((products) => {
               return new Promise((resolve, reject) => {
-                products = brandsFilter(products, brandFiltersArray);
+                if (brandFiltersArray.length > 0) {
+                  products = brandsFilter(products, brandFiltersArray);
+                }
                 if (products.length > 0) resolve(products);
                 else reject(new Error("no results in brands"));
               }).then((products) => {
@@ -203,6 +210,7 @@ const Dashboard = () => {
         })
         .catch((err) => {
           console.log(err);
+          toast("couldn't find anything...");
         });
     }
   };
