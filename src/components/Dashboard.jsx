@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { toast } from "react-toastify";
 import "../sass/Dashboard.sass";
 import Navbar from "./Navbar";
@@ -8,6 +8,7 @@ import check from "../asset/check.png";
 import muData from "../makeupData.json";
 import { useStateValue } from "./StateProvider";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Button from "@material-ui/core/Button";
 import ProductCard from "./ProductCard";
 import LoadingSkeleton from "./LoadingSkeleton";
 import girlImg from "../asset/girl.png";
@@ -88,7 +89,14 @@ const Dashboard = () => {
     { brandFiltersArray, tagFiltersArray, priceMin, priceMax, rating },
     dispatch,
   ] = useStateValue();
+  const [pageContainer, setPageContainer] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalNoOfPages, setTotalNoOfPages] = useState();
   const searchInput = useRef(null);
+  const cardContainer = useRef(null);
+  const scrollinview = () => {
+    cardContainer.current.scrollIntoView();
+  };
   const fakeLoading = () => {
     setIsLoading(true);
     setInterval(() => {
@@ -155,6 +163,49 @@ const Dashboard = () => {
     });
     setCurrentlyDisplayedCards(searcheditems);
   };
+
+  const paginationSequence = useCallback(() => {
+    // console.log("value in hit api pagecontainer", pageContainer);
+    setTotalNoOfPages(
+      Math.ceil(
+        currentlyDisplayedCards.length /
+          (currentlyDisplayedCards.length > 150 ? 30 : 15)
+      )
+    );
+    let itemsArray = [];
+    var cursor = 0;
+    let tempContainer = [];
+    setPageContainer([]);
+    for (let index = 0; index < totalNoOfPages; index++) {
+      for (
+        let item = 0;
+        item < (currentlyDisplayedCards.length > 150 ? 30 : 15);
+        item++
+      ) {
+        if (currentlyDisplayedCards[cursor] !== undefined) {
+          itemsArray.push(currentlyDisplayedCards[cursor]);
+          cursor++;
+        } else {
+          continue;
+        }
+      }
+      tempContainer.push(itemsArray);
+      // console.log("data in page container", pageContainer);
+      itemsArray = [];
+    }
+    setPageContainer(tempContainer);
+  }, [currentlyDisplayedCards, totalNoOfPages]);
+
+  useEffect(() => {
+    paginationSequence();
+  }, [currentlyDisplayedCards, paginationSequence]);
+
+  const handlePagination = (index) => {
+    console.log("in handlepagination", index);
+    setCurrentPage(index);
+    scrollinview();
+    console.log("in handlepagination currentpage", currentPage);
+  };
   const handleApplyFilters = (e) => {
     e.preventDefault();
     if (currentlyDisplayedCards.length === 0) {
@@ -173,18 +224,17 @@ const Dashboard = () => {
         .then((products) => {
           // eslint-disable-next-line
           return new Promise((resolve, reject) => {
-            if (priceMin === null && priceMax !== null) {
+            if (priceMin === "" && priceMax !== "") {
               products = minMaxPriceFilter(products, 0, priceMax);
-            }
-
-            if (priceMax === null && priceMin !== null) {
+            } else if (priceMax === "" && priceMin !== "") {
               products = minMaxPriceFilter(products, priceMin, 9999);
+            } else if (priceMax === "" && priceMin === "") {
+              // products = minMaxPriceFilter(products, 0, 9999);
+              if (products.length > 0) resolve(products);
+              else reject(new Error("no results in priceminmax"));
+            } else {
+              products = minMaxPriceFilter(products, priceMin, priceMax);
             }
-
-            if (priceMax === null && priceMin === null) {
-              products = minMaxPriceFilter(products, 0, 9999);
-            }
-
             if (products.length > 0) resolve(products);
             else reject(new Error("no results in priceminmax"));
           }).then((products) => {
@@ -214,6 +264,7 @@ const Dashboard = () => {
         });
     }
   };
+
   return (
     <div className="dashboard__main">
       <Navbar />
@@ -300,9 +351,9 @@ const Dashboard = () => {
               <LoadingSkeleton />
             </div>
           ) : (
-            <div className="dashboard__cardsContainer">
-              {currentlyDisplayedCards?.length > 0 ? (
-                currentlyDisplayedCards.map((product) => (
+            <div ref={cardContainer} className="dashboard__cardsContainer">
+              {pageContainer?.length > 0 ? (
+                pageContainer[currentPage].map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))
               ) : noResultsMsg ? (
@@ -310,6 +361,50 @@ const Dashboard = () => {
               ) : (
                 <TypeSomething />
               )}
+            </div>
+          )}
+          {pageContainer.length > 0 && (
+            <div className="dashboard__pagination">
+              <Button
+                id="btn_first"
+                variant="contained"
+                size="small"
+                onClick={() => {
+                  handlePagination(0);
+                }}
+              >
+                first
+              </Button>
+              {pageContainer.length > 0 &&
+                pageContainer.map((item, index) => (
+                  <Button
+                    className="pagination__button"
+                    key={index}
+                    id={"btn_" + index}
+                    variant="contained"
+                    size="small"
+                    onClick={() => {
+                      handlePagination(index);
+                    }}
+                    style={
+                      currentPage === index
+                        ? { backgroundColor: "#ffd5d5" }
+                        : {}
+                    }
+                  >
+                    {index + 1}
+                  </Button>
+                ))}
+              <Button
+                id="btn_last"
+                variant="contained"
+                size="small"
+                onClick={() => {
+                  handlePagination(totalNoOfPages - 1);
+                }}
+              >
+                last
+              </Button>
             </div>
           )}
         </div>

@@ -11,12 +11,14 @@ export const ratingFilter = (products, rating) => {
 };
 
 export const minMaxPriceFilter = (products, minimum, maximum) => {
+  console.log("value of minimum,maximum", minimum, maximum);
   let data = products.filter((item) => {
     return (
-      (item.price <= maximum && item.price >= minimum) || item.price === null
+      (Number(item.price) <= maximum && item.price >= Number(minimum)) ||
+      Number(item.price) === null
     );
   });
-  console.log("value in minmax filter", data);
+  console.log("value in minmax filter", { data, minimum, maximum });
   return data;
 };
 export const tagsFilter = (products, tagFiltersArray) => {
