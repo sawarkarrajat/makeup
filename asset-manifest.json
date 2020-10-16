@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/makeup/static/css/main.55b0a83a.chunk.css",
-    "main.js": "/makeup/static/js/main.22037f7f.chunk.js",
-    "main.js.map": "/makeup/static/js/main.22037f7f.chunk.js.map",
+    "main.css": "/makeup/static/css/main.066c4f90.chunk.css",
+    "main.js": "/makeup/static/js/main.33ab3305.chunk.js",
+    "main.js.map": "/makeup/static/js/main.33ab3305.chunk.js.map",
     "runtime-main.js": "/makeup/static/js/runtime-main.742bb0aa.js",
     "runtime-main.js.map": "/makeup/static/js/runtime-main.742bb0aa.js.map",
     "static/css/2.d34346ea.chunk.css": "/makeup/static/css/2.d34346ea.chunk.css",
-    "static/js/2.babb5fc7.chunk.js": "/makeup/static/js/2.babb5fc7.chunk.js",
-    "static/js/2.babb5fc7.chunk.js.map": "/makeup/static/js/2.babb5fc7.chunk.js.map",
+    "static/js/2.2afdecd3.chunk.js": "/makeup/static/js/2.2afdecd3.chunk.js",
+    "static/js/2.2afdecd3.chunk.js.map": "/makeup/static/js/2.2afdecd3.chunk.js.map",
     "index.html": "/makeup/index.html",
-    "precache-manifest.d42b87a9c4f224afd79cd2b092ee1210.js": "/makeup/precache-manifest.d42b87a9c4f224afd79cd2b092ee1210.js",
+    "precache-manifest.d1229285b32a4b9d57c097f744d34ff0.js": "/makeup/precache-manifest.d1229285b32a4b9d57c097f744d34ff0.js",
     "service-worker.js": "/makeup/service-worker.js",
     "static/css/2.d34346ea.chunk.css.map": "/makeup/static/css/2.d34346ea.chunk.css.map",
-    "static/css/main.55b0a83a.chunk.css.map": "/makeup/static/css/main.55b0a83a.chunk.css.map",
-    "static/js/2.babb5fc7.chunk.js.LICENSE.txt": "/makeup/static/js/2.babb5fc7.chunk.js.LICENSE.txt",
+    "static/css/main.066c4f90.chunk.css.map": "/makeup/static/css/main.066c4f90.chunk.css.map",
+    "static/js/2.2afdecd3.chunk.js.LICENSE.txt": "/makeup/static/js/2.2afdecd3.chunk.js.LICENSE.txt",
     "static/media/App.sass": "/makeup/static/media/bkgnd.0ce9e4cb.jpg",
     "static/media/girl.png": "/makeup/static/media/girl.0f4e10b2.png",
     "static/media/girlhhmm.png": "/makeup/static/media/girlhhmm.06f746ba.png"
@@ -21,8 +21,8 @@
   "entrypoints": [
     "static/js/runtime-main.742bb0aa.js",
     "static/css/2.d34346ea.chunk.css",
-    "static/js/2.babb5fc7.chunk.js",
-    "static/css/main.55b0a83a.chunk.css",
-    "static/js/main.22037f7f.chunk.js"
+    "static/js/2.2afdecd3.chunk.js",
+    "static/css/main.066c4f90.chunk.css",
+    "static/js/main.33ab3305.chunk.js"
   ]
 }
