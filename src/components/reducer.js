@@ -5,6 +5,7 @@ export const initialState = {
   priceMin: null,
   priceMax: null,
   rating: null,
+  clicked: null,
 };
 
 const reducer = (state, action) => {

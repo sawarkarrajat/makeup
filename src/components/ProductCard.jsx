@@ -1,6 +1,6 @@
 import React from "react";
 import "../sass/ProductCard.sass";
-function ProductCard(props) {
+function ProductCard({ product }) {
   const {
     image_link,
     api_featured_image,
@@ -11,7 +11,7 @@ function ProductCard(props) {
     price_sign,
     product_colors,
     rating,
-  } = props.product;
+  } = product;
   return (
     <div className="productCard__card">
       <div className="productCard__upperPart">
