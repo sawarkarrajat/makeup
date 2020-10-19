@@ -5,7 +5,7 @@ export const initialState = {
   priceMin: null,
   priceMax: null,
   rating: null,
-  clicked: null,
+  clicked: {},
 };
 
 const reducer = (state, action) => {
@@ -51,8 +51,17 @@ const reducer = (state, action) => {
         ...state,
         rating: action.item,
       };
+    case "POPULATE_OLDSTATE":
+      return {
+        brandFiltersArray: action.item.brandFiltersArray,
+        tagFiltersArray: action.item.tagFiltersArray,
+        priceMin: action.item.priceMin,
+        priceMax: action.item.priceMax,
+        rating: action.item.rating,
+      };
     case "CLEAR_FILTER":
       return {
+        ...state,
         brandFiltersArray: [],
         tagFiltersArray: [],
         priceMin: null,

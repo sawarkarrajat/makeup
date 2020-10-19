@@ -1,6 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-// import Dashboard from "./components/Dashboard";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Dashboard from "./components/Dashboard";
 import ProductDetails from "./components/ProductDetails";
 import { ToastContainer } from "react-toastify";
 import Navbar from "./components/Navbar.jsx";
@@ -33,8 +33,13 @@ function App() {
       <div className="dashboard__main">
         <Navbar />
         <Router>
-          {/* <Route path="/makeup" exact component={Dashboard} /> */}
-          <Route path="/makeup" exact component={ProductDetails} />
+          <Switch>
+            <Route path="/makeup" exact component={Dashboard} />
+            <Route
+              path="/makeup/productDetails/:id"
+              component={ProductDetails}
+            />
+          </Switch>
         </Router>
       </div>
     </div>

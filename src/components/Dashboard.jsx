@@ -160,10 +160,10 @@ const Dashboard = () => {
       type: "CLEAR_FILTER",
     });
     setCurrentlyDisplayedCards(searcheditems);
+    localStorage.clear();
   };
 
   const paginationSequence = useCallback(() => {
-    // console.log("value in hit api pagecontainer", pageContainer);
     setTotalNoOfPages(
       Math.ceil(
         currentlyDisplayedCards.length /
@@ -188,7 +188,6 @@ const Dashboard = () => {
         }
       }
       tempContainer.push(itemsArray);
-      // console.log("data in page container", pageContainer);
       itemsArray = [];
     }
     setPageContainer(tempContainer);
@@ -227,7 +226,6 @@ const Dashboard = () => {
             } else if (priceMax === "" && priceMin !== "") {
               products = minMaxPriceFilter(products, priceMin, 9999);
             } else if (priceMax === "" && priceMin === "") {
-              // products = minMaxPriceFilter(products, 0, 9999);
               if (products.length > 0) resolve(products);
               else reject(new Error("no results in priceminmax"));
             } else {
@@ -262,7 +260,38 @@ const Dashboard = () => {
         });
     }
   };
+  const handleCardClick = () => {
+    const oldState = JSON.stringify({
+      brandFiltersArray: brandFiltersArray,
+      tagFiltersArray: tagFiltersArray,
+      priceMin: priceMin,
+      priceMax: priceMax,
+      rating: rating,
+      searchText: searchText,
+      currentlyDisplayedCards: currentlyDisplayedCards,
+      searcheditems: searcheditems,
+    });
+    localStorage.setItem("oldState", oldState);
+  };
+  useEffect(() => {
+    let oldState = JSON.parse(localStorage.getItem("oldState"));
+    if (oldState) {
+      console.log("value in oldstate", oldState);
+      setSearchText(oldState.searchText);
+      setSearcheditems(oldState.searcheditems);
+      setCurrentlyDisplayedCards(oldState.currentlyDisplayedCards);
+      dispatch({
+        type: "POPULATE_OLDSTATE",
+        item: oldState,
+      });
+    }
+  }, [dispatch]);
 
+  useEffect(() => {
+    if (document.refreshForm?.visited.value !== "") {
+      localStorage.clear();
+    }
+  }, []);
   return (
     <div className="dashboard__container">
       <div className="dashboard__filter">
@@ -350,7 +379,11 @@ const Dashboard = () => {
           <div ref={cardContainer} className="dashboard__cardsContainer">
             {pageContainer?.length > 0 ? (
               pageContainer[currentPage].map((product) => (
-                <ProductCard key={product.id} product={product} />
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  clicked={handleCardClick}
+                />
               ))
             ) : noResultsMsg ? (
               <NothingFound />

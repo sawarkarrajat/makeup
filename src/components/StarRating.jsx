@@ -46,15 +46,24 @@ function StarRating() {
   const handleRatingChange = (event) => {
     setRating(Number(event.target.value));
   };
+
+  useEffect(() => {
+    if (state.rating !== null) {
+      setRating(Number(state.rating));
+    }
+  }, [state.rating]);
+
   useEffect(() => {
     dispatch({
       type: "UPDATE_RATING",
       item: rating,
     });
   }, [rating, dispatch]);
+
   useEffect(() => {
     setRating(Number(0));
   }, [state.clearFilter]);
+
   return (
     <div className="starRating__container">
       <FormControl component="fieldset">

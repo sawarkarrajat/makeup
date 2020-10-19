@@ -29,6 +29,14 @@ function PriceRange() {
     setMinPrice("");
     setMaxPrice("");
   }, [state.clearFilter]);
+  useEffect(() => {
+    if (state.priceMin) {
+      setMinPrice(state.priceMin);
+    }
+    if (state.priceMax) {
+      setMaxPrice(state.priceMax);
+    }
+  }, [state.priceMin, state.priceMax]);
   return (
     <div className="priceRange__container">
       <div className="MuiTypography-root MuiTreeItem-label MuiTypography-body1">

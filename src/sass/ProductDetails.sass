@@ -1,0 +1,70 @@
+@import base.sass
+
+.productDetails__container
+  @extend %d-flex-r
+  width: 90%
+  justify-content: flex-start
+  align-items: flex-start
+  margin-top: 80px
+
+.productDetails__leftcolumn,
+.productDetails__rightcolumn
+  @extend %d-flex-c
+  justify-content: flex-start
+  align-items: flex-start
+
+.productDetails__leftcolumn
+  position: fixed
+  width: 30%
+  img
+    width: 400px
+    height: 400px
+    object-fit: contain
+
+.productDetails__rightcolumn
+  position: relative
+  left: 30%
+  height: auto
+  overflow: auto
+  width: 70%
+  padding-left: 60px
+  
+.productDetails__inline
+  @extend %d-flex-r
+  margin-bottom: 20px
+  align-items: baseline
+  h1,h2,h3,h4,h5,h6 
+    margin: 0
+
+.productDetials__buynow,.productDetials__goback
+  .dashboard__Button
+    margin: 0
+.productDetials__goback
+  margin: 20px 0
+.productDetials__colorPalete
+  margin: 30px 0
+  border-top: 1px solid black
+  border-bottom: 1px solid black
+  padding: 20px 0
+  width: 100%
+  @extend %d-flex-r
+  flex-wrap: wrap
+  justify-content: flex-start
+.productDetials__color
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  align-items: center  
+
+  .spot
+    height: 20px
+    width: 20px
+    border-radius: 50%
+    margin-right: 10px
+  .name
+    margin: 12px 30px 10px 0
+
+
+.productDetails__description,.productDetials__tag
+  ul
+    padding-left: 30px
