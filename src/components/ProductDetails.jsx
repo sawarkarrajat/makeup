@@ -4,9 +4,13 @@ import cart from "../asset/cart.png";
 import left from "../asset/angle-left.png";
 import "../sass/ProductDetails.sass";
 
+/**
+ * Product Details page component
+ * @param {propType} props
+ * @property {function}
+ */
 function ProductDetails(props) {
   const pid = props.match.params.id;
-  console.log("value in pid", pid);
   const product = muData.find((obj) => obj.id === Number(pid));
   const {
     image_link,
@@ -21,7 +25,9 @@ function ProductDetails(props) {
     rating,
     description,
   } = product;
-  console.log("in productDetail", product);
+  /**
+   * used to create markup for description
+   */
   const createMarkup = () => {
     return { __html: description };
   };

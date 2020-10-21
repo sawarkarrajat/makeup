@@ -1,6 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../sass/ProductCard.sass";
+
+/**
+ * Product Card component
+ * @param {propType} props
+ * @property {function}
+ */
 function ProductCard({ product, clicked }) {
   const {
     id,

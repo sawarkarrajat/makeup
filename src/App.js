@@ -8,7 +8,7 @@ import "./sass/Dashboard.sass";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.sass";
 /**
- * @file App.js is the root file for this app
+ * @file App.js is the root file for this app containing all the routes and paths
  * @author Rajat Sawarkar
  */
 /**
