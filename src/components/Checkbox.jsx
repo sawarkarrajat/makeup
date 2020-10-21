@@ -2,17 +2,29 @@ import React, { useState, useEffect } from "react";
 import "../sass/Checkbox.sass";
 import { useStateValue } from "./StateProvider";
 
+/**
+ * checkbox component for filters
+ *
+ * @param {propType} props
+ * @property {function}
+ */
 function Checkbox({ filterLabel, label }) {
   const [check, setCheck] = useState(false);
   const [
     { brandFiltersArray, tagFiltersArray, clearFilter },
     dispatch,
   ] = useStateValue();
+
+  /**
+   * handles the change of state of checkbox
+   * also fires action for adding/removing filter from state
+   *
+   * @param {Object} event
+   */
   const handleChange = (event) => {
     let item = {
       label: label,
     };
-    console.log("event.target.checked", event.target.checked);
     setCheck(!check);
     if (event.target.checked) {
       if (filterLabel === "brands") {
@@ -39,20 +51,23 @@ function Checkbox({ filterLabel, label }) {
         });
       }
     }
-    console.log("value in state", brandFiltersArray, tagFiltersArray);
   };
+
+  /**
+   * side effect to check if filter already exists in the global state
+   * if so then state of checkbox is decided accordingly.
+   */
   useEffect(() => {
     if (brandFiltersArray.includes(label) || tagFiltersArray.includes(label)) {
-      console.log(
-        "contains brand/tag",
-        brandFiltersArray.includes(label),
-        tagFiltersArray.includes(label)
-      );
       setCheck(true);
     } else {
       setCheck(false);
     }
   }, [brandFiltersArray, tagFiltersArray, label]);
+
+  /**
+   * side effect reset checkbox state on clearFilter
+   */
   useEffect(() => {
     setCheck(false);
   }, [clearFilter]);

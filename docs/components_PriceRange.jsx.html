@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/PriceRange.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/PriceRange.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect } from "react";
+import { useStateValue } from "./StateProvider";
+import "../sass/PriceRange.sass";
+
+/**
+ * price range component
+ */
+function PriceRange() {
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [state, dispatch] = useStateValue();
+  /**
+   * handles minimum price change
+   * @param {Object} e
+   */
+  const handleSetMinPrice = (e) => {
+    e.preventDefault();
+    setMinPrice(e.target.value);
+  };
+
+  /**
+   * handles maximum price change
+   *
+   * @param {Object} e
+   */
+  const handleSetMaxPrice = async (e) => {
+    e.preventDefault();
+    setMaxPrice(e.target.value);
+  };
+
+  /**
+   * side effect to fire action to add price change to global state
+   */
+  useEffect(() => {
+    let item = {
+      min: minPrice,
+      max: maxPrice,
+    };
+    dispatch({
+      type: "ADD_PRICE_RANGE",
+      item: item,
+    });
+  }, [minPrice, maxPrice, dispatch]);
+
+  /**
+   * side effect to reset prices
+   */
+  useEffect(() => {
+    setMinPrice("");
+    setMaxPrice("");
+  }, [state.clearFilter]);
+
+  /**
+   * side effect to check if prices already exist in oldState of application
+   */
+  useEffect(() => {
+    if (state.priceMin) {
+      setMinPrice(state.priceMin);
+    }
+    if (state.priceMax) {
+      setMaxPrice(state.priceMax);
+    }
+  }, [state.priceMin, state.priceMax]);
+  return (
+    &lt;div className="priceRange__container">
+      &lt;div className="MuiTypography-root MuiTreeItem-label MuiTypography-body1">
+        &amp;#8226; price range
+      &lt;/div>
+      &lt;div>
+        &lt;p className="MuiTypography-root MuiTreeItem-label MuiTypography-body1 priceRange__Subheading">
+          &amp;#8226; minimum
+        &lt;/p>
+        &lt;input
+          type="text"
+          value={minPrice}
+          onChange={(e) => handleSetMinPrice(e)}
+          placeholder="&amp;#36; 0.00"
+          className="dashboard__searchInput priceRange__input"
+        />
+      &lt;/div>
+      &lt;div>
+        &lt;p className="MuiTypography-root MuiTreeItem-label MuiTypography-body1 priceRange__Subheading">
+          &amp;#8226; maximum
+        &lt;/p>
+        &lt;input
+          type="text"
+          value={maxPrice}
+          onChange={(e) => handleSetMaxPrice(e)}
+          placeholder="&amp;#36; 999.99"
+          className="dashboard__searchInput priceRange__input"
+        />
+      &lt;/div>
+    &lt;/div>
+  );
+}
+
+export default PriceRange;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#autocompleteFilter">autocompleteFilter</a></li><li><a href="global.html#BlankStars">BlankStars</a></li><li><a href="global.html#brand">brand</a></li><li><a href="global.html#brandsFilter">brandsFilter</a></li><li><a href="global.html#Checkbox">Checkbox</a></li><li><a href="global.html#Dashboard">Dashboard</a></li><li><a href="global.html#extractionLabels">extractionLabels</a></li><li><a href="global.html#extractionTaglist">extractionTaglist</a></li><li><a href="global.html#FillStars">FillStars</a></li><li><a href="global.html#FilterTree">FilterTree</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#minMaxPriceFilter">minMaxPriceFilter</a></li><li><a href="global.html#NothingFound">NothingFound</a></li><li><a href="global.html#PriceRange">PriceRange</a></li><li><a href="global.html#ProductCard">ProductCard</a></li><li><a href="global.html#ProductDetails">ProductDetails</a></li><li><a href="global.html#ratingFilter">ratingFilter</a></li><li><a href="global.html#reducer">reducer</a></li><li><a href="global.html#StarArrangement">StarArrangement</a></li><li><a href="global.html#StarRating">StarRating</a></li><li><a href="global.html#StateContext">StateContext</a></li><li><a href="global.html#StateProvider">StateProvider</a></li><li><a href="global.html#tag_list">tag_list</a></li><li><a href="global.html#tagsFilter">tagsFilter</a></li><li><a href="global.html#TypeSomething">TypeSomething</a></li><li><a href="global.html#useStateValue">useStateValue</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Wed Oct 21 2020 23:32:27 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

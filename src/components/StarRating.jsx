@@ -8,6 +8,11 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import { useStateValue } from "./StateProvider";
 import "../sass/StarRating.sass";
+/**
+ * component to render filled stars
+ *
+ * @param {propType} count no. of filled stars
+ */
 const FillStars = ({ count }) => {
   return (
     <>
@@ -19,6 +24,12 @@ const FillStars = ({ count }) => {
     </>
   );
 };
+
+/**
+ * component to render blank stars
+ *
+ * @param {propType} count no. of blank stars
+ */
 const BlankStars = ({ count }) => {
   return (
     <>
@@ -30,6 +41,11 @@ const BlankStars = ({ count }) => {
     </>
   );
 };
+
+/**
+ * component to render a line stars
+ * @param {propType} props
+ */
 const StarArrangement = ({ fill, blank }) => {
   return (
     <div className="StarRating__arrangement">
@@ -39,20 +55,35 @@ const StarArrangement = ({ fill, blank }) => {
   );
 };
 
+/**
+ * star rating component
+ * @property {function}
+ */
 function StarRating() {
   const [rating, setRating] = useState(0);
   const [state, dispatch] = useStateValue();
 
+  /**
+   * handles rating change event
+   * @param {Object} event
+   */
   const handleRatingChange = (event) => {
     setRating(Number(event.target.value));
   };
 
+  /**
+   * side effect to check oldstate rating's existance
+   */
   useEffect(() => {
     if (state.rating !== null) {
       setRating(Number(state.rating));
     }
   }, [state.rating]);
 
+  /**
+   * side effect to dispatch update action of rating on
+   * rating change.
+   */
   useEffect(() => {
     dispatch({
       type: "UPDATE_RATING",
@@ -60,6 +91,9 @@ function StarRating() {
     });
   }, [rating, dispatch]);
 
+  /**
+   * side effect to reset rating on clearFilter action
+   */
   useEffect(() => {
     setRating(Number(0));
   }, [state.clearFilter]);

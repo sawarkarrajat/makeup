@@ -1,3 +1,6 @@
+/**
+ * initial state for reducer
+ */
 export const initialState = {
   brandFiltersArray: [],
   tagFiltersArray: [],
@@ -7,7 +10,13 @@ export const initialState = {
   rating: null,
   clicked: {},
 };
-
+/**
+ * a Reducer to maintain global state with the help of
+ * actions
+ *
+ * @param {Object} state - a global state
+ * @param {Object} action - an action declaring the type of process to perform
+ */
 const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_BRAND_FILTER":

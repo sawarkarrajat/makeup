@@ -1,20 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { useStateValue } from "./StateProvider";
 import "../sass/PriceRange.sass";
+
+/**
+ * price range component
+ */
 function PriceRange() {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [state, dispatch] = useStateValue();
-
+  /**
+   * handles minimum price change
+   * @param {Object} e
+   */
   const handleSetMinPrice = (e) => {
     e.preventDefault();
     setMinPrice(e.target.value);
   };
 
+  /**
+   * handles maximum price change
+   *
+   * @param {Object} e
+   */
   const handleSetMaxPrice = async (e) => {
     e.preventDefault();
     setMaxPrice(e.target.value);
   };
+
+  /**
+   * side effect to fire action to add price change to global state
+   */
   useEffect(() => {
     let item = {
       min: minPrice,
@@ -25,10 +41,18 @@ function PriceRange() {
       item: item,
     });
   }, [minPrice, maxPrice, dispatch]);
+
+  /**
+   * side effect to reset prices
+   */
   useEffect(() => {
     setMinPrice("");
     setMaxPrice("");
   }, [state.clearFilter]);
+
+  /**
+   * side effect to check if prices already exist in oldState of application
+   */
   useEffect(() => {
     if (state.priceMin) {
       setMinPrice(state.priceMin);
