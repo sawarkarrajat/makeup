@@ -1,20 +1,21 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { toast } from "react-toastify";
 import "../sass/Dashboard.sass";
-import searchIcon from "../asset/search.png";
-import crossIcon from "../asset/cross.png";
-import check from "../asset/check.png";
 import muData from "../makeupData.json";
 import { useStateValue } from "./StateProvider";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Button from "@material-ui/core/Button";
 import ProductCard from "./ProductCard";
 import LoadingSkeleton from "./LoadingSkeleton";
-import girlImg from "../asset/girl.png";
-import girlhhm from "../asset/girlhhmm.png";
 import FilterTree from "./FilterTree";
 import PriceRange from "./PriceRange";
 import StarRating from "./StarRating";
+import girlhhm from "../asset/girlhhmm.png";
+import searchIcon from "../asset/search.png";
+import crossIcon from "../asset/cross.png";
+import check from "../asset/check.png";
+import girlImg from "../asset/girl.png";
+import filtericon from "../asset/filter.png";
 import {
   ratingFilter,
   minMaxPriceFilter,
@@ -317,7 +318,7 @@ const Dashboard = () => {
             onClick={(e) => handleApplyFilters(e)}
           >
             apply filter
-            <img src={check} alt="filters" />
+            <img src={filtericon} alt="filters" />
           </button>
         </div>
       </div>
