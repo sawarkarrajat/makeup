@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8621f0cf0615656013c2304cbac1245e",
+    "revision": "95c2fcc25fd518c940d86cb598f0700b",
     "url": "/makeup/index.html"
   },
   {
-    "revision": "a50d29aecc4a07230462",
+    "revision": "72c875a839035d8c388f",
     "url": "/makeup/static/css/2.d34346ea.chunk.css"
   },
   {
-    "revision": "0f170180bc35010f6262",
+    "revision": "48db095b242fd69001c0",
     "url": "/makeup/static/css/main.a2db1071.chunk.css"
   },
   {
-    "revision": "a50d29aecc4a07230462",
-    "url": "/makeup/static/js/2.07d7dda5.chunk.js"
+    "revision": "72c875a839035d8c388f",
+    "url": "/makeup/static/js/2.85cbce27.chunk.js"
   },
   {
     "revision": "5e9b6f5c16b720e8a86875f97734673e",
-    "url": "/makeup/static/js/2.07d7dda5.chunk.js.LICENSE.txt"
+    "url": "/makeup/static/js/2.85cbce27.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "0f170180bc35010f6262",
-    "url": "/makeup/static/js/main.c31a5629.chunk.js"
+    "revision": "48db095b242fd69001c0",
+    "url": "/makeup/static/js/main.1acb9b42.chunk.js"
   },
   {
     "revision": "ae05fbb84b31bc68c550",
