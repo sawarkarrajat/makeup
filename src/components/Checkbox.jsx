@@ -3,7 +3,7 @@ import "../sass/Checkbox.sass";
 import { useStateValue } from "./StateProvider";
 
 /**
- * checkbox component for filters
+ * checkbox component for filters ☑
  *
  * @param {propType} props
  * @property {function}
