@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<label
+  className="checkbox"
+>
+  <span
+    className="checkbox__input"
+  >
+    <input
+      checked={false}
+      name="checkbox"
+      onChange={[Function]}
+      type="checkbox"
+    />
+    <span
+      className="checkbox__control"
+    >
+      <svg
+        aria-hidden="true"
+        focusable="false"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M1.73 12.91l6.37 6.37L22.79 4.59"
+          fill="none"
+          stroke="white"
+          strokeWidth="3"
+        />
+      </svg>
+    </span>
+  </span>
+  <span
+    className="checkbox__label"
+  >
+    aqua
+  </span>
+</label>
+`;
