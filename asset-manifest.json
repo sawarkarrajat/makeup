@@ -1,28 +1,26 @@
 {
   "files": {
-    "main.css": "/makeup/static/css/main.a2db1071.chunk.css",
-    "main.js": "/makeup/static/js/main.1acb9b42.chunk.js",
-    "main.js.map": "/makeup/static/js/main.1acb9b42.chunk.js.map",
-    "runtime-main.js": "/makeup/static/js/runtime-main.742bb0aa.js",
-    "runtime-main.js.map": "/makeup/static/js/runtime-main.742bb0aa.js.map",
-    "static/css/2.d34346ea.chunk.css": "/makeup/static/css/2.d34346ea.chunk.css",
-    "static/js/2.85cbce27.chunk.js": "/makeup/static/js/2.85cbce27.chunk.js",
-    "static/js/2.85cbce27.chunk.js.map": "/makeup/static/js/2.85cbce27.chunk.js.map",
+    "main.css": "/makeup/static/css/main.bdaeaa88.chunk.css",
+    "main.js": "/makeup/static/js/main.2b2a54d4.chunk.js",
+    "main.js.map": "/makeup/static/js/main.2b2a54d4.chunk.js.map",
+    "runtime-main.js": "/makeup/static/js/runtime-main.8327b922.js",
+    "runtime-main.js.map": "/makeup/static/js/runtime-main.8327b922.js.map",
+    "static/css/2.ccc6f86f.chunk.css": "/makeup/static/css/2.ccc6f86f.chunk.css",
+    "static/js/2.a27cce6e.chunk.js": "/makeup/static/js/2.a27cce6e.chunk.js",
+    "static/js/2.a27cce6e.chunk.js.map": "/makeup/static/js/2.a27cce6e.chunk.js.map",
     "index.html": "/makeup/index.html",
-    "precache-manifest.f09d9b2100c4f24c6cd696e04efbd362.js": "/makeup/precache-manifest.f09d9b2100c4f24c6cd696e04efbd362.js",
-    "service-worker.js": "/makeup/service-worker.js",
-    "static/css/2.d34346ea.chunk.css.map": "/makeup/static/css/2.d34346ea.chunk.css.map",
-    "static/css/main.a2db1071.chunk.css.map": "/makeup/static/css/main.a2db1071.chunk.css.map",
-    "static/js/2.85cbce27.chunk.js.LICENSE.txt": "/makeup/static/js/2.85cbce27.chunk.js.LICENSE.txt",
-    "static/media/App.sass": "/makeup/static/media/bkgnd.0ce9e4cb.jpg",
-    "static/media/girl.png": "/makeup/static/media/girl.0f4e10b2.png",
-    "static/media/girlhhmm.png": "/makeup/static/media/girlhhmm.06f746ba.png"
+    "static/css/2.ccc6f86f.chunk.css.map": "/makeup/static/css/2.ccc6f86f.chunk.css.map",
+    "static/css/main.bdaeaa88.chunk.css.map": "/makeup/static/css/main.bdaeaa88.chunk.css.map",
+    "static/js/2.a27cce6e.chunk.js.LICENSE.txt": "/makeup/static/js/2.a27cce6e.chunk.js.LICENSE.txt",
+    "static/media/App.sass": "/makeup/static/media/bkgnd.2902b7c3.jpg",
+    "static/media/girl.8fa6b422.png": "/makeup/static/media/girl.8fa6b422.png",
+    "static/media/girlhhmm.147332dd.png": "/makeup/static/media/girlhhmm.147332dd.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.742bb0aa.js",
-    "static/css/2.d34346ea.chunk.css",
-    "static/js/2.85cbce27.chunk.js",
-    "static/css/main.a2db1071.chunk.css",
-    "static/js/main.1acb9b42.chunk.js"
+    "static/js/runtime-main.8327b922.js",
+    "static/css/2.ccc6f86f.chunk.css",
+    "static/js/2.a27cce6e.chunk.js",
+    "static/css/main.bdaeaa88.chunk.css",
+    "static/js/main.2b2a54d4.chunk.js"
   ]
 }
