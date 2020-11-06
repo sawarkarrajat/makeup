@@ -32,13 +32,10 @@ function App() {
       <div className="app__back"></div>
       <div className="dashboard__main">
         <Navbar />
-        <Router>
+        <Router basename={process.env.PUBLIC_URL || ""}>
           <Switch>
-            <Route path="/makeup" exact component={Dashboard} />
-            <Route
-              path="/makeup/productDetails/:id"
-              component={ProductDetails}
-            />
+            <Route path="/" exact component={Dashboard} />
+            <Route path="/productDetails/:id" component={ProductDetails} />
           </Switch>
         </Router>
       </div>

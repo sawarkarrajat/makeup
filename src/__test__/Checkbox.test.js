@@ -3,8 +3,9 @@ import renderer from "react-test-renderer";
 import Checkbox from "./../components/Checkbox";
 import { StateProvider } from "../components/StateProvider";
 import reducer, { initialState } from "../components/reducer";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, cleanup } from "@testing-library/react";
 // import { useStateValue } from "./../components/StateProvider";
+afterEach(() => cleanup());
 const treeLabel = "brand",
   filter = "aqua";
 // const [state, dispatch] = useStateValue();

@@ -23,7 +23,7 @@ function ProductCard({ product, clicked }) {
 
   return (
     <Link
-      to={`/makeup/productDetails/${id}`}
+      to={`/productDetails/${id}`}
       target="_blank"
       onClick={() => clicked()}
     >
