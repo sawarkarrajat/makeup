@@ -246,7 +246,7 @@ const Dashboard = () => {
   };
 
   /**
-   * this method is invoked every time the contenst
+   * this method is invoked every time the context
    * of currently displayed cards change to accomodate pagination
    */
   const paginationSequence = useCallback(() => {
