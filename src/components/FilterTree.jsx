@@ -5,7 +5,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import TreeItem from "@material-ui/lab/TreeItem";
 import Checkbox from "./Checkbox";
-
+import PropTypes from "prop-types";
 /**
  * filter tree component to render filters
  *
@@ -29,5 +29,8 @@ function FilterTree({ treeLabel, checkboxArray }) {
     </>
   );
 }
-
+FilterTree.prototype = {
+  treeLabel: PropTypes.string,
+  checkboxArray: PropTypes.array,
+};
 export default FilterTree;

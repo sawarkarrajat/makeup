@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../sass/ProductCard.sass";
-
+import PropTypes from "prop-types";
 /**
  * Product Card component
  * @param {propType} props
@@ -68,5 +68,8 @@ function ProductCard({ product, clicked }) {
     </Link>
   );
 }
-
+ProductCard.prototype = {
+  product: PropTypes.object,
+  clicked: PropTypes.func,
+};
 export default ProductCard;

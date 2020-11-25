@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../sass/Checkbox.sass";
 import { useStateValue } from "./StateProvider";
+import PropTypes from "prop-types";
 
 /**
  * checkbox component for filters ☑
@@ -100,5 +101,8 @@ function Checkbox({ filterLabel, label }) {
     </label>
   );
 }
-
+Checkbox.prototype = {
+  filterLabel: PropTypes.string,
+  label: PropTypes.string,
+};
 export default Checkbox;
