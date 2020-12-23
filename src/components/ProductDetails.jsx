@@ -3,6 +3,7 @@ import muData from "../makeupData.json";
 import cart from "../asset/cart.png";
 import left from "../asset/angle-left.png";
 import "../sass/ProductDetails.sass";
+import { Link } from "react-router-dom";
 
 /**
  * Product Details page component
@@ -91,15 +92,19 @@ function ProductDetails(props) {
           </ul>
         </div>
         <div className="productDetials__goback">
-          <button
+          {/* <button
             className="dashboard__Button"
             onClick={() => {
-              props.history.push("/makeup");
+              props.history.push("/");
             }}
           >
             go back
             <img src={left} alt="left" />
-          </button>
+          </button> */}
+          <Link to="/" className="dashboard__Button">
+            go back
+            <img src={left} alt="left" />
+          </Link>
         </div>
       </div>
     </div>
