@@ -92,7 +92,7 @@ const NothingFound = () => {
  * @param {String} searchedText - text in searchbar
  * @returns {Array<Object>} matches - matches for the text in results
  */
-const autocompleteFilter = (searchedText) => {
+const autoCompleteFilter = (searchedText) => {
   let matches = muData.filter((product) => {
     const regex = new RegExp(`^${searchedText}`, "gi");
     //finding matches on the basis of name, brand, category, and product type
@@ -149,9 +149,9 @@ const Dashboard = () => {
    *
    * @param {Object} e - event object containing value parameters
    */
-  const autoCompleteSearch = (e) => {
+  const autoCompleteSearch = async (e) => {
     e.preventDefault();
-    let stext = e.target.value.trim(),
+    let stext = e.target.value,
       matches;
     setSearchText(stext);
     if (stext.length === 0) {
@@ -160,7 +160,7 @@ const Dashboard = () => {
       setNoResultsMsg(false);
       return;
     } else {
-      matches = autocompleteFilter(stext);
+      matches = await autoCompleteFilter(stext.trim());
       setSuggestions(matches);
     }
   };
@@ -172,6 +172,7 @@ const Dashboard = () => {
     fakeLoading();
     if (suggestions.length === 0) {
       setNoResultsMsg(true);
+      return;
     }
     setSearcheditems(suggestions);
     setCurrentlyDisplayedCards(suggestions);
@@ -202,22 +203,45 @@ const Dashboard = () => {
     setSuggestions([]);
     setCurrentlyDisplayedCards([product]);
   };
-
+  /**
+   * this method is called to check if filters exist
+   * @returns {Boolean}
+   */
+  const checkIfFiltersApplied = () => {
+    console.log("value in checkIfFiltersApplied", {
+      brandFiltersArray,
+      tagFiltersArray,
+      priceMin,
+      priceMax,
+      rating,
+    });
+    if (
+      brandFiltersArray.length === 0 &&
+      tagFiltersArray.length === 0 &&
+      priceMin === "" &&
+      priceMax === "" &&
+      rating === 0
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  };
   /**
    * method awaken when enter key is pressed in search bar to initiate search sequence
    *
-   * @param {Object} event
+   * @param {Object} e
    */
-  const handleKey = (event) => {
-    event.preventDefault();
+  const handleKey = (e) => {
+    e.preventDefault();
 
     if (
-      event.keyCode === 13 ||
-      event.which === 13 ||
-      event.key === "Enter" ||
-      event.button === 0
+      e.keyCode === 13 ||
+      e.which === 13 ||
+      e.key === "Enter" ||
+      e.button === 0
     ) {
-      searchSequence();
+      handleSearchButton(e);
     }
   };
 
@@ -229,6 +253,11 @@ const Dashboard = () => {
   const handleSearchButton = (e) => {
     e.preventDefault();
     searchSequence();
+    console.log("filters exist", checkIfFiltersApplied());
+    if (checkIfFiltersApplied()) {
+      console.log("in apply filters", checkIfFiltersApplied());
+      handleApplyFilters(e);
+    }
   };
 
   /**
@@ -250,22 +279,13 @@ const Dashboard = () => {
    * of currently displayed cards change to accomodate pagination
    */
   const paginationSequence = useCallback(() => {
-    setTotalNoOfPages(
-      Math.ceil(
-        currentlyDisplayedCards.length /
-          (currentlyDisplayedCards.length > 150 ? 30 : 15)
-      )
-    );
+    setTotalNoOfPages(Math.ceil(currentlyDisplayedCards.length / 15));
     let itemsArray = [];
     var cursor = 0;
     let tempContainer = [];
     setPageContainer([]);
     for (let index = 0; index < totalNoOfPages; index++) {
-      for (
-        let item = 0;
-        item < (currentlyDisplayedCards.length > 150 ? 30 : 15);
-        item++
-      ) {
+      for (let item = 0; item < 15; item++) {
         if (currentlyDisplayedCards[cursor] !== undefined) {
           itemsArray.push(currentlyDisplayedCards[cursor]);
           cursor++;
@@ -304,7 +324,7 @@ const Dashboard = () => {
   const handleApplyFilters = (e) => {
     e.preventDefault();
     let products;
-    if (currentlyDisplayedCards.length === 0) {
+    if (searcheditems.length === 0) {
       //copy whole db if no item available to search from!
       products = Object.assign([{}], muData);
       toast(
@@ -352,6 +372,7 @@ const Dashboard = () => {
               if (products.length > 0) resolve(products);
               else reject(new Error("no results in brands"));
             }).then((products) => {
+              console.log("after filter products are", products);
               setCurrentlyDisplayedCards(products);
             });
           });
@@ -359,7 +380,7 @@ const Dashboard = () => {
       })
       .catch((error) => {
         console.error(error);
-        toast("couldn't find anything...");
+        toast(error);
       });
   };
 
@@ -388,12 +409,13 @@ const Dashboard = () => {
    */
   useEffect(() => {
     let oldState = JSON.parse(localStorage.getItem("oldState"));
+    console.log("value in old state is", oldState);
     if (oldState) {
       setSearchText(oldState.searchText);
       setSearcheditems(oldState.searcheditems);
       setCurrentlyDisplayedCards(oldState.currentlyDisplayedCards);
       dispatch({
-        type: "POPULATE_OLDSTATE",
+        type: "POPULATE_FROM_OLDSTATE",
         item: oldState,
       });
       localStorage.clear();
@@ -494,7 +516,7 @@ const Dashboard = () => {
         ) : (
           <div ref={cardContainer} className="dashboard__cardsContainer">
             {pageContainer?.length > 0 ? (
-              pageContainer[currentPage].map((product) => (
+              pageContainer[currentPage]?.map((product) => (
                 <ProductCard
                   key={product.id}
                   product={product}

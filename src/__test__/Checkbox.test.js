@@ -3,7 +3,7 @@ import renderer from "react-test-renderer";
 import Checkbox from "./../components/Checkbox";
 import { StateProvider } from "../components/StateProvider";
 import reducer, { initialState } from "../components/reducer";
-import { fireEvent, render, screen, cleanup } from "@testing-library/react";
+import { render, cleanup } from "@testing-library/react";
 // import { useStateValue } from "./../components/StateProvider";
 afterEach(() => cleanup());
 const treeLabel = "brand",
@@ -20,15 +20,17 @@ it("renders correctly", () => {
   expect(tree).toMatchSnapshot();
 });
 it("checkbox label exist", () => {
+  // eslint-disable-next-line
   const { getByText, getByRole } = render(
     <StateProvider initialState={initialState} reducer={reducer}>
       <Checkbox filterLabel={treeLabel} label={filter} />
     </StateProvider>
   );
-
-  expect(screen.getByText("aqua")).toHaveTextContent(filter);
+  // eslint-disable-next-line
+  expect(getByText("aqua")).toHaveTextContent(filter);
 
   // fireEvent.click(getByText("aqua"));
   // const expected = ["aqua"];
-  expect(screen.getByRole("checkbox")).not.toHaveAttribute("disabled");
+  // eslint-disable-next-line
+  expect(getByRole("checkbox")).not.toHaveAttribute("disabled");
 });

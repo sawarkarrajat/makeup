@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../sass/ProductCard.sass";
 import PropTypes from "prop-types";
+import StarArrangement from "./StarArrangement";
 /**
  * Product Card component
  * @param {propType} props
@@ -24,7 +25,7 @@ function ProductCard({ product, clicked }) {
   return (
     <Link
       to={`/productDetails/${id}`}
-      target="_blank"
+      // target="_blank"
       onClick={() => clicked()}
     >
       <div className="productCard__card">
@@ -35,6 +36,12 @@ function ProductCard({ product, clicked }) {
           <div className="productCard__info">
             <h3>{brand}</h3>
             <p className="productCard__pname">{name}</p>
+            {rating ? (
+              <StarArrangement
+                fill={Math.floor(rating)}
+                blank={5 - Math.floor(rating)}
+              />
+            ) : null}
           </div>
         </div>
 
@@ -49,11 +56,7 @@ function ProductCard({ product, clicked }) {
               <strong>{price_sign}</strong> {price}
             </p>
           ) : null}
-          {rating ? (
-            <p>
-              rating: <strong>{rating}</strong>
-            </p>
-          ) : null}
+
           <div className="productCard__colorswatch">
             {product_colors?.map((color) => (
               <span
