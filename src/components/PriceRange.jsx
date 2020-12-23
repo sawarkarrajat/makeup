@@ -7,9 +7,9 @@ import "../sass/PriceRange.sass";
  * @property {function}
  */
 function PriceRange() {
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
   const [state, dispatch] = useStateValue();
+  const [minPrice, setMinPrice] = useState(state.priceMin);
+  const [maxPrice, setMaxPrice] = useState(state.priceMax);
   /**
    * handles minimum price change
    * @param {Object} e
