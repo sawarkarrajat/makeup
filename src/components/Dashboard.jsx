@@ -323,9 +323,9 @@ const Dashboard = () => {
     if (searcheditems.length === 0) {
       //copy whole db if no item available to search from!
       products = Object.assign([{}], muData);
-      toast(
-        "please wait searching the whole factory just for you or you can also search for an item and then apply filters :)"
-      );
+      // toast(
+      //   "please wait searching the whole factory just for you or you can also search for an item and then apply filters :)"
+      // );
     } else {
       //copy searcheditems in products
       products = Object.assign([{}], searcheditems);
@@ -389,6 +389,8 @@ const Dashboard = () => {
   useEffect(() => {
     if (checkIfFiltersApplied()) {
       handleApplyFilters();
+    } else {
+      setCurrentlyDisplayedCards(searcheditems);
     }
   }, [searcheditems, checkIfFiltersApplied, handleApplyFilters]);
   /**
