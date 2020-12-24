@@ -207,14 +207,14 @@ const Dashboard = () => {
    * this method is called to check if filters exist
    * @returns {Boolean}
    */
-  const checkIfFiltersApplied = () => {
-    console.log("value in checkIfFiltersApplied", {
-      brandFiltersArray,
-      tagFiltersArray,
-      priceMin,
-      priceMax,
-      rating,
-    });
+  const checkIfFiltersApplied = useCallback(() => {
+    // console.log("value in checkIfFiltersApplied", {
+    //   brandFiltersArray,
+    //   tagFiltersArray,
+    //   priceMin,
+    //   priceMax,
+    //   rating,
+    // });
     if (
       brandFiltersArray.length === 0 &&
       tagFiltersArray.length === 0 &&
@@ -226,7 +226,7 @@ const Dashboard = () => {
     } else {
       return true;
     }
-  };
+  }, [brandFiltersArray, tagFiltersArray, priceMin, priceMax, rating]);
   /**
    * method awaken when enter key is pressed in search bar to initiate search sequence
    *
@@ -254,10 +254,6 @@ const Dashboard = () => {
     e.preventDefault();
     searchSequence();
     console.log("filters exist", checkIfFiltersApplied());
-    if (checkIfFiltersApplied()) {
-      console.log("in apply filters", checkIfFiltersApplied());
-      handleApplyFilters(e);
-    }
   };
 
   /**
@@ -321,8 +317,8 @@ const Dashboard = () => {
    *
    * @param {Object} e
    */
-  const handleApplyFilters = (e) => {
-    e.preventDefault();
+  const handleApplyFilters = useCallback(() => {
+    // e.preventDefault();
     let products;
     if (searcheditems.length === 0) {
       //copy whole db if no item available to search from!
@@ -382,8 +378,19 @@ const Dashboard = () => {
         console.error(error);
         toast(error);
       });
-  };
-
+  }, [
+    searcheditems,
+    brandFiltersArray,
+    tagFiltersArray,
+    priceMin,
+    priceMax,
+    rating,
+  ]);
+  useEffect(() => {
+    if (checkIfFiltersApplied()) {
+      handleApplyFilters();
+    }
+  }, [searcheditems, checkIfFiltersApplied, handleApplyFilters]);
   /**
    * this method stores the current state of application while opening the product
    * details in new page
@@ -451,13 +458,13 @@ const Dashboard = () => {
             clear all
             <img src={crossIcon} alt="search" />
           </button>
-          <button
+          {/* <button
             className="dashboard__applyFilter dashboard__Button"
             onClick={(e) => handleApplyFilters(e)}
           >
             apply filter
             <img src={filtericon} alt="filters" />
-          </button>
+          </button> */}
         </div>
       </div>
       <div className="dashboard__aside">
