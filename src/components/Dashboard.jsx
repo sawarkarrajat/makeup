@@ -207,6 +207,7 @@ const Dashboard = () => {
    * this method is called to check if filters exist
    * @returns {Boolean}
    */
+
   const checkIfFiltersApplied = useCallback(() => {
     // console.log("value in checkIfFiltersApplied", {
     //   brandFiltersArray,
@@ -215,6 +216,7 @@ const Dashboard = () => {
     //   priceMax,
     //   rating,
     // });
+
     if (
       brandFiltersArray.length === 0 &&
       tagFiltersArray.length === 0 &&
@@ -227,6 +229,7 @@ const Dashboard = () => {
       return true;
     }
   }, [brandFiltersArray, tagFiltersArray, priceMin, priceMax, rating]);
+
   /**
    * method awaken when enter key is pressed in search bar to initiate search sequence
    *
