@@ -14,7 +14,6 @@ import girlhhm from "../asset/girlhhmm.png";
 import searchIcon from "../asset/search.png";
 import crossIcon from "../asset/cross.png";
 import girlImg from "../asset/girl.png";
-import filtericon from "../asset/filter.png";
 import {
   ratingFilter,
   minMaxPriceFilter,
@@ -463,13 +462,6 @@ const Dashboard = () => {
             clear all
             <img src={crossIcon} alt="search" />
           </button>
-          {/* <button
-            className="dashboard__applyFilter dashboard__Button"
-            onClick={(e) => handleApplyFilters(e)}
-          >
-            apply filter
-            <img src={filtericon} alt="filters" />
-          </button> */}
         </div>
       </div>
       <div className="dashboard__aside">
